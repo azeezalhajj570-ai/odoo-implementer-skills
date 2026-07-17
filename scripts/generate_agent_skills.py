@@ -3,7 +3,7 @@
 Generate OpenCode agent workflow skills from knowledge-factory skill packages.
 
 Reads each skill package under skills/ and writes a SKILL.md under
-.agents/skills/odoo-<name>/ so the agent can invoke them as workflow skills.
+.opencode/skills/odoo-<name>/ so the agent can invoke them as workflow skills.
 """
 
 import json
@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parent.parent
 SKILLS_DIR = ROOT / "skills"
-AGENTS_SKILLS_DIR = ROOT / ".agents" / "skills"
+OPENCODE_SKILLS_DIR = ROOT / ".opencode" / "skills"
 
 
 def sanitize(name: str) -> str:
@@ -84,7 +84,16 @@ def build_skill_markdown(skill_dir: Path) -> str:
     skill_folder = f"odoo-{sanitize(skill_dir.name)}"
     relative_dir = f"skills/{skill_dir.name}"
 
-    md = f"""# Skill: {skill_folder}
+    # Frontmatter description for OpenCode skill discovery
+    trigger_names = ", ".join(trigger_caps[:3]) if trigger_caps else domain
+    frontmatter_description = f"Use when the user asks about {name} topics such as {trigger_names} in Odoo 19. Loads knowledge from {relative_dir}/."
+
+    md = f"""---
+name: {skill_folder}
+description: {frontmatter_description}
+---
+
+# Skill: {skill_folder}
 
 {name} — {description} Use when the user asks about {trigger_phrases} in Odoo 19.
 
@@ -136,7 +145,7 @@ def build_skill_markdown(skill_dir: Path) -> str:
 
 def generate_skill(skill_dir: Path) -> Path:
     folder_name = f"odoo-{sanitize(skill_dir.name)}"
-    target_dir = AGENTS_SKILLS_DIR / folder_name
+    target_dir = OPENCODE_SKILLS_DIR / folder_name
     target_dir.mkdir(parents=True, exist_ok=True)
 
     md = build_skill_markdown(skill_dir)
@@ -151,7 +160,7 @@ def main():
         logger.error(f"Skills directory not found: {SKILLS_DIR}")
         return 1
 
-    AGENTS_SKILLS_DIR.mkdir(parents=True, exist_ok=True)
+    OPENCODE_SKILLS_DIR.mkdir(parents=True, exist_ok=True)
 
     generated = []
     for skill_dir in sorted(SKILLS_DIR.iterdir()):
