@@ -1,0 +1,79 @@
+{
+  "id": "accounting_implementation",
+  "name": "Accounting Full Implementation",
+  "description": "Complete Accounting implementation workflow: analyze requirements, configure chart of accounts and journals, set up taxes and fiscal positions, validate reconciliation, and deliver reports.",
+  "version": "1.0",
+  "skill_id": "skill_accounting",
+  "compatible_agents": ["functional", "technical", "developer", "architect"],
+  "steps": [
+    {
+      "id": "analyze_requirements",
+      "name": "Analyze Requirements",
+      "description": "Analyze accounting requirements: localization, multi-company, multi-currency, reporting needs",
+      "tool": "analyze_chart_of_accounts",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "configure_coa",
+      "name": "Configure Chart of Accounts",
+      "description": "Install localization, create accounts and account groups",
+      "tool": "analyze_chart_of_accounts",
+      "params": {},
+      "depends_on": ["analyze_requirements"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "setup_journals",
+      "name": "Setup Journals",
+      "description": "Create sales, purchase, cash, and bank journals with sequences and default accounts",
+      "tool": "analyze_chart_of_accounts",
+      "params": {},
+      "depends_on": ["configure_coa"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "configure_taxes",
+      "name": "Configure Taxes & Fiscal Positions",
+      "description": "Set up taxes, repartition lines, tax grids, and fiscal position mappings",
+      "tool": "analyze_chart_of_accounts",
+      "params": {},
+      "depends_on": ["setup_journals"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "validate_reconciliation",
+      "name": "Validate Bank Reconciliation",
+      "description": "Configure bank journals, reconciliation models, and validate statement processing",
+      "tool": "validate_reconciliation",
+      "params": {},
+      "depends_on": ["configure_taxes"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "configure_reports",
+      "name": "Configure Financial Reports",
+      "description": "Set up P&L, balance sheet, and tax reports; verify report hierarchies",
+      "tool": "validate_reconciliation",
+      "params": {},
+      "depends_on": ["validate_reconciliation"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "final_validation",
+      "name": "Final Validation",
+      "description": "Post sample invoices and payments; reconcile a test statement; review reports",
+      "tool": "validate_reconciliation",
+      "params": {},
+      "depends_on": ["configure_reports"],
+      "on_failure": "stop"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "4-8 hours"
+  }
+}

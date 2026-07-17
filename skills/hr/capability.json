@@ -1,0 +1,123 @@
+{
+  "skill_id": "skill_hr",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_employee",
+      "name": "Employee Management",
+      "description": "Manage employee records, personal and work information, categories, managers, and badges.",
+      "required_knowledge": ["hr.employee", "hr.employee.category", "res.users", "res.partner", "hr.department"],
+      "examples": [
+        "Create a new employee linked to a user",
+        "Assign an employee category",
+        "Set up employee manager hierarchy",
+        "Archive a former employee"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_department",
+      "name": "Department Structure",
+      "description": "Configure department hierarchy, managers, and employee assignments.",
+      "required_knowledge": ["hr.department", "parent_id", "manager_id", "company_id"],
+      "examples": [
+        "Create a department tree",
+        "Assign a department manager",
+        "Move employees between departments",
+        "Filter reports by department"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_contract",
+      "name": "Contracts",
+      "description": "Manage employee contracts, contract types, wages, working schedules, and statuses.",
+      "required_knowledge": ["hr.contract", "hr.contract.type", "resource.calendar", "wage", "state"],
+      "examples": [
+        "Create a contract for a new hire",
+        "Set up working schedule on a contract",
+        "Configure contract type templates",
+        "Handle contract renewal and expiry"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_attendance",
+      "name": "Attendance",
+      "description": "Track employee attendance, check-in/check-out, overtime, and kiosk mode.",
+      "required_knowledge": ["hr.attendance", "check_in", "check_out", "worked_hours", "overtime", "kiosk"],
+      "examples": [
+        "Record manual attendance entries",
+        "Configure attendance kiosk",
+        "Compute overtime from attendance",
+        "Generate attendance reports"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_leaves",
+      "name": "Leaves & Time Off",
+      "description": "Configure leave types, allocations, accrual plans, and approval workflows.",
+      "required_knowledge": ["hr.leave", "hr.leave.type", "hr.leave.allocation", "accrual_plan", "validation_type"],
+      "examples": [
+        "Create a paid time-off type",
+        "Set up an accrual allocation plan",
+        "Configure multi-level approval",
+        "Book leave on behalf of an employee"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_expenses",
+      "name": "Expenses",
+      "description": "Manage employee expenses, expense categories, sheets, approvals, and reimbursement.",
+      "required_knowledge": ["hr.expense", "hr.expense.sheet", "product.product", "account_move", "payment"],
+      "examples": [
+        "Submit an expense receipt",
+        "Create an expense sheet for reimbursement",
+        "Configure expense categories and taxes",
+        "Approve and post expenses to accounting"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_recruitment",
+      "name": "Recruitment",
+      "description": "Manage job positions, applicants, recruitment stages, interviews, and offers.",
+      "required_knowledge": ["hr.job", "hr.applicant", "hr.recruitment.stage", "refuse_reason", "survey"],
+      "examples": [
+        "Post a new job position",
+        "Move an applicant through recruitment stages",
+        "Schedule an interview",
+        "Refuse an applicant with a reason"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_appraisal",
+      "name": "Appraisals",
+      "description": "Configure appraisal plans, feedback surveys, goals, and evaluation cycles with Enterprise hr_appraisal.",
+      "required_knowledge": ["hr.appraisal", "hr.appraisal.plan", "survey.survey", "hr.goal"],
+      "examples": [
+        "Create an annual appraisal plan",
+        "Launch a 360-degree feedback survey",
+        "Set employee goals",
+        "Review appraisal results"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_payroll",
+      "name": "Payroll Integration",
+      "description": "Understand payroll structures, salary rules, payslips, and payslip batches. Requires Enterprise.",
+      "required_knowledge": ["hr.payslip", "hr.payslip.run", "hr.payroll.structure", "hr.salary.rule", "payslip.input"],
+      "examples": [
+        "Create a payslip for an employee",
+        "Configure a salary rule",
+        "Run a batch payroll",
+        "Compute payslip with attendance/leave inputs"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

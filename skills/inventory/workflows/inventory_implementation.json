@@ -1,0 +1,79 @@
+{
+  "id": "inventory_implementation",
+  "name": "Inventory Full Implementation",
+  "description": "Complete Inventory implementation workflow: analyze warehouse needs, configure products and locations, set up routes, reordering rules, valuation, and validate with test pickings.",
+  "version": "1.0",
+  "skill_id": "skill_inventory",
+  "compatible_agents": ["functional", "technical", "developer", "architect"],
+  "steps": [
+    {
+      "id": "analyze_requirements",
+      "name": "Analyze Requirements",
+      "description": "Analyze inventory requirements: warehouses, locations, product types, tracking, valuation, routes",
+      "tool": "analyze_stock_levels",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "configure_warehouses",
+      "name": "Configure Warehouses & Locations",
+      "description": "Create warehouses, internal locations, and picking types",
+      "tool": "validate_routes",
+      "params": {},
+      "depends_on": ["analyze_requirements"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "configure_products",
+      "name": "Configure Products & Categories",
+      "description": "Create product categories with cost method and valuation; create storable products and variants",
+      "tool": "analyze_stock_levels",
+      "params": {},
+      "depends_on": ["configure_warehouses"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "setup_routes",
+      "name": "Setup Routes & Rules",
+      "description": "Configure MTS/MTO routes, pull/push rules, and dropshipping if needed",
+      "tool": "validate_routes",
+      "params": {},
+      "depends_on": ["configure_products"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "configure_reordering",
+      "name": "Configure Reordering Rules",
+      "description": "Create reordering rules for storable products and schedule procurement",
+      "tool": "analyze_stock_levels",
+      "params": {},
+      "depends_on": ["setup_routes"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "configure_tracking",
+      "name": "Configure Lots / Serial Tracking",
+      "description": "Enable lot or serial tracking and removal strategies on products and locations",
+      "tool": "validate_routes",
+      "params": {},
+      "depends_on": ["configure_reordering"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "final_validation",
+      "name": "Final Validation",
+      "description": "Run test receipt, delivery, internal transfer, and inventory adjustment",
+      "tool": "validate_routes",
+      "params": {},
+      "depends_on": ["configure_tracking"],
+      "on_failure": "stop"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "4-8 hours"
+  }
+}

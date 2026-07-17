@@ -1,0 +1,79 @@
+{
+  "id": "manufacturing_implementation",
+  "name": "Manufacturing Full Implementation",
+  "description": "Complete Manufacturing implementation workflow: analyze products, design BOMs and routings, configure work centers, validate MRP setup, and deploy.",
+  "version": "1.0",
+  "skill_id": "skill_manufacturing",
+  "compatible_agents": ["functional", "technical", "developer", "architect"],
+  "steps": [
+    {
+      "id": "analyze_products",
+      "name": "Analyze Products & Demand",
+      "description": "Identify manufactured products, variants, units of measure, and demand patterns",
+      "tool": "analyze_bom",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "design_boms",
+      "name": "Design Bills of Materials",
+      "description": "Create multi-level BOMs with components, operations, by-products, and variant rules",
+      "tool": "analyze_bom",
+      "params": {},
+      "depends_on": ["analyze_products"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "design_routings",
+      "name": "Design Routings & Operations",
+      "description": "Define operation sequences, work centers, setup/run times, and attach routings to BOMs",
+      "tool": "validate_routing",
+      "params": {},
+      "depends_on": ["design_boms"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "configure_workcenters",
+      "name": "Configure Work Centers",
+      "description": "Set up work centers, calendars, capacity, alternative centers, and costs",
+      "tool": "validate_routing",
+      "params": {},
+      "depends_on": ["design_routings"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "setup_planning",
+      "name": "Setup MRP Planning",
+      "description": "Configure reordering rules, routes, procurement groups, and scheduler frequency",
+      "tool": "analyze_bom",
+      "params": {},
+      "depends_on": ["configure_workcenters"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "pilot_mo",
+      "name": "Pilot Manufacturing Order",
+      "description": "Run a pilot MO through confirmation, planning, production, and closure to validate setup",
+      "tool": "validate_routing",
+      "params": {},
+      "depends_on": ["setup_planning"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "train_users",
+      "name": "Train Users & Go Live",
+      "description": "Train production planners, shop floor operators, and warehouse staff; enable shop floor tablet if licensed",
+      "tool": "analyze_bom",
+      "params": {},
+      "depends_on": ["pilot_mo"],
+      "on_failure": "continue"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "3-6 weeks"
+  }
+}

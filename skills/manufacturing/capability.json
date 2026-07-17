@@ -1,0 +1,114 @@
+{
+  "skill_id": "skill_manufacturing",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_bom_design",
+      "name": "Bill of Materials Design",
+      "description": "Create and validate multi-level BOMs, component lines, operations, by-products, and variant-specific BOMs.",
+      "required_knowledge": ["mrp_bom", "bom_line", "product_variant", "phantom_bom", "subcontracting_bom", "byproduct"],
+      "examples": [
+        "Design a BOM with operations and raw materials",
+        "Convert a normal BOM to a phantom (kit) BOM",
+        "Add a by-product line to capture scrap value"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_routing_operations",
+      "name": "Routing & Operations",
+      "description": "Define operation sequences, default work centers, setup/operation time, and attach routings to BOMs.",
+      "required_knowledge": ["mrp_routing", "mrp_operation", "workcenter_id", "sequence", "time_cycle"],
+      "examples": [
+        "Create a routing with three sequential operations",
+        "Set operation time based on number of pieces",
+        "Attach a routing to multiple BOMs"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_workcenter_management",
+      "name": "Work Center Management",
+      "description": "Configure work centers with capacity, calendars, costs, alternative centers, and OEE targets.",
+      "required_knowledge": ["mrp_workcenter", "resource_calendar", "capacity", "time_efficiency", "oee"],
+      "examples": [
+        "Add an alternative work center for overflow capacity",
+        "Configure OEE targets and loss reasons",
+        "Set hourly cost for work center routing"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_manufacturing_orders",
+      "name": "Manufacturing Orders & Scheduling",
+      "description": "Manage the full MO lifecycle from creation to close, including reservation, planning, and backorders.",
+      "required_knowledge": ["mrp_production", "stock_move", "reservation", "planning", "backorder"],
+      "examples": [
+        "Confirm an MO and reserve components",
+        "Plan MO start date based on routing lead time",
+        "Handle a partial production backorder"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_workorders_shopfloor",
+      "name": "Work Orders & Shop Floor",
+      "description": "Execute work orders on the shop floor, log operator time, record production, and track OEE.",
+      "required_knowledge": ["mrp_workorder", "shop_floor", "operator", "time_tracking", "quality_check"],
+      "examples": [
+        "Start and complete a work order from the tablet view",
+        "Record downtime and scrap per operation",
+        "Print a shop floor work order travelers report"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_subcontracting",
+      "name": "Subcontracting",
+      "description": "Send components to a subcontractor and receive finished goods through a dedicated subcontracting workflow.",
+      "required_knowledge": ["mrp_subcontracting", "subcontractor_partner", "resupply", "stock_picking", "vendor_bill"],
+      "examples": [
+        "Configure a partner as a subcontractor",
+        "Create a subcontracting BOM and PO",
+        "Track raw material valuation at subcontractor location"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_byproducts_scrap",
+      "name": "By-Products & Scrap",
+      "description": "Report additional products produced during manufacturing and account for scrap with reasons.",
+      "required_knowledge": ["mrp_byproduct", "stock_scrap", "product_uom", "valuation"],
+      "examples": [
+        "Add by-products to a BOM",
+        "Report scrap from a work order",
+        "Analyze scrap reasons by operation"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_mrp_planning",
+      "name": "MRP Planning & Procurement",
+      "description": "Run the MRP scheduler, interpret procurement exceptions, and configure replenishment strategies.",
+      "required_knowledge": ["procurement_group", "stock_rule", "orderpoint", "reordering_rule", "mrp_scheduler"],
+      "examples": [
+        "Run the MRP scheduler manually",
+        "Create a reordering rule for a component",
+        "Resolve a procurement exception"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_quality_integration",
+      "name": "Quality Integration",
+      "description": "Integrate quality control points and checks with manufacturing operations and finished products.",
+      "required_knowledge": ["quality_check", "quality_point", "mrp_workorder", "pass_fail", "measure"],
+      "examples": [
+        "Create a control point on a work order operation",
+        "Block MO completion until quality check passes",
+        "Record measured values during production"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "domain": "Development",
+  "version": "19.0",
+  "modules": ["base", "web", "mail"],
+  "key_models": {
+    "ir.module.module": "Module registry. Fields: name, state, version, dependencies_id.",
+    "ir.model": "Model registry. Fields: model, name, state, field_id, access_ids.",
+    "ir.model.fields": "Field registry. Fields: name, model_id, ttype, relation, compute, store.",
+    "ir.ui.view": "View definitions. Fields: name, model, type, arch, inherit_id, mode.",
+    "ir.actions.act_window": "Window actions. Fields: name, res_model, view_mode, domain, context.",
+    "ir.actions.report": "Report actions. Fields: name, model, report_type, report_name, paperformat_id.",
+    "ir.attachment": "Attachments and static assets.",
+    "ir.cron": "Scheduled actions for background jobs."
+  },
+  "key_files": {
+    "base/models/ir_module.py": "Module lifecycle management",
+    "base/models/ir_model.py": "Model and field registry",
+    "base/models/ir_ui_view.py": "View parsing and inheritance",
+    "web/models/ir_http.py": "Routing and session handling",
+    "web/controllers/main.py": "Standard web controllers",
+    "web/static/src/owl/": "OWL framework source and components",
+    "odoo/http.py": "Controller base classes and routing decorators",
+    "odoo/addons/base/models/ir_qweb.py": "QWeb rendering engine",
+    "odoo/tests/common.py": "Test base classes TransactionCase and HttpCase"
+  },
+  "crons": {
+    "ir_cron_update_translations": "Update module translations",
+    "ir_cron_autovacuum_email_templates": "Cleanup of email templates",
+    "custom_module_cron": "Module-specific scheduled actions"
+  },
+  "security_groups": {
+    "base.group_system": "Administration / Settings — install modules and edit views",
+    "base.group_no_one": "Technical Features — technical menus and fields",
+    "base.group_user": "Internal User — standard application access"
+  },
+  "record_rules": {
+    "multi_company_default": "[('company_id','in',company_ids+[False])] — default pattern for company-aware models",
+    "user_owned_default": "[('user_id','=',user.id)] — default pattern for personal records"
+  },
+  "best_practices": [
+    "Always define __manifest__.py with explicit dependencies and correct version",
+    "Follow Odoo naming conventions: models in models/, views in views/, security in security/",
+    "Use _name for new models and _inherit for extending existing models",
+    "Prefer computed stored fields over onchange for business logic",
+    "Use @api.constrains for validation and @api.depends for computed fields",
+    "Write views with xpath inheritance for upstream compatibility",
+    "Implement controllers with correct auth and CSRF settings",
+    "Build OWL components with proper props and reactive state",
+    "Create QWeb reports with minimal logic in templates",
+    "Write tests using TransactionCase and tag with @tagged('post_install', '-at_install') when needed",
+    "Use pre-commit hooks with flake8, pylint, and black for code quality",
+    "Keep business logic in models, not in views or controllers",
+    "Use Odoo shell for debugging and one-off data operations"
+  ]
+}

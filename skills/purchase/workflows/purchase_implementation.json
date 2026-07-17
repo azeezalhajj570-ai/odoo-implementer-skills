@@ -1,0 +1,70 @@
+{
+  "id": "purchase_implementation",
+  "name": "Purchase Full Implementation",
+  "description": "Complete Purchase implementation workflow: analyze suppliers, configure products and pricelists, set up procurement, validate receipt/bill flow, and deploy.",
+  "version": "1.0",
+  "skill_id": "skill_purchase",
+  "compatible_agents": ["functional", "technical", "developer", "architect"],
+  "steps": [
+    {
+      "id": "analyze_procurement",
+      "name": "Analyze Procurement Requirements",
+      "description": "Identify products to purchase, vendors, lead times, currencies, and approval rules",
+      "tool": "analyze_vendor_pricelist",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "configure_vendors",
+      "name": "Configure Vendors & Supplier Info",
+      "description": "Create vendor partners, payment terms, and product supplierinfo records",
+      "tool": "analyze_vendor_pricelist",
+      "params": {},
+      "depends_on": ["analyze_procurement"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "setup_procurement",
+      "name": "Setup Procurement & Routes",
+      "description": "Configure buy routes, reordering rules, MTO, dropshipping, and landed cost rules",
+      "tool": "validate_three_way_match",
+      "params": {},
+      "depends_on": ["configure_vendors"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "design_approval",
+      "name": "Design Approval Workflow",
+      "description": "Define PO approval thresholds, multi-level sign-offs, and team assignments",
+      "tool": "validate_three_way_match",
+      "params": {},
+      "depends_on": ["setup_procurement"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "pilot_po",
+      "name": "Pilot Purchase-to-Pay Flow",
+      "description": "Run a pilot RFQ → PO → receipt → vendor bill → payment and validate three-way matching",
+      "tool": "validate_three_way_match",
+      "params": {},
+      "depends_on": ["design_approval"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "train_users",
+      "name": "Train Buyers & Warehouse Users",
+      "description": "Train buyers on RFQ/PO, warehouse staff on receipts, and accountants on vendor bills",
+      "tool": "analyze_vendor_pricelist",
+      "params": {},
+      "depends_on": ["pilot_po"],
+      "on_failure": "continue"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "2-4 weeks"
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "skill_id": "skill_purchase",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_rfq_purchase_orders",
+      "name": "RFQ & Purchase Order Management",
+      "description": "Create RFQs, send to vendors, confirm as POs, track receipts, and manage amendments.",
+      "required_knowledge": ["purchase_order", "purchase_order_line", "rfq", "confirmation", "amendment"],
+      "examples": [
+        "Create a multi-line RFQ and send by email",
+        "Confirm an RFQ and generate incoming shipment",
+        "Lock a PO and create an amendment"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_vendor_management",
+      "name": "Vendor Management",
+      "description": "Maintain vendor records, payment terms, supplier info, and vendor performance.",
+      "required_knowledge": ["res_partner", "product_supplierinfo", "payment_term", "vendor_rating"],
+      "examples": [
+        "Add a new vendor with supplier info",
+        "Evaluate vendor delivery performance",
+        "Set different payment terms per vendor"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_purchase_pricelists",
+      "name": "Purchase Pricelists & Discounts",
+      "description": "Configure quantity-based supplier prices, currencies, discounts, and lead times.",
+      "required_knowledge": ["product_supplierinfo", "min_qty", "price", "discount", "currency_id"],
+      "examples": [
+        "Set tiered pricing for a component",
+        "Apply a vendor discount on a PO line",
+        "Configure multi-currency supplier prices"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_procurement_replenishment",
+      "name": "Procurement & Replenishment",
+      "description": "Automate purchase proposals using reordering rules, MTO, and buy routes.",
+      "required_knowledge": ["stock_rule", "procurement_group", "orderpoint", "reordering_rule", "buy_route"],
+      "examples": [
+        "Create a reordering rule for stockable product",
+        "Trigger a purchase order from sales demand",
+        "Run the procurement scheduler"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_dropshipping",
+      "name": "Dropshipping",
+      "description": "Route vendor shipments directly to customers using the dropship route.",
+      "required_knowledge": ["stock_dropshipping", "route_dropship", "sale_order_line", "purchase_order"],
+      "examples": [
+        "Enable dropshipping on a product",
+        "Create a dropship PO from a sales order",
+        "Track dropship receipt from vendor to customer"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_landed_costs",
+      "name": "Landed Costs",
+      "description": "Allocate freight, insurance, and other landed costs to received products.",
+      "required_knowledge": ["stock_landed_cost", "cost_line", "valuation_adjustment", "split_method"],
+      "examples": [
+        "Create a landed cost for an ocean shipment",
+        "Allocate freight by weight",
+        "Validate landed costs and update stock valuation"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_vendor_bills_matching",
+      "name": "Vendor Bills & Three-Way Matching",
+      "description": "Match PO, receipt, and vendor bill quantities/prices and resolve exceptions.",
+      "required_knowledge": ["account_move", "purchase_order", "stock_picking", "three_way_match", "exception"],
+      "examples": [
+        "Create a vendor bill from a PO receipt",
+        "Detect a quantity mismatch between receipt and bill",
+        "Approve a price exception for invoicing"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_purchase_agreements",
+      "name": "Purchase Agreements & Blanket Orders",
+      "description": "Use purchase requisitions and blanket orders to manage long-term vendor agreements.",
+      "required_knowledge": ["purchase_requisition", "purchase_requisition_line", "blanket_order", "tender"],
+      "examples": [
+        "Create a blanket order with a vendor",
+        "Generate RFQs from a purchase requisition",
+        "Compare vendor quotations in a tender"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_approval_workflows",
+      "name": "Purchase Approval Workflows",
+      "description": "Configure PO approval thresholds, multi-level sign-offs, and team rules.",
+      "required_knowledge": ["purchase_approval", "threshold", "team", "ir_rule"],
+      "examples": [
+        "Set a purchase approval threshold by amount",
+        "Route high-value POs to a manager",
+        "Define team-based buyers"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "domain": "Operations",
+  "subdomain": "Purchase",
+  "version": "19.0",
+  "modules": ["purchase", "purchase_stock", "purchase_requisition", "stock_dropshipping", "stock_landed_costs", "stock", "product", "account"],
+  "key_models": {
+    "purchase.order": "Purchase Order / RFQ. Fields: partner_id, date_order, order_line, state, invoice_status, picking_count, amount_total.",
+    "purchase.order.line": "PO line. Fields: product_id, product_qty, price_unit, price_subtotal, taxes_id, date_planned, order_id.",
+    "res.partner": "Vendor/supplier. Fields: supplier_rank, property_purchase_currency_id, property_account_payable_id, purchase_warn.",
+    "product.supplierinfo": "Vendor-specific product info. Fields: partner_id, product_id, product_tmpl_id, min_qty, price, currency_id, delay.",
+    "purchase.requisition": "Purchase agreement / blanket order. Fields: name, vendor_id, type (blanket/tender), line_ids, state.",
+    "purchase.requisition.line": "Agreement line. Fields: product_id, product_qty, price_unit, requisition_id.",
+    "stock.picking": "Incoming shipment. Fields: purchase_id, move_ids, state, date_done.",
+    "account.move": "Vendor bill. Fields: invoice_origin, purchase_id, line_ids, amount_total.",
+    "stock.landed.cost": "Landed cost allocation. Fields: picking_ids, cost_lines, valuation_adjustment_lines, state, account_journal_id.",
+    "stock.warehouse.orderpoint": "Reordering rule. Fields: product_id, location_id, product_min_qty, product_max_qty, qty_multiple."
+  },
+  "key_files": {
+    "purchase/models/purchase_order.py": "Purchase order and line models",
+    "purchase_stock/models/purchase_order.py": "Stock integration for POs",
+    "purchase/models/res_partner.py": "Vendor fields and purchase warnings",
+    "product/models/product_supplierinfo.py": "Supplier pricelist model",
+    "purchase_requisition/models/purchase_requisition.py": "Blanket orders and tenders",
+    "stock_landed_costs/models/stock_landed_cost.py": "Landed cost allocation",
+    "purchase/models/account_move.py": "Vendor bill integration and three-way matching"
+  },
+  "crons": {
+    "purchase_send_reminder": "Vendor reminder emails. Model: purchase.order, method: send_reminder",
+    "procurement_scheduler": "Procurement scheduler. Model: procurement.group, method: run_scheduler"
+  },
+  "security_groups": {
+    "purchase.group_purchase_user": "Create and manage own RFQs/POs and read products/vendors",
+    "purchase.group_purchase_manager": "Full configuration of POs, vendors, pricelists, and purchase settings",
+    "account.group_account_invoice": "Create and validate vendor bills",
+    "purchase.group_warning_purchase": "View purchase warnings on products and vendors"
+  },
+  "record_rules": {
+    "purchase_order_comp_rule": "[('company_id','in',company_ids+[False])] — multi-company isolation for POs",
+    "purchase_order_line_comp_rule": "[('company_id','in',company_ids+[False])] — multi-company isolation for PO lines",
+    "purchase_order_report_multi_comp": "Multi-company rule for purchase reporting"
+  }
+}

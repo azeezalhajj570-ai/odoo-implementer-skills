@@ -1,0 +1,79 @@
+{
+  "skill_id": "skill_development",
+  "name": "Odoo Development Expert",
+  "description": "Expert-level knowledge of Odoo 19 module development including __manifest__.py, models, views, controllers, OWL components, QWeb reports, RPC, testing, debugging, and linting.",
+  "version": "19.0.1",
+  "domain": "Development",
+  "subdomain": "Module Development",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [
+    {"name": "base", "version": "19.0", "location": "community", "required": true},
+    {"name": "web", "version": "19.0", "location": "community", "required": true},
+    {"name": "mail", "version": "19.0", "location": "community", "required": false}
+  ],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Odoo ORM, security, and web framework", "required": true}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"}
+    ],
+    "odoo_modules": ["base", "web", "mail"],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer"],
+  "capabilities": [
+    {"id": "cap_module_structure", "name": "Module Structure", "description": "Create Odoo 19 modules with __manifest__.py, __init__.py, data files, models, views, controllers, security, and static assets. Follow directory conventions and naming standards.", "confidence": "high"},
+    {"id": "cap_models", "name": "Model Development", "description": "Define models, fields, inheritance, computed fields, constraints, onchange, defaults, and ORM methods. Use Odoo 19 decorators and patterns.", "confidence": "high"},
+    {"id": "cap_views", "name": "XML Views", "description": "Build form, tree, kanban, search, graph, pivot, calendar, and activity views with inheritance, xpath, and Odoo 19 view syntax.", "confidence": "high"},
+    {"id": "cap_controllers", "name": "HTTP Controllers", "description": "Implement Odoo 19 controllers with @route decorators, auth types, CSRF tokens, JSON endpoints, and public pages.", "confidence": "high"},
+    {"id": "cap_owl_components", "name": "OWL Components", "description": "Develop Odoo 19 OWL components, hooks, services, templates, and client actions. Use lifecycle methods, props, and reactive state.", "confidence": "high"},
+    {"id": "cap_reports", "name": "QWeb Reports", "description": "Create PDF/HTML reports using QWeb, ir.actions.report, paper formats, barcodes, and report templates in Odoo 19.", "confidence": "high"},
+    {"id": "cap_rpc", "name": "RPC & API", "description": "Use external API (XML-RPC, JSON-RPC), ORM methods, controllers, and OWL rpc service for data exchange with Odoo 19.", "confidence": "high"},
+    {"id": "cap_testing", "name": "Testing & Debugging", "description": "Write Odoo 19 tests with TransactionCase, HttpCase, @tagged, mocks, and query count assertions. Use PDB, logging, and the Odoo shell.", "confidence": "high"},
+    {"id": "cap_linting", "name": "Linting & Quality", "description": "Apply linting with flake8, pylint, black, pre-commit hooks, and Odoo 19 coding standards for Python and XML.", "confidence": "medium"}
+  ],
+  "limitations": [
+    "Development guidance assumes Odoo 19 syntax and patterns; older versions may differ",
+    "Complex OWL scenarios may require specific frontend architecture decisions",
+    "Performance optimization requires separate profiling and query analysis"
+  ],
+  "required_tools": ["python", "xml_editor", "database_access", "git"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string"},
+      "module_name": {"type": "string"},
+      "model": {"type": "string"},
+      "context": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "recommendation": {"type": "string"},
+      "code": {"type": "string"},
+      "configuration": {"type": "array", "items": {"type": "object"}},
+      "explanations": {"type": "array", "items": {"type": "string"}}
+    }
+  },
+  "evaluation": {
+    "functional_count": 20,
+    "technical_count": 50,
+    "architecture_count": 20,
+    "debugging_count": 15,
+    "migration_count": 5,
+    "automation_count": 10,
+    "total_count": 120
+  },
+  "tags": ["development", "module", "models", "views", "controllers", "owl", "qweb", "testing", "rpc"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "Odoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "source_count": 38,
+    "claim_count": 80,
+    "knowledge_graph_nodes": 26,
+    "changelog": "v19.0.1 — Initial development skill covering Odoo 19 module structure, models, views, controllers, OWL, reports, testing, and RPC"
+  }
+}

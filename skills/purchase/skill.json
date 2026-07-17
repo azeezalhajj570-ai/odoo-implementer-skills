@@ -1,0 +1,83 @@
+{
+  "skill_id": "skill_purchase",
+  "name": "Odoo Purchase Expert",
+  "description": "Expert-level knowledge of Odoo 19 Purchase: RFQs, purchase orders, vendor management, supplier pricelists, procurement rules, dropshipping, landed costs, vendor bills, three-way matching, and purchase agreements.",
+  "version": "19.0.1",
+  "domain": "Operations",
+  "subdomain": "Purchase",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [
+    {"name": "purchase", "version": "1.2", "location": "community", "required": true},
+    {"name": "purchase_requisition", "version": "19.0", "location": "community", "required": false},
+    {"name": "purchase_stock", "version": "19.0", "location": "community", "required": false},
+    {"name": "stock_dropshipping", "version": "19.0", "location": "community", "required": false},
+    {"name": "stock_landed_costs", "version": "19.0", "location": "community", "required": false}
+  ],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Odoo ORM, security, and mail framework", "required": true},
+    {"skill": "skill_inventory", "description": "Stock, warehouses, and product configuration", "required": false}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"},
+      {"skill_id": "skill_inventory", "version_requirement": ">=19.0", "relationship": "recommended_with"}
+    ],
+    "odoo_modules": ["purchase", "purchase_stock", "stock", "product", "account"],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer"],
+  "capabilities": [
+    {"id": "cap_rfq_purchase_orders", "name": "RFQ & Purchase Order Management", "description": "Create and manage RFQs and POs, vendor communication, confirmation, amendments, and receipt/billing tracking.", "confidence": "high"},
+    {"id": "cap_vendor_management", "name": "Vendor Management", "description": "Configure vendors, supplier info, vendor evaluation, multiple addresses, and payment terms.", "confidence": "high"},
+    {"id": "cap_purchase_pricelists", "name": "Purchase Pricelists & Discounts", "description": "Set up product.supplierinfo records, quantity breaks, min qty, multiple currencies, and discount fields.", "confidence": "high"},
+    {"id": "cap_procurement_replenishment", "name": "Procurement & Replenishment", "description": "Use reordering rules, make-to-order, buy routes, and procurement groups to automate purchase proposals.", "confidence": "high"},
+    {"id": "cap_dropshipping", "name": "Dropshipping", "description": "Configure dropship route and rules so vendors ship directly to customers without stocking goods.", "confidence": "high"},
+    {"id": "cap_landed_costs", "name": "Landed Costs", "description": "Allocate freight, insurance, and duty costs to received stock using stock.landed.cost.", "confidence": "high"},
+    {"id": "cap_vendor_bills_matching", "name": "Vendor Bills & Three-Way Matching", "description": "Create vendor bills from PO/receipts, match quantities and prices, and handle price/quantity exceptions.", "confidence": "high"},
+    {"id": "cap_purchase_agreements", "name": "Purchase Agreements & Blanket Orders", "description": "Use purchase.requisition to create blanket orders, call for tenders, and compare vendor quotations.", "confidence": "medium"},
+    {"id": "cap_approval_workflows", "name": "Purchase Approval Workflows", "description": "Configure multi-level approvals, budget limits, and team-based approval rules.", "confidence": "medium"}
+  ],
+  "limitations": [
+    "Three-way matching requires purchase, stock, and accounting modules installed",
+    "Landed costs are applied on receipt validation and may require manual splits",
+    "Purchase blanket orders do not automatically release against incoming demand unless configured"
+  ],
+  "required_tools": ["python", "database_access"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string"},
+      "po_id": {"type": "integer"},
+      "vendor_id": {"type": "integer"},
+      "context": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "recommendation": {"type": "string"},
+      "code": {"type": "string"},
+      "configuration": {"type": "array", "items": {"type": "object"}},
+      "explanations": {"type": "array", "items": {"type": "string"}}
+    }
+  },
+  "evaluation": {
+    "functional_count": 30,
+    "technical_count": 40,
+    "architecture_count": 10,
+    "debugging_count": 10,
+    "migration_count": 5,
+    "automation_count": 10,
+    "total_count": 105
+  },
+  "tags": ["purchase", "rfq", "po", "vendor", "pricelist", "procurement", "dropshipping", "landed_costs", "three_way_match"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "Odoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "source_count": 28,
+    "claim_count": 65,
+    "knowledge_graph_nodes": 22,
+    "changelog": "v19.0.1 — Initial Purchase skill based on Odoo 19 purchase modules"
+  }
+}

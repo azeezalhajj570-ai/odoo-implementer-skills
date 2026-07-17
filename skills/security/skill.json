@@ -1,0 +1,80 @@
+{
+  "skill_id": "skill_security",
+  "name": "Odoo Security Expert",
+  "description": "Expert-level knowledge of Odoo security including access rights, record rules, groups, model access, field permissions, OWL security, XSS/CSRF protection, secure coding, GDPR/privacy, and audit trails.",
+  "version": "19.0.1",
+  "domain": "Security",
+  "subdomain": "Access Control",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [
+    {"name": "base", "version": "19.0", "location": "community", "required": true},
+    {"name": "web", "version": "19.0", "location": "community", "required": true},
+    {"name": "privacy_lookup", "version": "19.0", "location": "community", "required": false}
+  ],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Odoo ORM, security, and web framework", "required": true}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"}
+    ],
+    "odoo_modules": ["base", "web", "mail"],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer"],
+  "capabilities": [
+    {"id": "cap_access_rights", "name": "Access Rights", "description": "Design and implement ACL groups (ir.model.access), model-level permissions (create/read/write/unlink), and group hierarchies with implied groups.", "confidence": "high"},
+    {"id": "cap_record_rules", "name": "Record Rules", "description": "Define domain-based record rules (ir.rule) for multi-company, multi-department, and ownership-based data isolation. Apply global and per-user rules.", "confidence": "high"},
+    {"id": "cap_field_permissions", "name": "Field Permissions", "description": "Apply field-level security using groups= on fields, readonly attributes, and computed restricted fields. Use ir.model.fields access restrictions.", "confidence": "high"},
+    {"id": "cap_group_design", "name": "Group Design", "description": "Create security groups, categories, implied groups, and role-based access control. Map business roles to Odoo groups.", "confidence": "high"},
+    {"id": "cap_owl_security", "name": "OWL Security", "description": "Handle OWL component security, RPC access control, user context, and client-side validation in Odoo 19 web framework.", "confidence": "medium"},
+    {"id": "cap_web_vulnerabilities", "name": "Web Vulnerabilities", "description": "Prevent XSS, CSRF, SQL injection, and unsafe eval. Use Markup, out-escaping, and proper controller decorators in Odoo 19.", "confidence": "high"},
+    {"id": "cap_secure_coding", "name": "Secure Coding", "description": "Apply secure coding practices: avoid SQL injection, sanitize inputs, use sudo correctly, validate RPC calls, and protect sensitive data.", "confidence": "high"},
+    {"id": "cap_gdpr_privacy", "name": "GDPR & Privacy", "description": "Implement GDPR/privacy controls: data retention, right to erasure, privacy lookup, anonymization, consent tracking, and lawful basis.", "confidence": "medium"},
+    {"id": "cap_audit_logging", "name": "Audit & Logging", "description": "Configure audit trails, field tracking, log access, record change tracking, and security event monitoring in Odoo.", "confidence": "medium"}
+  ],
+  "limitations": [
+    "Record rules apply only at ORM level; raw SQL bypasses them",
+    "Field-level groups can be circumvented by determined users via RPC",
+    "Client-side security in OWL is not a substitute for server-side enforcement",
+    "GDPR compliance requires legal process design beyond technical controls"
+  ],
+  "required_tools": ["python", "xml_editor", "database_access"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string"},
+      "model": {"type": "string"},
+      "group": {"type": "string"},
+      "context": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "recommendation": {"type": "string"},
+      "code": {"type": "string"},
+      "configuration": {"type": "array", "items": {"type": "object"}},
+      "explanations": {"type": "array", "items": {"type": "string"}}
+    }
+  },
+  "evaluation": {
+    "functional_count": 25,
+    "technical_count": 45,
+    "architecture_count": 15,
+    "debugging_count": 15,
+    "migration_count": 5,
+    "automation_count": 10,
+    "total_count": 115
+  },
+  "tags": ["security", "access_rights", "record_rules", "groups", "acl", "gdpr", "xss", "csrf"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "Odoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "source_count": 32,
+    "claim_count": 70,
+    "knowledge_graph_nodes": 22,
+    "changelog": "v19.0.1 — Initial security skill covering access rights, record rules, OWL security, secure coding, and GDPR"
+  }
+}

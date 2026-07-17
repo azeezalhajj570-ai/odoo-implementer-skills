@@ -1,0 +1,79 @@
+{
+  "id": "development_implementation",
+  "name": "Development Full Implementation",
+  "description": "Complete Odoo 19 module development workflow: design module, implement models/views, add controllers/OWL, create reports, test, and lint.",
+  "version": "1.0",
+  "skill_id": "skill_development",
+  "compatible_agents": ["planner", "manager", "developer", "functional", "qa", "reviewer"],
+  "steps": [
+    {
+      "id": "design_module",
+      "name": "Design Module",
+      "description": "Define module scope, dependencies, data model, and user stories",
+      "tool": "analyze_module",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "scaffold_module",
+      "name": "Scaffold Module Structure",
+      "description": "Create __manifest__.py, __init__.py, and standard directories",
+      "tool": "validate_manifest",
+      "params": {},
+      "depends_on": ["design_module"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "implement_models",
+      "name": "Implement Models and Security",
+      "description": "Build models with fields, compute methods, constraints, ACLs, and record rules",
+      "tool": "analyze_module",
+      "params": {},
+      "depends_on": ["scaffold_module"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "implement_views",
+      "name": "Implement Views",
+      "description": "Create form, tree, kanban, search views and actions using inheritance",
+      "tool": "analyze_module",
+      "params": {},
+      "depends_on": ["implement_models"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "implement_frontend",
+      "name": "Implement Controllers and OWL Components",
+      "description": "Add HTTP controllers, public endpoints, and OWL components where needed",
+      "tool": "validate_manifest",
+      "params": {},
+      "depends_on": ["implement_views"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "implement_reports_tests",
+      "name": "Reports and Tests",
+      "description": "Create QWeb reports, write TransactionCase/HttpCase tests, and configure reports",
+      "tool": "validate_manifest",
+      "params": {},
+      "depends_on": ["implement_frontend"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "lint_validate",
+      "name": "Lint and Validate",
+      "description": "Run pre-commit hooks, unit tests, and install module in clean database",
+      "tool": "validate_manifest",
+      "params": {},
+      "depends_on": ["implement_reports_tests"],
+      "on_failure": "stop"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "6-30 hours"
+  }
+}

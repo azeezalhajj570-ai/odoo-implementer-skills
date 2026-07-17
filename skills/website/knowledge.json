@@ -1,0 +1,44 @@
+{
+  "domain": "Website",
+  "version": "19.0",
+  "modules": ["website", "website_sale", "website_blog", "website_payment", "portal", "web", "mail"],
+  "key_models": {
+    "website": "Website configuration. Fields: name, domain, company_id, theme_id, configurator_done.",
+    "website.page": "Published page record. Fields: name, url, view_id, website_id, is_published, date_publish.",
+    "website.menu": "Website navigation menu. Fields: name, url, page_id, parent_id, website_id, sequence.",
+    "ir.ui.view": "QWeb view and page layout. Fields: key, type, website_id, arch_db, inherit_id.",
+    "product.template": "Product template. Fields: website_published, is_published, public_categ_ids, website_description_sale.",
+    "product.product": "Product variant with extra price and combination. Fields: product_tmpl_id, product_template_attribute_value_ids.",
+    "sale.order": "E-commerce cart/order. Fields: website_id, partner_id, order_line, amount_total, state.",
+    "payment.provider": "Payment provider configuration. Fields: name, code, state, company_id, website_id.",
+    "blog.blog": "Blog container. Fields: name, website_id.",
+    "blog.post": "Blog post. Fields: name, blog_id, content, is_published, post_date, author_id.",
+    "website.visitor": "Anonymous/known visitor tracking. Fields: access_token, partner_id, visit_count."
+  },
+  "key_files": {
+    "website/models/website.py": "Website model and page routing",
+    "website/models/website_page.py": "Published page model",
+    "website/models/website_menu.py": "Menu structure",
+    "website/models/ir_ui_view.py": "View inheritance and website-specific views",
+    "website_sale/models/product_template.py": "E-commerce product fields",
+    "website_sale/controllers/main.py": "Shop and checkout controllers",
+    "website_blog/models/blog_post.py": "Blog content model",
+    "portal/controllers/portal.py": "Portal account controllers"
+  },
+  "crons": {
+    "website_visitor_cron": "Clean and archive old website visitor data. Model: website.visitor",
+    "website_sale_cart_recovery": "Send abandoned cart emails. Model: sale.order"
+  },
+  "security_groups": {
+    "website.group_website_designer": "Full website builder access including HTML and theme editing",
+    "website.group_website_restricted_editor": "Edit page content and snippets but not theme code",
+    "base.group_public": "Anonymous public website visitors",
+    "base.group_portal": "Portal users with access to their account pages",
+    "sales_team.group_sale_salesman": "Access sales orders created through e-commerce"
+  },
+  "record_rules": {
+    "website_page_rule": "Multi-website isolation: [('website_id','in',[website_id,False])]",
+    "website_menu_rule": "Multi-website isolation for menus: [('website_id','in',[website_id,False])]",
+    "product_template_public_rule": "Published products are visible to public/portal users"
+  }
+}

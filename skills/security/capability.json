@@ -1,0 +1,114 @@
+{
+  "skill_id": "skill_security",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_access_rights",
+      "name": "Access Rights",
+      "description": "Design and implement ACL groups (ir.model.access), model-level permissions, and group hierarchies with implied groups.",
+      "required_knowledge": ["ir_model_access", "acl", "groups", "implied_groups"],
+      "examples": [
+        "Create ACL for custom model with read/write permissions",
+        "Restrict delete permission to managers only",
+        "Design group hierarchy for sales roles"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_record_rules",
+      "name": "Record Rules",
+      "description": "Define domain-based record rules (ir.rule) for multi-company, multi-department, and ownership-based data isolation.",
+      "required_knowledge": ["ir_rule", "domain", "global_rules", "multi_company"],
+      "examples": [
+        "Add multi-company rule for custom model",
+        "Create ownership rule so users see only own records",
+        "Combine global and user-specific record rules"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_field_permissions",
+      "name": "Field Permissions",
+      "description": "Apply field-level security using groups= on fields, readonly attributes, and computed restricted fields.",
+      "required_knowledge": ["field_groups", "readonly", "computed_fields", "field_security"],
+      "examples": [
+        "Restrict salary field to HR managers",
+        "Make internal notes readonly for some groups",
+        "Hide confidential fields from form view"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_group_design",
+      "name": "Group Design",
+      "description": "Create security groups, categories, implied groups, and role-based access control. Map business roles to Odoo groups.",
+      "required_knowledge": ["res_groups", "group_categories", "role_based_access", "implied_ids"],
+      "examples": [
+        "Define category and groups for custom app",
+        "Map department roles to Odoo groups",
+        "Use implied groups to build role hierarchy"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_owl_security",
+      "name": "OWL Security",
+      "description": "Handle OWL component security, RPC access control, user context, and client-side validation in Odoo 19 web framework.",
+      "required_knowledge": ["owl", "rpc", "user_context", "client_validation"],
+      "examples": [
+        "Protect OWL component action based on user group",
+        "Validate RPC permissions on server side",
+        "Use user context in OWL component"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_web_vulnerabilities",
+      "name": "Web Vulnerabilities",
+      "description": "Prevent XSS, CSRF, SQL injection, and unsafe eval. Use Markup, out-escaping, and proper controller decorators.",
+      "required_knowledge": ["xss", "csrf", "sql_injection", "markup", "controller_decorators"],
+      "examples": [
+        "Escape user-generated content in QWeb",
+        "Add CSRF token to custom form",
+        "Avoid raw SQL with user input"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_secure_coding",
+      "name": "Secure Coding",
+      "description": "Apply secure coding practices: avoid SQL injection, sanitize inputs, use sudo correctly, validate RPC calls, and protect sensitive data.",
+      "required_knowledge": ["sudo", "input_validation", "sanitize", "secrets_management"],
+      "examples": [
+        "Use sudo() only when necessary and log reasons",
+        "Validate and sanitize controller inputs",
+        "Store API keys in ir.config_parameter securely"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_gdpr_privacy",
+      "name": "GDPR & Privacy",
+      "description": "Implement GDPR/privacy controls: data retention, right to erasure, privacy lookup, anonymization, consent tracking, and lawful basis.",
+      "required_knowledge": ["gdpr", "privacy_lookup", "anonymization", "data_retention", "consent"],
+      "examples": [
+        "Configure privacy lookup for a contact",
+        "Anonymize personal data on partner deletion",
+        "Set up data retention policy for logs"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_audit_logging",
+      "name": "Audit & Logging",
+      "description": "Configure audit trails, field tracking, log access, record change tracking, and security event monitoring.",
+      "required_knowledge": ["mail_thread", "track_visibility", "logging", "audit"],
+      "examples": [
+        "Enable field tracking on sensitive fields",
+        "Log security-relevant events",
+        "Review record access log"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

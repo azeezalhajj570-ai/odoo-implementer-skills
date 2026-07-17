@@ -1,0 +1,79 @@
+{
+  "id": "website_implementation",
+  "name": "Website Full Implementation",
+  "description": "Complete Website implementation workflow: define site goals, install theme, build pages, configure e-commerce, optimize SEO, and launch.",
+  "version": "1.0",
+  "skill_id": "skill_website",
+  "compatible_agents": ["functional", "technical", "developer", "architect"],
+  "steps": [
+    {
+      "id": "define_goals",
+      "name": "Define Site Goals & Structure",
+      "description": "Identify target audience, required pages, languages, domains, and integrations",
+      "tool": "analyze_website_seo",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "install_theme",
+      "name": "Install & Configure Theme",
+      "description": "Install a theme module, set brand colors, fonts, logos, and header/footer layout",
+      "tool": "validate_snippet",
+      "params": {},
+      "depends_on": ["define_goals"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "build_pages",
+      "name": "Build Core Pages",
+      "description": "Create homepage, about, contact, legal, and any custom pages using the website builder and snippets",
+      "tool": "validate_snippet",
+      "params": {},
+      "depends_on": ["install_theme"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "configure_ecommerce",
+      "name": "Configure E-Commerce",
+      "description": "Publish products, set categories, configure payment providers, delivery methods, and cart/checkout",
+      "tool": "analyze_website_seo",
+      "params": {},
+      "depends_on": ["build_pages"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "setup_seo",
+      "name": "Setup SEO & Analytics",
+      "description": "Set page titles, meta descriptions, clean URLs, sitemap, social tags, and tracking scripts",
+      "tool": "analyze_website_seo",
+      "params": {},
+      "depends_on": ["configure_ecommerce"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "configure_portal",
+      "name": "Configure Portal & Forms",
+      "description": "Enable customer portal, contact forms, CRM lead capture, and account pages",
+      "tool": "validate_snippet",
+      "params": {},
+      "depends_on": ["setup_seo"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "launch",
+      "name": "Test & Launch",
+      "description": "Test responsive behavior, checkout flow, forms, and go live with domain mapping",
+      "tool": "analyze_website_seo",
+      "params": {},
+      "depends_on": ["configure_portal"],
+      "on_failure": "stop"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "2-6 weeks"
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "skill_id": "skill_accounting",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_chart_of_accounts",
+      "name": "Chart of Accounts",
+      "description": "Configure chart of accounts templates, account groups, account codes, types, and fiscal localization packages.",
+      "required_knowledge": ["account.chart.template", "account.account", "account.group", "account.account.type", "fiscal_localization"],
+      "examples": [
+        "Install a country-specific COA package",
+        "Create a new general ledger account",
+        "Group accounts for reporting hierarchy",
+        "Map taxes during localization setup"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_journals",
+      "name": "Journal Configuration",
+      "description": "Configure journals, sequences, default accounts, bank accounts, and payment methods.",
+      "required_knowledge": ["account.journal", "ir.sequence", "account.payment.method", "outstanding_account"],
+      "examples": [
+        "Create a new bank journal linked to a bank account",
+        "Configure a sales journal with default income account",
+        "Set up a cash journal for petty cash",
+        "Configure journal sequences per fiscal year"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_invoices",
+      "name": "Invoice Management",
+      "description": "Manage customer invoices, vendor bills, credit notes, refunds, and invoice states.",
+      "required_knowledge": ["account.move", "account.move.line", "account.invoice.report", "posting", "reversal"],
+      "examples": [
+        "Create and post a customer invoice",
+        "Generate a credit note for a returned item",
+        "Send an invoice via portal email",
+        "Cancel and reset an invoice to draft"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_payments",
+      "name": "Payments & Bank",
+      "description": "Process customer and vendor payments, payment methods, outstanding accounts, and batch deposits.",
+      "required_knowledge": ["account.payment", "account.payment.register", "outstanding_receipts_account", "outstanding_payments_account", "batch_payment"],
+      "examples": [
+        "Register a customer payment against an invoice",
+        "Create a batch payment for multiple vendors",
+        "Reconcile a partial payment",
+        "Handle a payment write-off"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_taxes",
+      "name": "Tax Configuration",
+      "description": "Configure taxes, tax groups, tax grids, report lines, and fiscal position mappings.",
+      "required_knowledge": ["account.tax", "account.tax.group", "account.tax.repartition.line", "tax_grid", "fiscal_position"],
+      "examples": [
+        "Create a 20% VAT sales tax",
+        "Configure inclusive vs exclusive tax display",
+        "Map taxes with a fiscal position",
+        "Set up tax grids for tax report"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_reconciliation",
+      "name": "Bank Reconciliation",
+      "description": "Match bank statement lines with open invoices and journal entries using reconciliation models.",
+      "required_knowledge": ["account.bank.statement", "account.bank.statement.line", "account.reconcile.model", "reconciliation_widget"],
+      "examples": [
+        "Import a bank statement",
+        "Create a reconciliation model for recurring fees",
+        "Reconcile a bank line with multiple invoices",
+        "Handle an unreconciled difference"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_fiscal_positions",
+      "name": "Fiscal Positions",
+      "description": "Manage fiscal positions for tax/account mapping across regions and B2B/B2C scenarios.",
+      "required_knowledge": ["account.fiscal.position", "account.fiscal.position.tax", "account.fiscal.position.account", "auto_apply"],
+      "examples": [
+        "Create an intra-community fiscal position",
+        "Auto-apply fiscal position by country/VAT",
+        "Map domestic tax to export zero-rated tax",
+        "Switch accounts based on fiscal position"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_assets",
+      "name": "Asset Management",
+      "description": "Configure fixed assets, depreciation schedules, asset categories, and disposal with Enterprise account_asset.",
+      "required_knowledge": ["account.asset", "account.asset.category", "depreciation_board", "account.move"],
+      "examples": [
+        "Create an asset from a vendor bill",
+        "Configure straight-line depreciation",
+        "Post monthly depreciation entries",
+        "Dispose of a fully depreciated asset"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_reports",
+      "name": "Financial Reports",
+      "description": "Generate and configure financial reports: P&L, balance sheet, cash flow, general ledger, and aged partner balance.",
+      "required_knowledge": ["account.report", "account.report.line", "account_financial_report", "tax_report"],
+      "examples": [
+        "Run a P&L report by month",
+        "Configure balance sheet hierarchy",
+        "Export general ledger to Excel",
+        "Create a custom financial report line"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

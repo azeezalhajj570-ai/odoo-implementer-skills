@@ -1,0 +1,79 @@
+{
+  "id": "hr_implementation",
+  "name": "HR Full Implementation",
+  "description": "Complete HR implementation workflow: analyze org structure, configure employees and contracts, set up attendance, leaves, expenses, recruitment, and validation.",
+  "version": "1.0",
+  "skill_id": "skill_hr",
+  "compatible_agents": ["functional", "technical", "developer", "architect"],
+  "steps": [
+    {
+      "id": "analyze_requirements",
+      "name": "Analyze Requirements",
+      "description": "Analyze HR requirements: departments, contracts, leave policies, expense flows, recruitment process",
+      "tool": "analyze_org_structure",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "configure_org_structure",
+      "name": "Configure Org Structure",
+      "description": "Create department hierarchy, managers, and employee records",
+      "tool": "analyze_org_structure",
+      "params": {},
+      "depends_on": ["analyze_requirements"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "setup_contracts",
+      "name": "Setup Contracts & Schedules",
+      "description": "Create contract types, working schedules, and employee contracts",
+      "tool": "analyze_org_structure",
+      "params": {},
+      "depends_on": ["configure_org_structure"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "configure_leaves",
+      "name": "Configure Leave Types & Allocations",
+      "description": "Set up leave types, accrual plans, and initial allocations",
+      "tool": "validate_leave_allocations",
+      "params": {},
+      "depends_on": ["setup_contracts"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "configure_expenses",
+      "name": "Configure Expenses",
+      "description": "Create expense categories, journals, and approval workflows",
+      "tool": "validate_leave_allocations",
+      "params": {},
+      "depends_on": ["configure_leaves"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "configure_recruitment",
+      "name": "Configure Recruitment",
+      "description": "Create job positions, recruitment stages, and refusal reasons",
+      "tool": "validate_leave_allocations",
+      "params": {},
+      "depends_on": ["configure_expenses"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "final_validation",
+      "name": "Final Validation",
+      "description": "Test leave request, expense submission, attendance entry, and applicant workflow",
+      "tool": "validate_leave_allocations",
+      "params": {},
+      "depends_on": ["configure_recruitment"],
+      "on_failure": "stop"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "3-6 hours"
+  }
+}

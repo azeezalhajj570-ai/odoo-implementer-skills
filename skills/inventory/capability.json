@@ -1,0 +1,123 @@
+{
+  "skill_id": "skill_inventory",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_products",
+      "name": "Product & Product Variants",
+      "description": "Configure products, variants, categories, UoM, routes, tracking modes, and valuation categories.",
+      "required_knowledge": ["product.template", "product.product", "product.category", "uom.uom", "tracking", "valuation"],
+      "examples": [
+        "Create a storable product with FIFO valuation",
+        "Enable lot tracking on a product",
+        "Configure product variants (color, size)",
+        "Set reordering rules on a product"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_warehouses",
+      "name": "Warehouses & Locations",
+      "description": "Manage warehouses, location hierarchies, location types, and storage strategies.",
+      "required_knowledge": ["stock.warehouse", "stock.location", "location_id", "usage", "scrap_location"],
+      "examples": [
+        "Create a new warehouse",
+        "Add shelf locations inside a warehouse",
+        "Configure a customer returns location",
+        "Set location barcode"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_stock_moves",
+      "name": "Stock Moves & Pickings",
+      "description": "Create and manage stock moves, pickings, picking types, move lines, reservation, and validation.",
+      "required_knowledge": ["stock.move", "stock.picking", "stock.picking.type", "stock.move.line", "reservation"],
+      "examples": [
+        "Create a delivery order",
+        "Validate an incoming shipment",
+        "Check product availability",
+        "Process a backorder"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_routes",
+      "name": "Routes & Rules",
+      "description": "Configure pull/push routes, procurement groups, and MTS/MTO supply rules.",
+      "required_knowledge": ["stock.route", "stock.rule", "procurement.group", "pull_rule", "push_rule"],
+      "examples": [
+        "Create a custom route between warehouses",
+        "Configure dropshipping route",
+        "Set up inter-warehouse replenishment",
+        "Troubleshoot a route that does not trigger"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_reordering",
+      "name": "Reordering Rules",
+      "description": "Manage reordering rules, min/max quantities, and automatic procurement.",
+      "required_knowledge": ["stock.warehouse.orderpoint", "product_min_qty", "product_max_qty", "qty_multiple", "trigger"],
+      "examples": [
+        "Create a reordering rule for a product",
+        "Set min/max stock levels",
+        "Trigger procurement manually",
+        "Review reordering rule exceptions"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_lots_serial",
+      "name": "Lots & Serial Tracking",
+      "description": "Enable lot/serial tracking, manage lots, expiration dates, and removal strategies.",
+      "required_knowledge": ["stock.lot", "tracking", "removal_strategy", "FEFO", "FIFO", "LIFO"],
+      "examples": [
+        "Enable serial number tracking",
+        "Record expiration dates on lots",
+        "Use FEFO removal strategy",
+        "Trace a lot through all moves"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_valuation",
+      "name": "Inventory Valuation",
+      "description": "Configure inventory valuation categories, cost methods, and automatic valuation entries.",
+      "required_knowledge": ["product.category", "property_cost_method", "property_valuation", "stock.valuation.layer", "account_move"],
+      "examples": [
+        "Set FIFO cost method on a category",
+        "Enable automatic inventory valuation",
+        "Review stock valuation layers",
+        "Post landed costs to products"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_mts_mto",
+      "name": "MTS/MTO & Procurement",
+      "description": "Configure Make-to-Stock vs Make-to-Order behavior and procurement flows.",
+      "required_knowledge": ["stock.route", "procurement.group", "mts_else_mto", "supply_method", "bom"],
+      "examples": [
+        "Set a product to Make-to-Order",
+        "Configure MTS with reordering rules",
+        "Use MTO on sales order lines",
+        "Understand procurement exceptions"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_barcode",
+      "name": "Barcode Operations",
+      "description": "Use Enterprise stock_barcode for mobile picking, receiving, transfers, and inventory adjustments.",
+      "required_knowledge": ["stock_barcode", "barcode nomenclature", "mobile_picking", "inventory_adjustment"],
+      "examples": [
+        "Receive products via barcode scanner",
+        "Pick a delivery order with barcode",
+        "Perform inventory adjustment by barcode",
+        "Print product barcode labels"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

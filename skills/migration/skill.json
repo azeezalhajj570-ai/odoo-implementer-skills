@@ -1,0 +1,81 @@
+{
+  "skill_id": "skill_migration",
+  "name": "Odoo Migration Expert",
+  "description": "Expert-level knowledge of Odoo version upgrades, migration scripts (pre/post/end), data migration, compatibility analysis, staging testing, rollback strategies, Odoo upgrade service, and OCA migration tools.",
+  "version": "19.0.1",
+  "domain": "Migration",
+  "subdomain": "Version Upgrades",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [
+    {"name": "base", "version": "19.0", "location": "community", "required": true},
+    {"name": "upgrade", "version": "19.0", "location": "enterprise", "required": false},
+    {"name": "openupgrade", "version": "19.0", "location": "oca", "required": false}
+  ],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Odoo ORM, security, and data framework", "required": true}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"}
+    ],
+    "odoo_modules": ["base", "web"],
+    "external_packages": ["openupgradelib"]
+  },
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer"],
+  "capabilities": [
+    {"id": "cap_version_upgrade", "name": "Version Upgrade Planning", "description": "Assess upgrade path from source Odoo version to 19.0, identify breaking changes, deprecations, and module compatibility. Build phased upgrade plan with cutover strategy.", "confidence": "high"},
+    {"id": "cap_migration_scripts", "name": "Migration Scripts", "description": "Write pre-migration, post-migration, and end-migration scripts. Use env.cr.execute, env.ref, openupgradelib helpers, and versioned upgrade directories.", "confidence": "high"},
+    {"id": "cap_data_migration", "name": "Data Migration", "description": "Migrate master data, transactions, attachments, and configurations across versions using ORM, SQL, ETL patterns, and external_id preservation.", "confidence": "high"},
+    {"id": "cap_compatibility_analysis", "name": "Compatibility Analysis", "description": "Analyze custom modules, third-party apps, and OCA modules for API compatibility with Odoo 19. Detect removed fields, changed signatures, and ORM behavior changes.", "confidence": "high"},
+    {"id": "cap_staging_testing", "name": "Staging Testing", "description": "Design staging environment, smoke tests, regression tests, and parallel reconciliation procedures before production cutover.", "confidence": "high"},
+    {"id": "cap_rollback_strategy", "name": "Rollback Strategy", "description": "Define rollback points, database snapshots, backup procedures, and blue/green cutover strategies for failed upgrades.", "confidence": "medium"},
+    {"id": "cap_odoo_upgrade_service", "name": "Odoo Upgrade Service", "description": "Use Odoo SA online upgrade service, test database migration, migration scripts delivery, and validation reports.", "confidence": "medium"},
+    {"id": "cap_oca_migration", "name": "OCA Migration", "description": "Use OpenUpgrade framework, openupgradelib helpers, and OCA migration scripts for community and OCA modules.", "confidence": "medium"},
+    {"id": "cap_post_migration", "name": "Post-Migration Validation", "description": "Run post-upgrade checks: reconcile balances, validate workflows, check user permissions, audit logs, and performance baseline.", "confidence": "high"}
+  ],
+  "limitations": [
+    "Migration complexity depends on custom module count and data volume",
+    "Odoo Upgrade Service requires a valid enterprise contract for some versions",
+    "OpenUpgrade coverage varies by module; unsupported modules require custom scripts",
+    "Rollback after production cutover may cause data loss depending on timing"
+  ],
+  "required_tools": ["python", "database_access", "pg_dump", "git"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string"},
+      "source_version": {"type": "string"},
+      "target_version": {"type": "string"},
+      "module_list": {"type": "array", "items": {"type": "string"}},
+      "context": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "recommendation": {"type": "string"},
+      "migration_plan": {"type": "array", "items": {"type": "object"}},
+      "scripts": {"type": "array", "items": {"type": "string"}},
+      "explanations": {"type": "array", "items": {"type": "string"}}
+    }
+  },
+  "evaluation": {
+    "functional_count": 25,
+    "technical_count": 45,
+    "architecture_count": 15,
+    "debugging_count": 10,
+    "migration_count": 50,
+    "automation_count": 10,
+    "total_count": 155
+  },
+  "tags": ["migration", "upgrade", "data_migration", "openupgrade", "version_upgrade", "rollback"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "Odoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "source_count": 35,
+    "claim_count": 75,
+    "knowledge_graph_nodes": 24,
+    "changelog": "v19.0.1 — Initial migration skill covering Odoo 19 upgrade, migration scripts, OpenUpgrade, and rollback strategies"
+  }
+}

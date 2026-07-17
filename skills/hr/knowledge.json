@@ -1,0 +1,62 @@
+{
+  "domain": "Human Resources",
+  "version": "19.0",
+  "modules": ["hr", "hr_contract", "hr_attendance", "hr_leave", "hr_expense", "hr_recruitment", "hr_appraisal", "hr_payroll", "mail", "resource", "calendar"],
+  "key_models": {
+    "hr.employee": "Employee. Fields: name, user_id, department_id, job_id, parent_id, coach_id, work_email, work_phone, category_ids, company_id.",
+    "hr.employee.category": "Employee tag/category. Fields: name, color, employee_ids.",
+    "hr.department": "Department. Fields: name, manager_id, parent_id, company_id, total_employees.",
+    "hr.job": "Job position. Fields: name, department_id, no_of_recruitment, no_of_employee, state, requirements, company_id.",
+    "hr.contract": "Employee contract. Fields: employee_id, job_id, department_id, date_start, date_end, wage, contract_type_id, resource_calendar_id, state.",
+    "hr.contract.type": "Contract type. Fields: name, sequence.",
+    "hr.attendance": "Attendance record. Fields: employee_id, check_in, check_out, worked_hours, overtime_hours.",
+    "hr.leave": "Time-off request. Fields: employee_id, holiday_status_id, request_date_from, request_date_to, number_of_days, state, holiday_type.",
+    "hr.leave.type": "Leave type. Fields: name, color, allocation_type, validation_type, leave_validation_type, company_id.",
+    "hr.leave.allocation": "Leave allocation. Fields: employee_id, holiday_status_id, number_of_days, state, accrual_plan_id.",
+    "hr.accrual.plan": "Accrual plan. Fields: name, level_ids, carryover_date.",
+    "hr.expense": "Expense. Fields: employee_id, product_id, total_amount, date, account_id, analytic_distribution, state, sheet_id.",
+    "hr.expense.sheet": "Expense sheet. Fields: employee_id, accounting_date, state, expense_line_ids, total_amount, payment_mode.",
+    "hr.applicant": "Recruitment applicant. Fields: name, partner_name, email_from, partner_phone, job_id, stage_id, refuse_reason_id, salary_proposed.",
+    "hr.recruitment.stage": "Recruitment stage. Fields: name, sequence, job_ids, fold.",
+    "hr.appraisal": "Performance appraisal (Enterprise). Fields: employee_id, manager_id, state, date_close, goal_ids, feedback_ids.",
+    "hr.appraisal.plan": "Appraisal plan (Enterprise). Fields: duration_after_recruitment, duration_first_appraisal, duration_next_appraisal.",
+    "hr.payslip": "Payslip (Enterprise). Fields: employee_id, contract_id, date_from, date_to, struct_id, state, line_ids.",
+    "hr.payslip.run": "Payslip batch (Enterprise). Fields: name, date_start, date_end, state, payslip_ids.",
+    "hr.payroll.structure": "Payroll structure (Enterprise). Fields: name, code, parent_id, rule_ids.",
+    "hr.salary.rule": "Salary rule (Enterprise). Fields: name, code, sequence, category_id, amount_select, amount_python_compute.",
+    "resource.calendar": "Working schedule. Fields: name, company_id, attendance_ids, leave_ids, tz."
+  },
+  "key_files": {
+    "hr/models/hr_employee.py": "Employee model and private/public fields",
+    "hr/models/hr_department.py": "Department model and hierarchy",
+    "hr_contract/models/hr_contract.py": "Contract model and status logic",
+    "hr_attendance/models/hr_attendance.py": "Attendance check-in/out and hours",
+    "hr_leave/models/hr_leave.py": "Leave request and validation workflow",
+    "hr_leave/models/hr_leave_accrual_plan.py": "Accrual plan logic",
+    "hr_expense/models/hr_expense.py": "Expense and expense sheet model",
+    "hr_recruitment/models/hr_applicant.py": "Applicant and recruitment stages",
+    "hr_appraisal/models/hr_appraisal.py": "Enterprise appraisal cycles",
+    "hr_payroll/models/hr_payslip.py": "Enterprise payslip computation",
+    "resource/models/resource_calendar.py": "Working schedules and leaves"
+  },
+  "crons": {
+    "hr_payroll.ir_cron_generate_payslips": "Generate payslips automatically (Enterprise).",
+    "hr_leave.accrual_plan_cron": "Accrue leave allocations based on accrual plans.",
+    "hr_appraisal.cron_create_appraisal": "Create scheduled appraisals (Enterprise).",
+    "hr_attendance.ir_cron_auto_check_out": "Auto check-out employees if configured."
+  },
+  "security_groups": {
+    "hr.group_hr_user": "HR Officer: manage employees, contracts, attendance, leaves",
+    "hr.group_hr_manager": "HR Manager: full HR configuration and department management",
+    "base.group_user": "Employee: view own employee record and submit expenses/leave",
+    "hr_expense.group_hr_expense_manager": "Expense manager: approve all expense sheets",
+    "hr_recruitment.group_hr_recruitment_manager": "Recruitment manager: manage all applicants",
+    "hr_payroll.group_hr_payroll_manager": "Payroll manager (Enterprise)"
+  },
+  "record_rules": {
+    "hr_employee_rule_officer": "HR officers see employees in their companies.",
+    "hr_employee_rule_employee": "Employees see their own record and subordinates.",
+    "hr_leave_rule_multi_company": "Multi-company leave isolation.",
+    "hr_expense_rule_user": "Employees see own expenses; managers see all."
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "domain": "Migration",
+  "version": "19.0",
+  "modules": ["base", "upgrade", "openupgrade"],
+  "key_models": {
+    "ir.module.module": "Module state and version tracking. Fields: name, state, latest_version, installed_version.",
+    "ir.module.category": "Module categories for grouping.",
+    "ir.model.data": "XML-ID mapping (module, name, model, res_id, noupdate). Critical for external_id preservation during migration.",
+    "ir.config_parameter": "System parameters including version info, migration flags, and custom settings.",
+    "ir.cron": "Scheduled actions to run post-migration or validation jobs.",
+    "res.users": "User accounts and group assignments requiring validation after migration.",
+    "res.company": "Company records for multi-company isolation validation.",
+    "upgrade.analysis": "OpenUpgrade analysis model storing module coverage and change analysis."
+  },
+  "key_files": {
+    "base/models/ir_module_module.py": "Module installation/upgrade logic",
+    "base/models/ir_model.py": "Registry and model metadata management during migration",
+    "openupgrade/openupgrade_analysis/": "OpenUpgrade analysis files per module",
+    "openupgrade_scripts/scripts/<module>/<version>/pre-migration.py": "Pre-migration script template",
+    "openupgrade_scripts/scripts/<module>/<version>/post-migration.py": "Post-migration script template",
+    "openupgrade_scripts/scripts/<module>/<version>/end-migration.py": "End-migration script template",
+    "openupgradelib/openupgrade.py": "Library helpers: migrate_vals, rename_columns, add_fields, map_values"
+  },
+  "crons": {
+    "ir_cron_update_translations": "Update translations after module upgrade",
+    "ir_cron_modules_update_list": "Refresh app list after migration",
+    "custom_post_migration_cron": "User-defined cron for post-migration validation or cleanup"
+  },
+  "security_groups": {
+    "base.group_system": "Administration / Settings — full migration access",
+    "base.group_no_one": "Technical Features — access to technical fields and menus",
+    "base.group_user": "Internal User — standard access after migration"
+  },
+  "record_rules": {
+    "multi_company_rule": "[('company_id','in',company_ids+[False])] — applies to many models after migration",
+    "ownership_rule": "[('user_id','=',user.id)] — common pattern for personal records"
+  },
+  "best_practices": [
+    "Always backup database before any migration attempt",
+    "Use pre-migration scripts for schema changes and column renames",
+    "Use post-migration scripts for data transformation and computed field recomputation",
+    "Use end-migration scripts for finalization tasks after all modules loaded",
+    "Preserve XML-IDs to maintain data references across versions",
+    "Test migration in a staging copy of production before cutover",
+    "Run OpenUpgrade analysis to identify covered modules and required custom scripts",
+    "Validate financial balances and workflow states after migration",
+    "Document rollback steps and maintain snapshot restore capability",
+    "Keep migration scripts idempotent where possible"
+  ]
+}

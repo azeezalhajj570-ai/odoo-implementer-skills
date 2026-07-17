@@ -1,0 +1,114 @@
+{
+  "skill_id": "skill_development",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_module_structure",
+      "name": "Module Structure",
+      "description": "Create Odoo 19 modules with __manifest__.py, __init__.py, data files, models, views, controllers, security, and static assets.",
+      "required_knowledge": ["manifest", "module_structure", "data_files", "init_files", "naming_conventions"],
+      "examples": [
+        "Create a new Odoo 19 module from scratch",
+        "Define module dependencies in __manifest__.py",
+        "Organize data files and views in module"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_models",
+      "name": "Model Development",
+      "description": "Define models, fields, inheritance, computed fields, constraints, onchange, defaults, and ORM methods.",
+      "required_knowledge": ["models", "fields", "inheritance", "computed", "constraints", "onchange"],
+      "examples": [
+        "Define a new model with required fields",
+        "Add computed field with @api.depends",
+        "Implement @api.constrains validation"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_views",
+      "name": "XML Views",
+      "description": "Build form, tree, kanban, search, graph, pivot, calendar, and activity views with inheritance and xpath.",
+      "required_knowledge": ["xml_views", "xpath", "form_view", "tree_view", "kanban_view", "search_view"],
+      "examples": [
+        "Create a form view for custom model",
+        "Inherit and modify existing view with xpath",
+        "Add search filters and group by"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_controllers",
+      "name": "HTTP Controllers",
+      "description": "Implement Odoo 19 controllers with @route decorators, auth types, CSRF tokens, JSON endpoints, and public pages.",
+      "required_knowledge": ["controllers", "route", "auth", "csrf", "json", "http"],
+      "examples": [
+        "Create a public JSON endpoint",
+        "Implement controller with user authentication",
+        "Disable CSRF for specific API route"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_owl_components",
+      "name": "OWL Components",
+      "description": "Develop Odoo 19 OWL components, hooks, services, templates, and client actions.",
+      "required_knowledge": ["owl", "components", "hooks", "services", "templates", "lifecycle"],
+      "examples": [
+        "Build a custom OWL component",
+        "Use useState and useRef hooks",
+        "Register a client action"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_reports",
+      "name": "QWeb Reports",
+      "description": "Create PDF/HTML reports using QWeb, ir.actions.report, paper formats, barcodes, and report templates.",
+      "required_knowledge": ["qweb", "ir_actions_report", "paper_format", "pdf", "barcode"],
+      "examples": [
+        "Create a sales order PDF report",
+        "Define custom paper format",
+        "Add barcode to report template"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_rpc",
+      "name": "RPC & API",
+      "description": "Use external API (XML-RPC, JSON-RPC), ORM methods, controllers, and OWL rpc service for data exchange.",
+      "required_knowledge": ["xmlrpc", "jsonrpc", "rpc_service", "orm_api", "external_api"],
+      "examples": [
+        "Call Odoo via XML-RPC from Python",
+        "Use JSON-RPC from JavaScript",
+        "Implement OWL rpc service call"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_testing",
+      "name": "Testing & Debugging",
+      "description": "Write Odoo 19 tests with TransactionCase, HttpCase, @tagged, mocks, and query count assertions. Use PDB, logging, and shell.",
+      "required_knowledge": ["transactioncase", "httpcase", "tagged", "mock", "pdb", "logging"],
+      "examples": [
+        "Write a TransactionCase test",
+        "Use HttpCase for controller test",
+        "Debug with Odoo shell and PDB"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_linting",
+      "name": "Linting & Quality",
+      "description": "Apply linting with flake8, pylint, black, pre-commit hooks, and Odoo 19 coding standards.",
+      "required_knowledge": ["flake8", "pylint", "black", "pre_commit", "coding_standards"],
+      "examples": [
+        "Set up pre-commit for Odoo project",
+        "Run pylint with Odoo plugin",
+        "Format code with black"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "domain": "Operations",
+  "subdomain": "Manufacturing",
+  "version": "19.0",
+  "modules": ["mrp", "mrp_workorder", "mrp_subcontracting", "mrp_plm", "quality_mrp", "stock", "product", "uom"],
+  "key_models": {
+    "mrp.bom": "Bill of Materials. Fields: product_tmpl_id, product_id, bom_line_ids, operation_ids, byproduct_ids, type (normal/phantom/subcontracting), routing_id, version, company_id.",
+    "mrp.bom.line": "BOM component line. Fields: product_id, product_qty, product_uom_id, operation_id, bom_product_template_attribute_value_ids.",
+    "mrp.routing": "Routing header attached to a BOM. Fields: operation_ids, active.",
+    "mrp.operation": "Manufacturing operation step. Fields: name, workcenter_id, time_mode, time_cycle_manual, sequence, bom_id (through relation).",
+    "mrp.workcenter": "Production resource. Fields: name, code, resource_calendar_id, time_efficiency, capacity, oee_target, costs_hour.",
+    "mrp.production": "Manufacturing Order. Fields: product_id, bom_id, routing_id, move_raw_ids, move_finished_ids, workorder_ids, qty_producing, state, reservation_state.",
+    "mrp.workorder": "Enterprise work order. Fields: name, workcenter_id, operation_id, production_id, state, duration_expected, duration, employee_ids.",
+    "stock.move": "Raw material and finished goods moves linked to MO. Fields: raw_material_production_id, production_id, move_orig_ids, move_dest_ids.",
+    "stock.warehouse.orderpoint": "Reordering rule / orderpoint for MRP. Fields: product_id, location_id, qty_min, qty_max, qty_multiple.",
+    "mrp.unbuild": "Unbuild order to disassemble finished goods into components. Fields: product_id, bom_id, product_qty, location_id."
+  },
+  "key_files": {
+    "mrp/models/mrp_bom.py": "BOM and BOM line models",
+    "mrp/models/mrp_routing.py": "Routing and operation models",
+    "mrp/models/mrp_workcenter.py": "Work center and capacity models",
+    "mrp/models/mrp_production.py": "Manufacturing order lifecycle and planning",
+    "mrp/models/stock_move.py": "Stock move hooks for manufacturing",
+    "mrp_workorder/models/mrp_workorder.py": "Work order execution and shop floor",
+    "mrp_subcontracting/models/stock_picking.py": "Subcontracting receipts and resupply",
+    "mrp/models/mrp_unbuild.py": "Unbuild orders"
+  },
+  "crons": {
+    "mrp_scheduler": "MRP scheduler (daily or on demand). Model: procurement.group, method: run_scheduler",
+    "mrp_workorder_cron": "Work order state transitions and auto-completeness (enterprise). Model: mrp.workorder"
+  },
+  "security_groups": {
+    "mrp.group_mrp_user": "Create and process MOs, read BOMs and routings",
+    "mrp.group_mrp_manager": "Full configuration of BOMs, routings, work centers, and manufacturing settings",
+    "mrp.group_mrp_routings": "Access to routings and operations (must be combined with user/manager)",
+    "mrp.group_mrp_byproduct": "Create by-product lines on BOMs"
+  },
+  "record_rules": {
+    "mrp_production_company_rule": "[('company_id','in',company_ids+[False])] — multi-company isolation for MOs",
+    "mrp_bom_company_rule": "[('company_id','in',company_ids+[False])] — multi-company isolation for BOMs",
+    "mrp_routing_company_rule": "[('company_id','in',company_ids+[False])] — multi-company isolation for routings",
+    "mrp_workcenter_company_rule": "[('company_id','in',company_ids+[False])] — multi-company isolation for work centers"
+  }
+}

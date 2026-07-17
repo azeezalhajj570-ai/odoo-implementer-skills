@@ -1,0 +1,70 @@
+{
+  "id": "security_implementation",
+  "name": "Security Full Implementation",
+  "description": "Complete Odoo security implementation workflow: assess requirements, design groups and ACLs, add record rules, validate, and audit.",
+  "version": "1.0",
+  "skill_id": "skill_security",
+  "compatible_agents": ["planner", "manager", "developer", "functional", "qa", "reviewer"],
+  "steps": [
+    {
+      "id": "assess_requirements",
+      "name": "Assess Security Requirements",
+      "description": "Map business roles, data sensitivity, and compliance needs to Odoo security concepts",
+      "tool": "analyze_security",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "design_groups",
+      "name": "Design Group Structure",
+      "description": "Create security groups, categories, and implied group hierarchies",
+      "tool": "analyze_security",
+      "params": {},
+      "depends_on": ["assess_requirements"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "implement_acls",
+      "name": "Implement ACLs",
+      "description": "Define ir.model.access records for each model and role with least privilege",
+      "tool": "validate_acl",
+      "params": {},
+      "depends_on": ["design_groups"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "implement_record_rules",
+      "name": "Implement Record Rules",
+      "description": "Add ir.rule records for multi-company, ownership, and business-specific isolation",
+      "tool": "analyze_security",
+      "params": {},
+      "depends_on": ["implement_acls"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "validate_security",
+      "name": "Validate Security Configuration",
+      "description": "Run automated checks and manual tests for each role to confirm access levels",
+      "tool": "validate_acl",
+      "params": {},
+      "depends_on": ["implement_record_rules"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "audit_document",
+      "name": "Audit and Document",
+      "description": "Document groups, rules, and test results; schedule periodic security reviews",
+      "tool": "analyze_security",
+      "params": {},
+      "depends_on": ["validate_security"],
+      "on_failure": "continue"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "4-12 hours"
+  }
+}

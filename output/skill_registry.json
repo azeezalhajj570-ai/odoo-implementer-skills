@@ -1,7 +1,61 @@
 {
-  "indexed_at": "2026-07-17T15:09:20.512735+00:00",
-  "skill_count": 6,
+  "indexed_at": "2026-07-17T16:25:22.330028+00:00",
+  "skill_count": 15,
   "capabilities": {
+    "cap_bom_design": [
+      "skill_manufacturing"
+    ],
+    "cap_routing_operations": [
+      "skill_manufacturing"
+    ],
+    "cap_workcenter_management": [
+      "skill_manufacturing"
+    ],
+    "cap_manufacturing_orders": [
+      "skill_manufacturing"
+    ],
+    "cap_workorders_shopfloor": [
+      "skill_manufacturing"
+    ],
+    "cap_subcontracting": [
+      "skill_manufacturing"
+    ],
+    "cap_byproducts_scrap": [
+      "skill_manufacturing"
+    ],
+    "cap_mrp_planning": [
+      "skill_manufacturing"
+    ],
+    "cap_quality_integration": [
+      "skill_manufacturing"
+    ],
+    "cap_version_upgrade": [
+      "skill_migration"
+    ],
+    "cap_migration_scripts": [
+      "skill_migration"
+    ],
+    "cap_data_migration": [
+      "skill_migration"
+    ],
+    "cap_compatibility_analysis": [
+      "skill_migration"
+    ],
+    "cap_staging_testing": [
+      "skill_migration"
+    ],
+    "cap_rollback_strategy": [
+      "skill_migration"
+    ],
+    "cap_odoo_upgrade_service": [
+      "skill_migration"
+    ],
+    "cap_oca_migration": [
+      "skill_migration"
+    ],
+    "cap_post_migration": [
+      "skill_migration"
+    ],
     "cap_lead_scoring": [
       "skill_crm"
     ],
@@ -28,6 +82,62 @@
     ],
     "cap_team_management": [
       "skill_crm"
+    ],
+    "cap_chart_of_accounts": [
+      "skill_accounting"
+    ],
+    "cap_journals": [
+      "skill_accounting"
+    ],
+    "cap_invoices": [
+      "skill_accounting"
+    ],
+    "cap_payments": [
+      "skill_accounting"
+    ],
+    "cap_taxes": [
+      "skill_accounting"
+    ],
+    "cap_reconciliation": [
+      "skill_accounting"
+    ],
+    "cap_fiscal_positions": [
+      "skill_accounting"
+    ],
+    "cap_assets": [
+      "skill_accounting"
+    ],
+    "cap_reports": [
+      "skill_accounting",
+      "skill_development",
+      "skill_base"
+    ],
+    "cap_products": [
+      "skill_inventory"
+    ],
+    "cap_warehouses": [
+      "skill_inventory"
+    ],
+    "cap_stock_moves": [
+      "skill_inventory"
+    ],
+    "cap_routes": [
+      "skill_inventory"
+    ],
+    "cap_reordering": [
+      "skill_inventory"
+    ],
+    "cap_lots_serial": [
+      "skill_inventory"
+    ],
+    "cap_valuation": [
+      "skill_inventory"
+    ],
+    "cap_mts_mto": [
+      "skill_inventory"
+    ],
+    "cap_barcode": [
+      "skill_inventory"
     ],
     "cap_architecture_review": [
       "skill_tdd"
@@ -56,13 +166,91 @@
     "cap_commercial_evaluation": [
       "skill_tdd"
     ],
+    "cap_employee": [
+      "skill_hr"
+    ],
+    "cap_department": [
+      "skill_hr"
+    ],
+    "cap_contract": [
+      "skill_hr"
+    ],
+    "cap_attendance": [
+      "skill_hr"
+    ],
+    "cap_leaves": [
+      "skill_hr"
+    ],
+    "cap_expenses": [
+      "skill_hr"
+    ],
+    "cap_recruitment": [
+      "skill_hr"
+    ],
+    "cap_appraisal": [
+      "skill_hr"
+    ],
+    "cap_payroll": [
+      "skill_hr"
+    ],
+    "cap_module_structure": [
+      "skill_development"
+    ],
+    "cap_models": [
+      "skill_development"
+    ],
+    "cap_views": [
+      "skill_development",
+      "skill_base"
+    ],
+    "cap_controllers": [
+      "skill_development",
+      "skill_base"
+    ],
+    "cap_owl_components": [
+      "skill_development"
+    ],
+    "cap_rpc": [
+      "skill_development"
+    ],
+    "cap_testing": [
+      "skill_development",
+      "skill_base"
+    ],
+    "cap_linting": [
+      "skill_development"
+    ],
+    "cap_access_rights": [
+      "skill_security"
+    ],
+    "cap_record_rules": [
+      "skill_security"
+    ],
+    "cap_field_permissions": [
+      "skill_security"
+    ],
+    "cap_group_design": [
+      "skill_security"
+    ],
+    "cap_owl_security": [
+      "skill_security"
+    ],
+    "cap_web_vulnerabilities": [
+      "skill_security"
+    ],
+    "cap_secure_coding": [
+      "skill_security"
+    ],
+    "cap_gdpr_privacy": [
+      "skill_security"
+    ],
+    "cap_audit_logging": [
+      "skill_security"
+    ],
     "cap_orm": [
       "skill_base"
     ],
     "cap_security": [
-      "skill_base"
-    ],
-    "cap_views": [
       "skill_base"
     ],
     "cap_automation": [
@@ -71,16 +259,7 @@
     "cap_mail": [
       "skill_base"
     ],
-    "cap_controllers": [
-      "skill_base"
-    ],
-    "cap_reports": [
-      "skill_base"
-    ],
     "cap_i18n": [
-      "skill_base"
-    ],
-    "cap_testing": [
       "skill_base"
     ],
     "cap_email_marketing": [
@@ -110,6 +289,33 @@
     "cap_ai_content": [
       "skill_marketing"
     ],
+    "cap_website_builder_pages": [
+      "skill_website"
+    ],
+    "cap_themes_snippets": [
+      "skill_website"
+    ],
+    "cap_ecommerce_products": [
+      "skill_website"
+    ],
+    "cap_cart_checkout": [
+      "skill_website"
+    ],
+    "cap_blog_content": [
+      "skill_website"
+    ],
+    "cap_seo_metadata": [
+      "skill_website"
+    ],
+    "cap_portal_account": [
+      "skill_website"
+    ],
+    "cap_owl_frontend": [
+      "skill_website"
+    ],
+    "cap_forms_leads": [
+      "skill_website"
+    ],
     "cap_mail_thread": [
       "skill_mail"
     ],
@@ -124,6 +330,33 @@
     ],
     "cap_bounce_handling": [
       "skill_mail"
+    ],
+    "cap_rfq_purchase_orders": [
+      "skill_purchase"
+    ],
+    "cap_vendor_management": [
+      "skill_purchase"
+    ],
+    "cap_purchase_pricelists": [
+      "skill_purchase"
+    ],
+    "cap_procurement_replenishment": [
+      "skill_purchase"
+    ],
+    "cap_dropshipping": [
+      "skill_purchase"
+    ],
+    "cap_landed_costs": [
+      "skill_purchase"
+    ],
+    "cap_vendor_bills_matching": [
+      "skill_purchase"
+    ],
+    "cap_purchase_agreements": [
+      "skill_purchase"
+    ],
+    "cap_approval_workflows": [
+      "skill_purchase"
     ],
     "cap_value_extraction": [
       "skill_platform_recovery"
@@ -151,8 +384,19 @@
     ]
   },
   "domains": {
+    "operations": [
+      "skill_manufacturing",
+      "skill_inventory",
+      "skill_purchase"
+    ],
+    "migration": [
+      "skill_migration"
+    ],
     "sales": [
       "skill_crm"
+    ],
+    "finance": [
+      "skill_accounting"
     ],
     "platform": [
       "skill_tdd",
@@ -160,11 +404,62 @@
       "skill_mail",
       "skill_platform_recovery"
     ],
+    "human resources": [
+      "skill_hr"
+    ],
+    "development": [
+      "skill_development"
+    ],
+    "security": [
+      "skill_security"
+    ],
     "marketing": [
       "skill_marketing"
+    ],
+    "website": [
+      "skill_website"
     ]
   },
   "skills": {
+    "skill_manufacturing": {
+      "name": "Odoo Manufacturing Expert",
+      "version": "19.0.1",
+      "domain": "Operations",
+      "capabilities": [
+        "cap_bom_design",
+        "cap_routing_operations",
+        "cap_workcenter_management",
+        "cap_manufacturing_orders",
+        "cap_workorders_shopfloor",
+        "cap_subcontracting",
+        "cap_byproducts_scrap",
+        "cap_mrp_planning",
+        "cap_quality_integration"
+      ],
+      "dependencies": [
+        "skill_base",
+        "skill_inventory"
+      ]
+    },
+    "skill_migration": {
+      "name": "Odoo Migration Expert",
+      "version": "19.0.1",
+      "domain": "Migration",
+      "capabilities": [
+        "cap_version_upgrade",
+        "cap_migration_scripts",
+        "cap_data_migration",
+        "cap_compatibility_analysis",
+        "cap_staging_testing",
+        "cap_rollback_strategy",
+        "cap_odoo_upgrade_service",
+        "cap_oca_migration",
+        "cap_post_migration"
+      ],
+      "dependencies": [
+        "skill_base"
+      ]
+    },
     "skill_crm": {
       "name": "Odoo CRM Expert",
       "version": "19.0.1",
@@ -185,6 +480,46 @@
         "skill_mail"
       ]
     },
+    "skill_accounting": {
+      "name": "Odoo Accounting Expert",
+      "version": "19.0.1",
+      "domain": "Finance",
+      "capabilities": [
+        "cap_chart_of_accounts",
+        "cap_journals",
+        "cap_invoices",
+        "cap_payments",
+        "cap_taxes",
+        "cap_reconciliation",
+        "cap_fiscal_positions",
+        "cap_assets",
+        "cap_reports"
+      ],
+      "dependencies": [
+        "skill_base",
+        "skill_mail"
+      ]
+    },
+    "skill_inventory": {
+      "name": "Odoo Inventory Expert",
+      "version": "19.0.1",
+      "domain": "Operations",
+      "capabilities": [
+        "cap_products",
+        "cap_warehouses",
+        "cap_stock_moves",
+        "cap_routes",
+        "cap_reordering",
+        "cap_lots_serial",
+        "cap_valuation",
+        "cap_mts_mto",
+        "cap_barcode"
+      ],
+      "dependencies": [
+        "skill_base",
+        "skill_mail"
+      ]
+    },
     "skill_tdd": {
       "name": "AI Platform Technical Due Diligence",
       "version": "19.0.1",
@@ -199,6 +534,64 @@
         "cap_competitive_review",
         "cap_technical_debt",
         "cap_commercial_evaluation"
+      ],
+      "dependencies": [
+        "skill_base"
+      ]
+    },
+    "skill_hr": {
+      "name": "Odoo HR Expert",
+      "version": "19.0.1",
+      "domain": "Human Resources",
+      "capabilities": [
+        "cap_employee",
+        "cap_department",
+        "cap_contract",
+        "cap_attendance",
+        "cap_leaves",
+        "cap_expenses",
+        "cap_recruitment",
+        "cap_appraisal",
+        "cap_payroll"
+      ],
+      "dependencies": [
+        "skill_base",
+        "skill_mail"
+      ]
+    },
+    "skill_development": {
+      "name": "Odoo Development Expert",
+      "version": "19.0.1",
+      "domain": "Development",
+      "capabilities": [
+        "cap_module_structure",
+        "cap_models",
+        "cap_views",
+        "cap_controllers",
+        "cap_owl_components",
+        "cap_reports",
+        "cap_rpc",
+        "cap_testing",
+        "cap_linting"
+      ],
+      "dependencies": [
+        "skill_base"
+      ]
+    },
+    "skill_security": {
+      "name": "Odoo Security Expert",
+      "version": "19.0.1",
+      "domain": "Security",
+      "capabilities": [
+        "cap_access_rights",
+        "cap_record_rules",
+        "cap_field_permissions",
+        "cap_group_design",
+        "cap_owl_security",
+        "cap_web_vulnerabilities",
+        "cap_secure_coding",
+        "cap_gdpr_privacy",
+        "cap_audit_logging"
       ],
       "dependencies": [
         "skill_base"
@@ -241,6 +634,26 @@
         "skill_mail"
       ]
     },
+    "skill_website": {
+      "name": "Odoo Website Expert",
+      "version": "19.0.1",
+      "domain": "Website",
+      "capabilities": [
+        "cap_website_builder_pages",
+        "cap_themes_snippets",
+        "cap_ecommerce_products",
+        "cap_cart_checkout",
+        "cap_blog_content",
+        "cap_seo_metadata",
+        "cap_portal_account",
+        "cap_owl_frontend",
+        "cap_forms_leads"
+      ],
+      "dependencies": [
+        "skill_base",
+        "skill_crm"
+      ]
+    },
     "skill_mail": {
       "name": "Odoo Mail & Communication Framework",
       "version": "19.0.1",
@@ -254,6 +667,26 @@
       ],
       "dependencies": [
         "skill_base"
+      ]
+    },
+    "skill_purchase": {
+      "name": "Odoo Purchase Expert",
+      "version": "19.0.1",
+      "domain": "Operations",
+      "capabilities": [
+        "cap_rfq_purchase_orders",
+        "cap_vendor_management",
+        "cap_purchase_pricelists",
+        "cap_procurement_replenishment",
+        "cap_dropshipping",
+        "cap_landed_costs",
+        "cap_vendor_bills_matching",
+        "cap_purchase_agreements",
+        "cap_approval_workflows"
+      ],
+      "dependencies": [
+        "skill_base",
+        "skill_inventory"
       ]
     },
     "skill_platform_recovery": {

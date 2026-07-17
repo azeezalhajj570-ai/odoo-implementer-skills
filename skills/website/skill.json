@@ -1,0 +1,83 @@
+{
+  "skill_id": "skill_website",
+  "name": "Odoo Website Expert",
+  "description": "Expert-level knowledge of Odoo 19 Website: website builder, pages, themes, snippets, e-commerce product pages, cart, checkout, blog, SEO, portal, and OWL frontend components.",
+  "version": "19.0.1",
+  "domain": "Website",
+  "subdomain": "Website",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [
+    {"name": "website", "version": "1.0", "location": "community", "required": true},
+    {"name": "website_sale", "version": "1.1", "location": "community", "required": false},
+    {"name": "website_blog", "version": "1.0", "location": "community", "required": false},
+    {"name": "website_payment", "version": "19.0", "location": "community", "required": false},
+    {"name": "portal", "version": "1.0", "location": "community", "required": false}
+  ],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Odoo ORM, security, and QWeb/OWL frontend", "required": true},
+    {"skill": "skill_crm", "description": "Lead capture and customer follow-up for e-commerce", "required": false}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"},
+      {"skill_id": "skill_crm", "version_requirement": ">=19.0", "relationship": "recommended_with"}
+    ],
+    "odoo_modules": ["website", "web", "mail", "portal"],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer"],
+  "capabilities": [
+    {"id": "cap_website_builder_pages", "name": "Website Builder & Pages", "description": "Create and manage website pages, menus, redirects, and the website builder using drag-and-drop snippets.", "confidence": "high"},
+    {"id": "cap_themes_snippets", "name": "Themes & Snippets", "description": "Install and customize themes, configure color/fonts, and extend or create website snippets.", "confidence": "high"},
+    {"id": "cap_ecommerce_products", "name": "E-Commerce Product Pages", "description": "Publish products on the website, configure product variants, filters, categories, and alternative products.", "confidence": "high"},
+    {"id": "cap_cart_checkout", "name": "Cart & Checkout", "description": "Configure shopping cart, payment providers, delivery methods, checkout flow, and abandoned carts.", "confidence": "high"},
+    {"id": "cap_blog_content", "name": "Blog & Content", "description": "Create blogs and posts, manage categories, authors, publishing schedules, and content blocks.", "confidence": "high"},
+    {"id": "cap_seo_metadata", "name": "SEO & Metadata", "description": "Optimize page titles, meta descriptions, URL slugs, sitemap, structured data, and social sharing.", "confidence": "high"},
+    {"id": "cap_portal_account", "name": "Portal & Customer Account", "description": "Configure portal access, customer account pages, orders, invoices, projects, and profile management.", "confidence": "high"},
+    {"id": "cap_owl_frontend", "name": "OWL Frontend Components", "description": "Build and customize OWL-based frontend interactions, public widgets, and website editor integrations.", "confidence": "medium"},
+    {"id": "cap_forms_leads", "name": "Website Forms & Lead Capture", "description": "Create contact forms, configure CRM lead creation, and integrate marketing automation with website pages.", "confidence": "medium"}
+  ],
+  "limitations": [
+    "Full e-commerce checkout requires payment provider and delivery modules",
+    "Custom OWL components may need asset bundles and frontend compatibility testing",
+    "Multi-website configurations require careful domain and page routing setup"
+  ],
+  "required_tools": ["python", "database_access", "html_qweb"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string"},
+      "page_id": {"type": "integer"},
+      "website_id": {"type": "integer"},
+      "context": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "recommendation": {"type": "string"},
+      "code": {"type": "string"},
+      "configuration": {"type": "array", "items": {"type": "object"}},
+      "explanations": {"type": "array", "items": {"type": "string"}}
+    }
+  },
+  "evaluation": {
+    "functional_count": 30,
+    "technical_count": 40,
+    "architecture_count": 10,
+    "debugging_count": 10,
+    "migration_count": 5,
+    "automation_count": 10,
+    "total_count": 105
+  },
+  "tags": ["website", "website_builder", "ecommerce", "cart", "checkout", "blog", "seo", "portal", "owl", "snippets"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "Odoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "source_count": 28,
+    "claim_count": 65,
+    "knowledge_graph_nodes": 22,
+    "changelog": "v19.0.1 — Initial Website skill based on Odoo 19 website modules"
+  }
+}

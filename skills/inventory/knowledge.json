@@ -1,0 +1,62 @@
+{
+  "domain": "Operations",
+  "version": "19.0",
+  "modules": ["stock", "stock_account", "purchase_stock", "sale_stock", "stock_barcode", "stock_landed_costs", "product", "uom", "mail"],
+  "key_models": {
+    "product.template": "Product template. Fields: name, type (consu/product/service), categ_id, uom_id, uom_po_id, tracking, route_ids, sale_ok, purchase_ok.",
+    "product.product": "Product variant. Fields: product_tmpl_id, barcode, default_code, combination_indices, qty_available, virtual_available.",
+    "product.category": "Product category. Fields: name, parent_id, property_cost_method, property_valuation, property_stock_account_input, property_stock_account_output.",
+    "uom.uom": "Unit of measure. Fields: name, category_id, factor, uom_type, rounding.",
+    "stock.warehouse": "Warehouse. Fields: name, code, company_id, lot_stock_id, view_location_id, in_type_id, out_type_id, int_type_id, pick_type_id, pack_type_id.",
+    "stock.location": "Stock location. Fields: name, complete_name, usage (internal/supplier/customer/inventory/transit/etc), location_id, company_id, scrap_location.",
+    "stock.picking": "Stock picking. Fields: name, picking_type_id, location_id, location_dest_id, move_ids, state, partner_id, scheduled_date, backorder_id.",
+    "stock.picking.type": "Picking type. Fields: name, code (incoming/outgoing/internal), sequence_id, default_location_src_id, default_location_dest_id, warehouse_id.",
+    "stock.move": "Stock move. Fields: name, product_id, product_uom_qty, quantity, product_uom, location_id, location_dest_id, picking_id, state, procurement_group_id.",
+    "stock.move.line": "Stock move line. Fields: move_id, product_id, lot_id, quantity, product_uom_id, location_id, location_dest_id, state, picked.",
+    "stock.route": "Route. Fields: name, active, product_selectable, product_categ_selectable, warehouse_selectable, rule_ids, sequence.",
+    "stock.rule": "Procurement rule. Fields: name, route_id, action (pull/push/pull_push), location_src_id, location_dest_id, proc_method, picking_type_id.",
+    "procurement.group": "Procurement group. Fields: name, move_ids, sale_id, purchase_id.",
+    "stock.warehouse.orderpoint": "Reordering rule. Fields: product_id, location_id, product_min_qty, product_max_qty, qty_multiple, trigger, company_id.",
+    "stock.lot": "Lot/serial number. Fields: name, product_id, company_id, expiration_date, use_date, removal_date, alert_date.",
+    "stock.quant": "Stock quant. Fields: product_id, location_id, lot_id, quantity, reserved_quantity, owner_id, package_id.",
+    "stock.valuation.layer": "Valuation layer. Fields: stock_move_id, product_id, quantity, unit_cost, value, account_move_id, company_id.",
+    "stock.landed.cost": "Landed cost (Enterprise). Fields: vendor_bill_id, cost_lines, valuation_adjustment_lines, account_move_id, state.",
+    "stock.inventory.adjustment": "Inventory adjustment (via stock.quant). Fields: product_id, location_id, inventory_quantity, quantity, inventory_diff_quantity."
+  },
+  "key_files": {
+    "stock/models/stock_warehouse.py": "Warehouse, picking types, and routes setup",
+    "stock/models/stock_location.py": "Location model and usage types",
+    "stock/models/stock_picking.py": "Picking lifecycle and validation",
+    "stock/models/stock_move.py": "Stock move, reservation, and availability",
+    "stock/models/stock_move_line.py": "Move line and lot/serial handling",
+    "stock/models/stock_rule.py": "Routes and procurement rules",
+    "stock/models/stock_orderpoint.py": "Reordering rules and procurement triggers",
+    "stock/models/stock_quant.py": "Stock quants, inventory adjustments, and reservation",
+    "stock/models/stock_lot.py": "Lot/serial tracking and expiration dates",
+    "stock_account/models/stock_valuation_layer.py": "Stock valuation layers",
+    "stock_account/models/product.py": "Product valuation and cost method integration",
+    "stock_landed_costs/models/stock_landed_cost.py": "Landed cost allocation (Enterprise)"
+  },
+  "crons": {
+    "stock.ir_cron_scheduler_action": "Procurement scheduler: run reordering rules and generate PO/MO.",
+    "stock.ir_cron_check_product_inactivity": "Detect inactive products and obsolete stock.",
+    "stock_account.stock_valuation_layer_cron": "Reconcile valuation layers if needed.",
+    "stock_barcode.cron": "Barcode synchronization tasks if configured."
+  },
+  "security_groups": {
+    "stock.group_stock_user": "Stock user: process pickings, inventory adjustments, lots",
+    "stock.group_stock_manager": "Stock manager: full inventory configuration",
+    "stock.group_inventory_manager": "Inventory manager: access to inventory reports and valuation",
+    "stock.group_stock_multi_warehouses": "Use multiple warehouses",
+    "stock.group_stock_multi_locations": "Use multiple locations",
+    "stock.group_tracking_lot": "Manage lots and serial numbers",
+    "stock.group_tracking_owner": "Manage consignment stock by owner",
+    "stock_barcode.group_stock_barcode": "Use barcode operations (Enterprise)"
+  },
+  "record_rules": {
+    "stock_location_rule_company": "Multi-company location isolation.",
+    "stock_picking_rule_company": "Multi-company picking isolation.",
+    "stock_quant_rule_company": "Multi-company quant isolation.",
+    "stock_move_rule_company": "Multi-company move isolation."
+  }
+}

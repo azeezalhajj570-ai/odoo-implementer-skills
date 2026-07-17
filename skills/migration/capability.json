@@ -1,0 +1,114 @@
+{
+  "skill_id": "skill_migration",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_version_upgrade",
+      "name": "Version Upgrade Planning",
+      "description": "Assess upgrade path, identify breaking changes, deprecations, and module compatibility. Build phased upgrade plan with cutover strategy.",
+      "required_knowledge": ["odoo_versions", "breaking_changes", "deprecation_policy", "module_compatibility"],
+      "examples": [
+        "Plan upgrade from Odoo 17 to Odoo 19",
+        "Identify deprecated API methods in custom modules",
+        "Build upgrade timeline with staging and production cutover"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_migration_scripts",
+      "name": "Migration Scripts",
+      "description": "Write pre-migration, post-migration, and end-migration scripts using env.cr.execute, env.ref, and openupgradelib helpers.",
+      "required_knowledge": ["pre_migration", "post_migration", "end_migration", "openupgradelib", "env_cr"],
+      "examples": [
+        "Add a pre-migration script to rename a column",
+        "Create a post-migration script to recalculate computed fields",
+        "Use openupgradelib to migrate many2many relations"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_data_migration",
+      "name": "Data Migration",
+      "description": "Migrate master data, transactions, attachments, and configurations across versions using ORM, SQL, ETL patterns, and external_id preservation.",
+      "required_knowledge": ["etl_patterns", "external_ids", "xmlid", "attachments", "data_mapping"],
+      "examples": [
+        "Migrate partner records with XML-IDs preserved",
+        "Extract and transform invoice data from legacy system",
+        "Load configuration data via CSV in new version"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_compatibility_analysis",
+      "name": "Compatibility Analysis",
+      "description": "Analyze custom modules, third-party apps, and OCA modules for API compatibility with Odoo 19.",
+      "required_knowledge": ["api_changes", "orm_changes", "field_changes", "view_changes", "module_dependencies"],
+      "examples": [
+        "Check if a custom module uses removed fields",
+        "Identify controller signature changes affecting integration",
+        "Map old view attributes to Odoo 19 equivalents"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_staging_testing",
+      "name": "Staging Testing",
+      "description": "Design staging environment, smoke tests, regression tests, and parallel reconciliation procedures before production cutover.",
+      "required_knowledge": ["staging_env", "smoke_tests", "regression_tests", "reconciliation"],
+      "examples": [
+        "Set up staging database from production backup",
+        "Define smoke test checklist after upgrade",
+        "Run parallel reconciliation of account balances"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_rollback_strategy",
+      "name": "Rollback Strategy",
+      "description": "Define rollback points, database snapshots, backup procedures, and blue/green cutover strategies for failed upgrades.",
+      "required_knowledge": ["database_snapshots", "pg_dump", "backup_restore", "cutover"],
+      "examples": [
+        "Create pre-upgrade database backup procedure",
+        "Design rollback plan for failed production upgrade",
+        "Implement blue/green deployment for zero-downtime cutover"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_odoo_upgrade_service",
+      "name": "Odoo Upgrade Service",
+      "description": "Use Odoo SA online upgrade service, test database migration, migration scripts delivery, and validation reports.",
+      "required_knowledge": ["odoo_upgrade_service", "test_migration", "migration_scripts_delivery"],
+      "examples": [
+        "Upload database to Odoo upgrade service",
+        "Review Odoo upgrade validation report",
+        "Apply migration scripts to upgraded test database"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_oca_migration",
+      "name": "OCA Migration",
+      "description": "Use OpenUpgrade framework, openupgradelib helpers, and OCA migration scripts for community and OCA modules.",
+      "required_knowledge": ["openupgrade", "oca_migration", "migration_analysis", "coverage"],
+      "examples": [
+        "Run OpenUpgrade analysis wizard for module coverage",
+        "Port OCA migration script to custom module",
+        "Check OpenUpgrade coverage for accounting modules"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_post_migration",
+      "name": "Post-Migration Validation",
+      "description": "Run post-upgrade checks: reconcile balances, validate workflows, check user permissions, audit logs, and performance baseline.",
+      "required_knowledge": ["reconciliation", "workflow_validation", "permissions_check", "performance_baseline"],
+      "examples": [
+        "Validate general ledger balances after migration",
+        "Check all user groups are correctly mapped",
+        "Run performance baseline on critical reports"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "skill_id": "skill_manufacturing",
+  "name": "Odoo Manufacturing Expert",
+  "description": "Expert-level knowledge of Odoo 19 Manufacturing (MRP): bills of materials, routings, operations, work centers, manufacturing orders, work orders, shop floor execution, subcontracting, by-products, MRP planning, procurement integration, and quality checkpoints.",
+  "version": "19.0.1",
+  "domain": "Operations",
+  "subdomain": "Manufacturing",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [
+    {"name": "mrp", "version": "1.0", "location": "community", "required": true},
+    {"name": "mrp_workorder", "version": "19.0", "location": "enterprise", "required": false},
+    {"name": "mrp_subcontracting", "version": "19.0", "location": "community", "required": false},
+    {"name": "mrp_plm", "version": "19.0", "location": "enterprise", "required": false},
+    {"name": "quality_mrp", "version": "19.0", "location": "enterprise", "required": false}
+  ],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Odoo ORM, security, and mail framework", "required": true},
+    {"skill": "skill_inventory", "description": "Stock, warehouses, locations, and product configuration", "required": false}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"},
+      {"skill_id": "skill_inventory", "version_requirement": ">=19.0", "relationship": "recommended_with"}
+    ],
+    "odoo_modules": ["mrp", "stock", "product", "uom"],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer"],
+  "capabilities": [
+    {"id": "cap_bom_design", "name": "Bill of Materials Design", "description": "Design multi-level BOMs with components, quantities, units of measure, operations, by-products, and variants. Distinguish normal, phantom, and subcontracting BOM types.", "confidence": "high"},
+    {"id": "cap_routing_operations", "name": "Routing & Operations", "description": "Define routings, operations, sequences, default work centers, time tracking (setup/operation), and attach routings to BOMs for capacity planning.", "confidence": "high"},
+    {"id": "cap_workcenter_management", "name": "Work Center Management", "description": "Configure work centers, alternative work centers, capacity (hours/pieces), time efficiency, OEE targets, costs, and working calendars.", "confidence": "high"},
+    {"id": "cap_manufacturing_orders", "name": "Manufacturing Orders & Scheduling", "description": "Create, plan, confirm, and close manufacturing orders. Understand MRP-generated vs manual MOs, reservation, backorders, and lead-time computation.", "confidence": "high"},
+    {"id": "cap_workorders_shopfloor", "name": "Work Orders & Shop Floor", "description": "Execute work orders, operator time tracking, shop floor tablet view, OEE calculations, production logging, and step-by-step operation control.", "confidence": "high"},
+    {"id": "cap_subcontracting", "name": "Subcontracting", "description": "Manage subcontracted manufacturing: send raw materials to vendor, receive finished goods, track subcontractor stock, and generate vendor bills.", "confidence": "high"},
+    {"id": "cap_byproducts_scrap", "name": "By-Products & Scrap", "description": "Configure by-product lines on BOMs, report produced by-products, and account for scrap during operations with stock scrap reasons.", "confidence": "high"},
+    {"id": "cap_mrp_planning", "name": "MRP Planning & Procurement", "description": "Run MRP, read procurement exceptions, configure orderpoints/reordering rules, safety stock, make-to-order, and master production schedule integration.", "confidence": "medium"},
+    {"id": "cap_quality_integration", "name": "Quality Integration", "description": "Link quality checks and control points to operations, work orders, and finished goods using quality_mrp.", "confidence": "medium"}
+  ],
+  "limitations": [
+    "MRP computation can be resource-intensive on large BOM trees; run scheduler during off-peak hours",
+    "Shop floor tablet and advanced OEE require the mrp_workorder Enterprise module",
+    "Subcontracting requires the mrp_subcontracting module and vendor configured as subcontractor"
+  ],
+  "required_tools": ["python", "database_access"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string"},
+      "bom_id": {"type": "integer"},
+      "mo_id": {"type": "integer"},
+      "context": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "recommendation": {"type": "string"},
+      "code": {"type": "string"},
+      "configuration": {"type": "array", "items": {"type": "object"}},
+      "explanations": {"type": "array", "items": {"type": "string"}}
+    }
+  },
+  "evaluation": {
+    "functional_count": 30,
+    "technical_count": 40,
+    "architecture_count": 10,
+    "debugging_count": 10,
+    "migration_count": 5,
+    "automation_count": 10,
+    "total_count": 105
+  },
+  "tags": ["manufacturing", "mrp", "bom", "routing", "workcenter", "workorder", "shop_floor", "subcontracting", "byproducts"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "Odoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "source_count": 28,
+    "claim_count": 65,
+    "knowledge_graph_nodes": 22,
+    "changelog": "v19.0.1 — Initial Manufacturing skill based on Odoo 19 MRP modules"
+  }
+}

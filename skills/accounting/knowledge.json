@@ -1,0 +1,56 @@
+{
+  "domain": "Finance",
+  "version": "19.0",
+  "modules": ["account", "account_accountant", "account_bank_statement_import", "account_asset", "account_reports", "base_setup", "product", "analytic", "portal"],
+  "key_models": {
+    "account.account": "General ledger account. Fields: code, name, account_type, reconcile, deprecated, tax_ids, group_id, company_id.",
+    "account.group": "Account hierarchy group. Fields: code_prefix_start, code_prefix_end, parent_id.",
+    "account.journal": "Accounting journal. Fields: name, type (sale/purchase/cash/bank/general), default_account_id, code, sequence_id, company_id, available_payment_method_ids.",
+    "account.move": "Journal entry / invoice / bill. Fields: move_type (out_invoice, in_invoice, out_refund, in_refund, entry), state (draft, posted, cancel), journal_id, partner_id, invoice_date, date, amount_total, line_ids.",
+    "account.move.line": "Move line. Fields: account_id, partner_id, debit, credit, tax_ids, analytic_distribution, amount_currency, currency_id, move_id, reconciliation.",
+    "account.payment": "Payment record. Fields: payment_type (inbound/outbound), partner_type, amount, date, journal_id, payment_method_id, move_id, ref.",
+    "account.tax": "Tax definition. Fields: name, amount, amount_type, type_tax_use, tax_group_id, invoice_repartition_line_ids, refund_repartition_line_ids, country_id.",
+    "account.tax.repartition.line": "Tax distribution. Fields: repartition_type (base/tax), factor_percent, account_id, tag_ids, use_in_tax_closing.",
+    "account.fiscal.position": "Fiscal position. Fields: name, auto_apply, country_id, country_group_id, state_ids, tax_ids (mapping), account_ids (mapping), company_id.",
+    "account.bank.statement": "Bank statement. Fields: name, date, journal_id, line_ids, balance_start, balance_end_real.",
+    "account.bank.statement.line": "Statement line. Fields: date, payment_ref, partner_id, amount, journal_id, statement_id, move_id.",
+    "account.reconcile.model": "Reconciliation model. Fields: name, rule_type (writeoff_button, invoice_matching, writeoff_suggestion), match_text_location_label, amount_type, line_ids.",
+    "account.asset": "Fixed asset (Enterprise). Fields: name, original_value, book_value, acquisition_date, depreciation_number, method_period, depreciation_move_ids.",
+    "account.asset.category": "Asset category (Enterprise). Fields: account_depreciation_id, account_depreciation_expense_id, method, method_number, method_period.",
+    "account.report": "Financial report (Enterprise). Fields: name, line_ids, root_report_id, country_id, filter_cash_basis, filter_analytic, filter_date_range.",
+    "account.analytic.account": "Analytic account. Fields: name, plan_id, company_id.",
+    "account.analytic.plan": "Analytic plan. Fields: name, default_applicability, company_id."
+  },
+  "key_files": {
+    "account/models/account_move.py": "Core account.move model and posting logic",
+    "account/models/account_move_line.py": "Move line model, reconciliation, analytic distribution",
+    "account/models/account_payment.py": "Payment processing and outstanding accounts",
+    "account/models/account_bank_statement.py": "Bank statement and reconciliation model",
+    "account/models/account_tax.py": "Tax computation and repartition lines",
+    "account/models/account_journal.py": "Journal configuration and payment methods",
+    "account/models/account_account.py": "Chart of accounts and account groups",
+    "account/models/account_partial_reconcile.py": "Reconciliation engine and exchange differences",
+    "account_accountant/models/bank_rec_widget.py": "Enterprise bank reconciliation widget",
+    "account_reports/models/account_report.py": "Enterprise financial reports engine",
+    "account_asset/models/account_asset.py": "Enterprise asset depreciation logic"
+  },
+  "crons": {
+    "account_accountant.auto_reconcile_bank_statement_line": "Auto-reconcile bank statement lines (Enterprise).",
+    "account_asset_cron": "Post asset depreciation entries (Enterprise).",
+    "account_reports.scheduler": "Schedule deferred report generation (Enterprise).",
+    "account.ir_cron_post_draft_entries": "Auto-post draft entries if configured."
+  },
+  "security_groups": {
+    "account.group_account_readonly": "Read-only access to accounting data",
+    "account.group_account_invoice": "Create invoices, bills, payments, and journal entries",
+    "account.group_account_manager": "Full accounting configuration and chart of accounts",
+    "account.group_account_user": "Process accounting operations and reconciliations",
+    "account.group_account_register_payment": "Register payments only"
+  },
+  "record_rules": {
+    "account_move_rule_portal": "Portal user access to own invoices via access_token.",
+    "account_move_line_rule_company": "Multi-company isolation: company_id in company_ids.",
+    "account_journal_rule_company": "Multi-company isolation for journals.",
+    "account_account_rule_company": "Multi-company isolation for accounts."
+  }
+}

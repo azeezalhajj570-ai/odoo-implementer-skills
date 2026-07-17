@@ -1,0 +1,53 @@
+{
+  "domain": "Security",
+  "version": "19.0",
+  "modules": ["base", "web", "privacy_lookup", "mail"],
+  "key_models": {
+    "res.groups": "Security groups. Fields: name, category_id, implied_ids, users, share.",
+    "res.users": "User accounts. Fields: login, groups_id, company_id, company_ids, share.",
+    "ir.model.access": "Access control lists. Fields: model_id, group_id, perm_read, perm_write, perm_create, perm_unlink.",
+    "ir.rule": "Record rules. Fields: model_id, domain_force, groups, global, perm_read, perm_write, perm_create, perm_unlink.",
+    "ir.model": "Model metadata. Fields: model, name, access_ids, rule_ids, field_id, state.",
+    "ir.model.fields": "Field definitions. Fields: name, model_id, field_description, groups, ttype, relation.",
+    "res.partner": "Partner records often subject to privacy and GDPR rules.",
+    "privacy.log": "Privacy-related actions log (where available)."
+  },
+  "key_files": {
+    "base/models/res_users.py": "User and group model definitions",
+    "base/models/ir_model.py": "ACL and record rule models",
+    "base/models/ir_rule.py": "Record rule evaluation logic",
+    "base/models/res_groups.py": "Group hierarchy and implied groups",
+    "web/models/ir_http.py": "Session and authentication handling",
+    "web/controllers/main.py": "Public controllers and CSRF handling",
+    "privacy_lookup/models/privacy_log.py": "Privacy lookup logging"
+  },
+  "crons": {
+    "ir_cron_autovacuum_log_access": "Cleanup access logs",
+    "privacy_lookup_cron": "Privacy data retention and cleanup (if configured)"
+  },
+  "security_groups": {
+    "base.group_system": "Administration / Settings — full security configuration",
+    "base.group_no_one": "Technical Features — access to technical fields",
+    "base.group_user": "Internal User — baseline access",
+    "base.group_public": "Public — anonymous access for public controllers"
+  },
+  "record_rules": {
+    "ir_rule_multi_company": "Multi-company isolation rule: [('company_id','in',company_ids+[False])]",
+    "ir_rule_personal_record": "Ownership rule: [('user_id','=',user.id)]",
+    "ir_rule_public": "Public access rule limiting records for portal/public users"
+  },
+  "best_practices": [
+    "Always enforce security on the server side; client-side checks are not enough",
+    "Use ir.model.access for model-level permissions and ir.rule for record-level isolation",
+    "Avoid global rules when user-specific rules suffice; global rules affect performance",
+    "Use groups= attribute on fields sparingly; prefer ACLs and record rules",
+    "Never trust user input in controllers; validate and sanitize all parameters",
+    "Use Markup and t-out escaping to prevent XSS in QWeb",
+    "Protect against CSRF by using type='http' routes with auth='user' or explicit csrf=False",
+    "Avoid raw SQL with user input; use parameterized queries or ORM",
+    "Use sudo() only when necessary and log the reason",
+    "Regularly audit user groups, record rules, and access logs",
+    "Implement data retention and anonymization for GDPR compliance",
+    "Use field tracking on sensitive fields for audit trail"
+  ]
+}

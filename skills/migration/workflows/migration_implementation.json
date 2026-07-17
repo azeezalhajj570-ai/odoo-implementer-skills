@@ -1,0 +1,70 @@
+{
+  "id": "migration_implementation",
+  "name": "Migration Full Implementation",
+  "description": "Complete Odoo migration workflow: analyze source environment, assess compatibility, plan scripts, stage, execute, validate, and cutover.",
+  "version": "1.0",
+  "skill_id": "skill_migration",
+  "compatible_agents": ["planner", "manager", "developer", "functional", "qa"],
+  "steps": [
+    {
+      "id": "analyze_source",
+      "name": "Analyze Source Environment",
+      "description": "Document source Odoo version, installed modules, customizations, and data volume",
+      "tool": "analyze_migration",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "compatibility_assessment",
+      "name": "Compatibility Assessment",
+      "description": "Identify breaking changes, removed APIs, and OpenUpgrade coverage for installed modules",
+      "tool": "analyze_migration",
+      "params": {},
+      "depends_on": ["analyze_source"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "plan_migration",
+      "name": "Plan Migration",
+      "description": "Create migration plan with backup, scripts, staging, validation, and rollback steps",
+      "tool": "validate_migration_plan",
+      "params": {},
+      "depends_on": ["compatibility_assessment"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "develop_scripts",
+      "name": "Develop Migration Scripts",
+      "description": "Write pre-migration, post-migration, and end-migration scripts for custom modules",
+      "tool": "validate_migration_plan",
+      "params": {},
+      "depends_on": ["plan_migration"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "staging_upgrade",
+      "name": "Staging Upgrade",
+      "description": "Run the upgrade in a staging copy of production and fix issues",
+      "tool": "analyze_migration",
+      "params": {},
+      "depends_on": ["develop_scripts"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "validate_cutover",
+      "name": "Validate and Cutover",
+      "description": "Validate data integrity, run smoke tests, reconcile balances, and execute production cutover",
+      "tool": "validate_migration_plan",
+      "params": {},
+      "depends_on": ["staging_upgrade"],
+      "on_failure": "stop"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "8-40 hours"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "skill_id": "skill_accounting",
+  "name": "Odoo Accounting Expert",
+  "description": "Expert-level knowledge of Odoo Accounting including chart of accounts, journals, invoices, payments, taxes, bank reconciliation, fiscal positions, assets, and financial reports (P&L, balance sheet, cash flow).",
+  "version": "19.0.1",
+  "domain": "Finance",
+  "subdomain": "Accounting",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [
+    {"name": "account", "version": "1.1", "location": "community", "required": true},
+    {"name": "account_accountant", "version": "19.0", "location": "enterprise", "required": false},
+    {"name": "account_bank_statement_import", "version": "19.0", "location": "enterprise", "required": false},
+    {"name": "account_asset", "version": "19.0", "location": "enterprise", "required": false},
+    {"name": "account_reports", "version": "19.0", "location": "enterprise", "required": false}
+  ],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Odoo ORM, security, and base models", "required": true},
+    {"skill": "skill_mail", "description": "Email and notification framework for invoice sending", "required": false}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"},
+      {"skill_id": "skill_mail", "version_requirement": ">=19.0", "relationship": "recommended_with"}
+    ],
+    "odoo_modules": ["account", "base_setup", "product", "analytic", "portal"],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer"],
+  "capabilities": [
+    {"id": "cap_chart_of_accounts", "name": "Chart of Accounts", "description": "Configure account.chart.template, account.account, account.group. Manage account types, codes, reconciliation flags, and fiscal localization packages.", "confidence": "high"},
+    {"id": "cap_journals", "name": "Journal Configuration", "description": "Configure account.journal with types (sale, purchase, cash, bank, general), sequences, default accounts, bank accounts, and payment methods.", "confidence": "high"},
+    {"id": "cap_invoices", "name": "Invoice Management", "description": "Create and manage customer invoices, vendor bills, credit notes, refunds, and invoice lines. Handle invoice states (draft, posted, cancel), payment references, and portal sending.", "confidence": "high"},
+    {"id": "cap_payments", "name": "Payments & Bank", "description": "Process account.payment records, payment methods, reconciliation, outstanding receipts/payments accounts, and batch payments.", "confidence": "high"},
+    {"id": "cap_taxes", "description": "Configure account.tax, tax groups, tax grids, report lines, and fiscal positions. Handle inclusive/exclusive taxes, tax clouds, and multi-company tax setups.", "name": "Tax Configuration", "confidence": "high"},
+    {"id": "cap_reconciliation", "name": "Bank Reconciliation", "description": "Use account.bank.statement, account.bank.statement.line, and account.reconcile.model to match bank transactions with open invoices and journal entries.", "confidence": "high"},
+    {"id": "cap_fiscal_positions", "name": "Fiscal Positions", "description": "Manage account.fiscal.position for tax and account mapping across countries, intra-community, and B2B/B2C rules.", "confidence": "high"},
+    {"id": "cap_assets", "name": "Asset Management", "description": "Configure account.asset, depreciation boards, asset categories, disposal, and depreciation journals using Enterprise account_asset.", "confidence": "medium"},
+    {"id": "cap_reports", "name": "Financial Reports", "description": "Generate and configure P&L, balance sheet, cash flow, general ledger, trial balance, and aged receivables/payables using Enterprise account_reports.", "confidence": "medium"}
+  ],
+  "limitations": [
+    "Some advanced reports and bank statement import require Enterprise modules",
+    "Localization packages are required for country-specific charts of accounts and taxes",
+    "Accountant-level changes should be reviewed by a finance professional",
+    "Asset depreciation and fiscal year closing require careful date planning"
+  ],
+  "required_tools": ["python", "database_access", "spreadsheet_export"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string"},
+      "move_id": {"type": "integer"},
+      "journal_id": {"type": "integer"},
+      "account_id": {"type": "integer"},
+      "context": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "recommendation": {"type": "string"},
+      "code": {"type": "string"},
+      "configuration": {"type": "array", "items": {"type": "object"}},
+      "explanations": {"type": "array", "items": {"type": "string"}}
+    }
+  },
+  "evaluation": {
+    "functional_count": 30,
+    "technical_count": 40,
+    "architecture_count": 10,
+    "debugging_count": 10,
+    "migration_count": 5,
+    "automation_count": 10,
+    "total_count": 105
+  },
+  "tags": ["accounting", "finance", "invoicing", "taxes", "reconciliation", "journal", "chart_of_accounts", "reports"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "Odoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "source_count": 32,
+    "claim_count": 72,
+    "knowledge_graph_nodes": 26,
+    "changelog": "v19.0.1 — Initial Accounting skill based on source code analysis of account v1.1, account_accountant, account_bank_statement_import, account_asset, account_reports"
+  }
+}

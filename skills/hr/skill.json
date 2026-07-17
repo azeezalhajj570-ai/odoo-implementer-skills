@@ -1,0 +1,88 @@
+{
+  "skill_id": "skill_hr",
+  "name": "Odoo HR Expert",
+  "description": "Expert-level knowledge of Odoo Human Resources including employees, contracts, departments, attendance, leaves, expenses, recruitment, appraisals, and payroll integration.",
+  "version": "19.0.1",
+  "domain": "Human Resources",
+  "subdomain": "HR",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [
+    {"name": "hr", "version": "1.1", "location": "community", "required": true},
+    {"name": "hr_contract", "version": "1.1", "location": "community", "required": false},
+    {"name": "hr_attendance", "version": "1.1", "location": "community", "required": false},
+    {"name": "hr_leave", "version": "1.5", "location": "community", "required": false},
+    {"name": "hr_expense", "version": "2.0", "location": "community", "required": false},
+    {"name": "hr_recruitment", "version": "1.1", "location": "community", "required": false},
+    {"name": "hr_appraisal", "version": "19.0", "location": "enterprise", "required": false},
+    {"name": "hr_payroll", "version": "19.0", "location": "enterprise", "required": false}
+  ],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Odoo ORM, security, and base models", "required": true},
+    {"skill": "skill_mail", "description": "Email and notification framework for HR communications", "required": false}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"},
+      {"skill_id": "skill_mail", "version_requirement": ">=19.0", "relationship": "recommended_with"}
+    ],
+    "odoo_modules": ["hr", "mail", "resource", "calendar", "base_setup", "utm"],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer"],
+  "capabilities": [
+    {"id": "cap_employee", "name": "Employee Management", "description": "Manage hr.employee, employee categories, work addresses, managers, private/public info, and employee badges.", "confidence": "high"},
+    {"id": "cap_department", "name": "Department Structure", "description": "Configure hr.department hierarchy, managers, cost centers, and related employees.", "confidence": "high"},
+    {"id": "cap_contract", "name": "Contracts", "description": "Manage hr.contract, contract types, wages, schedules, benefits, start/end dates, and contract status.", "confidence": "high"},
+    {"id": "cap_attendance", "name": "Attendance", "description": "Track hr.attendance records, check-in/check-out, overtime, kiosks, and attendance reporting.", "confidence": "high"},
+    {"id": "cap_leaves", "name": "Leaves & Time Off", "description": "Configure hr.leave.type, leave allocations, accrual plans, validation workflows, and public holidays.", "confidence": "high"},
+    {"id": "cap_expenses", "name": "Expenses", "description": "Manage hr.expense, expense sheets, expense categories, approvals, reimbursement via invoices/payments, and analytics.", "confidence": "high"},
+    {"id": "cap_recruitment", "name": "Recruitment", "description": "Manage hr.job, hr.applicant, interview scheduling, refusal reasons, job boards, and recruitment stages.", "confidence": "high"},
+    {"id": "cap_appraisal", "name": "Appraisals", "description": "Configure hr.appraisal, appraisal plans, feedback surveys, goals, and employee evaluation cycles with Enterprise hr_appraisal.", "confidence": "medium"},
+    {"id": "cap_payroll", "name": "Payroll Integration", "description": "Understand payroll structures, salary rules, payslips, and payslip batches. Requires Enterprise hr_payroll.", "confidence": "medium"}
+  ],
+  "limitations": [
+    "Payroll is an Enterprise module and varies by localization",
+    "HR modules may require additional localization for country-specific labor rules",
+    "Appraisal requires Enterprise hr_appraisal",
+    "Some attendance integrations (kiosks, IoT) need hardware or additional modules"
+  ],
+  "required_tools": ["python", "database_access", "spreadsheet_export"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string"},
+      "employee_id": {"type": "integer"},
+      "department_id": {"type": "integer"},
+      "contract_id": {"type": "integer"},
+      "context": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "recommendation": {"type": "string"},
+      "code": {"type": "string"},
+      "configuration": {"type": "array", "items": {"type": "object"}},
+      "explanations": {"type": "array", "items": {"type": "string"}}
+    }
+  },
+  "evaluation": {
+    "functional_count": 30,
+    "technical_count": 40,
+    "architecture_count": 10,
+    "debugging_count": 10,
+    "migration_count": 5,
+    "automation_count": 10,
+    "total_count": 105
+  },
+  "tags": ["hr", "human_resources", "employee", "contract", "attendance", "leave", "expense", "recruitment", "appraisal", "payroll"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "Odoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "source_count": 30,
+    "claim_count": 68,
+    "knowledge_graph_nodes": 24,
+    "changelog": "v19.0.1 — Initial HR skill based on source code analysis of hr, hr_contract, hr_attendance, hr_leave, hr_expense, hr_recruitment, hr_appraisal, hr_payroll"
+  }
+}

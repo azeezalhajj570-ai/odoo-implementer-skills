@@ -1,0 +1,114 @@
+{
+  "skill_id": "skill_website",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_website_builder_pages",
+      "name": "Website Builder & Pages",
+      "description": "Create, edit, and publish website pages using the Odoo website builder and manage website menus.",
+      "required_knowledge": ["website", "website_page", "ir_ui_view", "website_menu", "page_manager"],
+      "examples": [
+        "Create a new landing page with a hero snippet",
+        "Add a page to the website menu",
+        "Configure page visibility and publishing date"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_themes_snippets",
+      "name": "Themes & Snippets",
+      "description": "Install and customize themes, brand colors, fonts, and extend the snippet library.",
+      "required_knowledge": ["theme", "ir_asset", "website_snippet", "color_preset", "font"],
+      "examples": [
+        "Install and switch a theme",
+        "Customize the theme color palette",
+        "Add a custom snippet to the snippet bar"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_ecommerce_products",
+      "name": "E-Commerce Product Pages",
+      "description": "Publish products, configure variants, filters, categories, and upsell blocks on the website.",
+      "required_knowledge": ["website_sale", "product_template", "product_variant", "product_public_category", "ecommerce_filter"],
+      "examples": [
+        "Publish a product to the e-commerce catalog",
+        "Configure product attributes and variants",
+        "Add alternative products to a product page"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_cart_checkout",
+      "name": "Cart & Checkout",
+      "description": "Configure shopping cart, payment providers, delivery methods, and checkout flow.",
+      "required_knowledge": ["website_sale", "payment_provider", "delivery_carrier", "sale_order", "checkout"],
+      "examples": [
+        "Enable a payment provider",
+        "Configure delivery methods by country",
+        "Customize the cart page"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_blog_content",
+      "name": "Blog & Content",
+      "description": "Create and manage blogs, posts, categories, authors, and publishing schedules.",
+      "required_knowledge": ["blog_blog", "blog_post", "blog_tag", "website_published", "content_editor"],
+      "examples": [
+        "Create a blog post and schedule publishing",
+        "Add tags and categories to posts",
+        "Display latest posts on the homepage"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_seo_metadata",
+      "name": "SEO & Metadata",
+      "description": "Optimize pages for search engines with meta tags, slugs, sitemap, and social sharing.",
+      "required_knowledge": ["website_seo", "meta_title", "meta_description", "url_slug", "sitemap"],
+      "examples": [
+        "Set SEO metadata for a page",
+        "Generate a sitemap.xml",
+        "Configure Open Graph tags for social sharing"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_portal_account",
+      "name": "Portal & Customer Account",
+      "description": "Configure portal users, access to orders, invoices, projects, and account profile pages.",
+      "required_knowledge": ["portal", "res_partner", "sale_order", "account_move", "portal_layout"],
+      "examples": [
+        "Enable portal access for a customer",
+        "Customize the customer account dashboard",
+        "Show order history in the portal"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_owl_frontend",
+      "name": "OWL Frontend Components",
+      "description": "Build and customize OWL-based public components, interactions, and editor integrations.",
+      "required_knowledge": ["owl", "public_widget", "website_service", "assets_frontend", "component"],
+      "examples": [
+        "Create an OWL component for a product configurator",
+        "Register a public widget for dynamic content",
+        "Add a frontend asset bundle"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_forms_leads",
+      "name": "Website Forms & Lead Capture",
+      "description": "Create forms that generate CRM leads, support tickets, or subscriptions from website visitors.",
+      "required_knowledge": ["website_form", "crm_lead", "mail_thread", "lead_capture", "form_builder"],
+      "examples": [
+        "Build a contact form on a landing page",
+        "Route form submissions to the CRM pipeline",
+        "Add hidden UTM fields to a form"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}
