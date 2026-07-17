@@ -1,0 +1,136 @@
+{
+  "skill_id": "skill_mail",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_mail_thread",
+      "name": "mail.thread",
+      "description": "Message threading, chatter integration, subtypes, message posting, followers, and subtype-driven notifications on any model inheriting mail.thread.",
+      "required_knowledge": ["mail.thread", "mail.message", "mail.followers", "mail.message.subtype", "message_post", "message_subscribe", "message_unsubscribe", "message_track"],
+      "examples": [
+        "Post an internal note vs a public message from code",
+        "Add followers programmatically with specific subtypes",
+        "Track field changes and notify followers",
+        "Override _message_post_after_hook to trigger custom logic"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_activities",
+      "name": "Mail Activities",
+      "description": "Schedule, complete, and manage activities via mail.activity.mixin. Covers activity types, activity plans, suggested next activities, calendar integration, and deadline handling.",
+      "required_knowledge": ["mail.activity", "mail.activity.mixin", "mail.activity.type", "mail.activity.plan", "activity_schedule", "activity_feedback", "activity_unlink"],
+      "examples": [
+        "Schedule a call activity for a sales lead",
+        "Configure an activity plan with multiple steps",
+        "Set up automatic suggested next activities",
+        "Create a custom activity type with a default note template"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_email_templates",
+      "name": "Email Templates",
+      "description": "Design and render QWeb-based email templates (mail.template), including dynamic placeholders, inline styles, report attachments, template inheritance, and multi-language rendering.",
+      "required_knowledge": ["mail.template", "QWeb", "render_template", "template_inheritance", "email_layout", "powered_by"],
+      "examples": [
+        "Create a sales order confirmation email template",
+        "Add conditional blocks based on partner language",
+        "Attach a PDF report automatically",
+        "Override the default email layout.xml footer"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_notifications",
+      "name": "Notifications",
+      "description": "Deliver in-app, email, and push notifications. Covers mail.notification records, notification_status, notification_type, failure handling, and digest emails.",
+      "required_knowledge": ["mail.notification", "notification_status", "notification_type", "mail_message_notify", "res.partner", "digest.email"],
+      "examples": [
+        "Send an in-app mention notification",
+        "Configure which subtypes trigger emails",
+        "Retry failed email notifications",
+        "Customize the digest email frequency"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_bounce_handling",
+      "name": "Bounce Handling",
+      "description": "Detect and process bounced emails, classify failure types (mail_bounce, mail_smtp, mail_spam, etc.), update mail.blacklist, and disable auto-sent messages after repeated failures.",
+      "required_knowledge": ["mail.bounce", "mail.blacklist", "bounce_message", "failure_type", "_routing_handle_bounce", "message_route_process"],
+      "examples": [
+        "Diagnose why outbound emails are bouncing",
+        "Manually blacklist an email address",
+        "Configure bounce alias and catchall domain",
+        "Review bounce reasons from mail.notification"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_discuss_channels",
+      "name": "Discuss Channels",
+      "description": "Use mail.channel for group and direct-message conversations, including channel members, moderation, guest access, livechat integration, and message routing to channels.",
+      "required_knowledge": ["mail.channel", "mail.channel.member", "channel_type", "group_public_id", "message_post", "bus.bus"],
+      "examples": [
+        "Create a private channel for a project team",
+        "Route incoming WhatsApp messages to a channel",
+        "Set up a public channel for customer support",
+        "Manage channel membership and permissions"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_mail_gateway",
+      "name": "Mail Gateway",
+      "description": "Inbound and outbound email routing: catchall alias parsing, mail.alias records, message_route, message_route_process, mail.thread gateway methods, and SMTP/imap configuration.",
+      "required_knowledge": ["mail.alias", "message_route", "message_route_process", "message_new", "message_update", "catchall", "bounce_alias"],
+      "examples": [
+        "Configure a catchall alias for lead creation",
+        "Route support emails to the correct team alias",
+        "Create records from inbound emails via mail.alias",
+        "Debug why inbound emails are not processed"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_mail_blacklist",
+      "name": "Mail Blacklist",
+      "description": "Manage opt-out and bounced email addresses with mail.blacklist. Integrates with mail.thread.blacklist mixin and mass-mailing compliance.",
+      "required_knowledge": ["mail.blacklist", "mail.thread.blacklist", "opt_out", "is_blacklisted", "blacklist_reason"],
+      "examples": [
+        "Check if a partner is blacklisted before sending",
+        "Bulk import opt-out addresses",
+        "Override blacklist behavior in a custom model",
+        "Report on blacklisted emails and reasons"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_follow_unfollow",
+      "name": "Follow / Unfollow",
+      "description": "Subscribe and unsubscribe partners or channels to record threads, control subtype preferences, and manage default followers on record creation.",
+      "required_knowledge": ["mail.followers", "message_subscribe", "message_unsubscribe", "subtype_ids", "mail.message.subtype", "default_followers"],
+      "examples": [
+        "Add a customer as a follower with only 'Discussion' subtype",
+        "Remove all followers except the assigned user",
+        "Set default followers via automated action",
+        "Subscribe a user channel to a project"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_mail_tracking",
+      "name": "Mail Tracking",
+      "description": "Track email opens, link clicks, and replies using mail.tracking.value and tracking metadata. Understand mail.mail state flow (outgoing, sent, received, exception, cancelled).",
+      "required_knowledge": ["mail.mail", "mail.tracking.value", "message_id", "state", "email_opened", "link_clicked", "mail_tracking_duration_mixin"],
+      "examples": [
+        "Check delivery status of a sent email",
+        "Track how long a record stayed in each stage",
+        "Debug emails stuck in 'outgoing' state",
+        "Add tracking to a custom field"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

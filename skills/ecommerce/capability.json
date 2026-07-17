@@ -1,0 +1,114 @@
+{
+  "skill_id": "skill_ecommerce",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_product_catalog",
+      "name": "Product Catalog Management",
+      "description": "Publish products to the shop, organize public categories, manage product images, descriptions, tags, and visibility for public and portal users.",
+      "required_knowledge": ["product.template", "product.public.category", "website_published", "is_published", "public_categ_ids", "website_description_sale"],
+      "examples": [
+        "Publish a product template and assign it to public categories",
+        "Hide a product from the shop while keeping it saleable in backend",
+        "Bulk-update website sequence for product listing order"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_product_variants",
+      "name": "Product Variants & Combinations",
+      "description": "Configure attribute lines, attribute values, variant combinations, extra prices, and the product configurator on the e-commerce product page.",
+      "required_knowledge": ["product.template", "product.product", "product.template.attribute.line", "product.template.attribute.value", "product_template_attribute_value_ids", "product_variant_combination", "extra_price"],
+      "examples": [
+        "Add color and size attributes to a product template",
+        "Set extra price for a specific variant combination",
+        "Disable a variant combination from the shop"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_pricelists",
+      "name": "Pricelists & Price Rules",
+      "description": "Configure website pricelists, price rules, currency support, and per-website pricelist assignment for B2B and B2C pricing.",
+      "required_knowledge": ["product.pricelist", "product.pricelist.item", "website.pricelist", "pricelist_id", "currency_id", "price_rules", "applied_on"],
+      "examples": [
+        "Create a B2B pricelist with percentage discount per category",
+        "Assign a default pricelist to a website",
+        "Set a fixed price for a specific product in a pricelist"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_cart_checkout",
+      "name": "Cart & Checkout Flow",
+      "description": "Manage the sale order as a shopping cart, handle add-to-cart, update quantities, address entry, billing/shipping, guest checkout, and order confirmation.",
+      "required_knowledge": ["sale.order", "sale.order.line", "website", "sale_get_order", "cart_recovery", "abandoned_cart", "partner_invoice_id", "partner_shipping_id"],
+      "examples": [
+        "Retrieve the current cart for a website visitor",
+        "Add a product variant to the cart programmatically",
+        "Configure abandoned cart recovery thresholds"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_payment_providers",
+      "name": "Payment Providers",
+      "description": "Configure payment providers, payment methods, capture modes, saved payment tokens, and transaction flow linked to e-commerce orders.",
+      "required_knowledge": ["payment.provider", "payment.transaction", "payment.token", "payment.method", "capture_mode", "provider_code", "state"],
+      "examples": [
+        "Enable Stripe as a payment provider for a website",
+        "Configure authorize-then-capture for a provider",
+        "Debug a failed payment transaction on a sale order"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_delivery_methods",
+      "name": "Delivery Methods & Shipping",
+      "description": "Set up delivery carriers, shipping rate rules, delivery products, and carrier-specific API integrations during checkout.",
+      "required_knowledge": ["delivery.carrier", "delivery.carrier.option", "delivery.carrier.zip", "delivery.carrier.state", "product_id", "delivery_type", "rate_shipment", "send_shipping"],
+      "examples": [
+        "Create a flat-rate delivery method",
+        "Add a delivery carrier based on destination ZIP code",
+        "Integrate live shipping rates from FedEx or UPS"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_wishlist_comparison",
+      "name": "Wishlists & Product Comparisons",
+      "description": "Enable customer wishlists, product comparison lists, and tie them to website visitors or authenticated portal users.",
+      "required_knowledge": ["website.visitor", "product.wishlist", "product.comparison", "access_token", "partner_id", "website_id"],
+      "examples": [
+        "Enable wishlist feature on the shop",
+        "Allow product comparison by category",
+        "List a customer's wishlist products in the portal"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_digital_products",
+      "name": "Digital Products",
+      "description": "Configure downloadable products, attachments, and digital delivery after order confirmation through the customer portal.",
+      "required_knowledge": ["product.template", "product.product", "ir.attachment", "product_type", "is_published", "portal_download"],
+      "examples": [
+        "Mark a product as digital and attach downloadable files",
+        "Restrict download links to confirmed orders",
+        "Add a digital product to a sale order line"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_seo_products",
+      "name": "Product SEO & Shop Optimization",
+      "description": "Optimize product page metadata, URLs, sitemap inclusion, and structured data for search engines and social sharing.",
+      "required_knowledge": ["website.seo.metadata", "website_meta_title", "website_meta_description", "website_meta_keywords", "seo_name", "sitemap"],
+      "examples": [
+        "Set SEO title and description for a product template",
+        "Configure clean URL slugs for product pages",
+        "Verify product pages appear in the sitemap"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

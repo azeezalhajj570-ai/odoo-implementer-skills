@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ecommerce_tech_001",
+    "type": "technical",
+    "difficulty": "intermediate",
+    "question": "How do I programmatically add a product to the current website cart?",
+    "expected_answer": "website = self.env['website'].get_current_website(); order = website.sale_get_order(force_create=True); line = self.env['sale.order.line'].create({'order_id': order.id, 'product_id': product_id, 'product_uom_qty': qty})"
+  },
+  {
+    "id": "ecommerce_tech_002",
+    "type": "technical",
+    "difficulty": "intermediate",
+    "question": "How do I set a product template as published for the website using code?",
+    "expected_answer": "product = self.env['product.template'].browse(product_id); product.write({'is_published': True, 'website_published': True, 'sale_ok': True})"
+  },
+  {
+    "id": "ecommerce_tech_003",
+    "type": "technical",
+    "difficulty": "advanced",
+    "question": "Explain how product pricelist price computation works for a website order.",
+    "expected_answer": "The website resolves the pricelist from website.pricelist_id or partner property. Sale order line price_unit is computed via product._get_contextual_price or product.price_compute with order.pricelist_id. product.pricelist.item rules are matched by date, quantity, product/category/variant, and compute_price (fixed, percentage, formula). Formula rules apply base, discount, surcharge, and rounding."
+  },
+  {
+    "id": "ecommerce_tech_004",
+    "type": "technical",
+    "difficulty": "advanced",
+    "question": "How do I create a delivery carrier with a fixed price programmatically?",
+    "expected_answer": "carrier = self.env['delivery.carrier'].create({'name': 'Flat Rate', 'delivery_type': 'fixed', 'product_id': product_id, 'fixed_price': 10.0, 'free_over': False, 'company_id': company_id, 'website_id': website_id})"
+  },
+  {
+    "id": "ecommerce_tech_005",
+    "type": "technical",
+    "difficulty": "intermediate",
+    "question": "Write a server action to send abandoned cart recovery emails for stale carts.",
+    "expected_answer": "orders = self.env['sale.order'].search([('website_id','!=',False),('state','=','draft'),('date_order','<',fields.Datetime.now() - timedelta(hours=24))]); orders._cron_abandoned_cart()"
+  },
+  {
+    "id": "ecommerce_tech_006",
+    "type": "technical",
+    "difficulty": "advanced",
+    "question": "How do product variants map to sale order lines in eCommerce?",
+    "expected_answer": "The shop controller resolves the selected attribute value combination to a product.product record via product.product._get_variant_for_combination or similar. The sale.order.line stores product_id (the variant) and product_template_id (the template). The unit price is the variant's contextual price with extras."
+  },
+  {
+    "id": "ecommerce_tech_007",
+    "type": "technical",
+    "difficulty": "advanced",
+    "question": "How do payment transactions link to sale orders in Odoo 19?",
+    "expected_answer": "payment.transaction has a Many2many sale_order_ids. During checkout, the transaction is created with the sale order reference. When the transaction reaches state 'done', the sale order is confirmed. Authorize-then-capture requires calling _send_capture_request() after delivery."
+  },
+  {
+    "id": "ecommerce_tech_008",
+    "type": "technical",
+    "difficulty": "intermediate",
+    "question": "How do I configure the default pricelist for a website?",
+    "expected_answer": "website = self.env['website'].browse(website_id); website.write({'pricelist_id': pricelist_id}). Ensure the pricelist has selectable=True and matches the website's currency."
+  },
+  {
+    "id": "ecommerce_tech_009",
+    "type": "technical",
+    "difficulty": "intermediate",
+    "question": "What security groups and record rules protect product and sale order data on the website?",
+    "expected_answer": "base.group_public can read published products and categories. base.group_portal can read their own sale orders via sale_order_portal_rule. Internal sales groups manage orders. Multi-company rules isolate product.template, product.public.category, and sale.order by company_id."
+  },
+  {
+    "id": "ecommerce_tech_010",
+    "type": "technical",
+    "difficulty": "advanced",
+    "question": "How do I create a product.template with attribute lines and variants programmatically?",
+    "expected_answer": "template = self.env['product.template'].create({'name': 'T-Shirt', 'list_price': 20.0, 'attribute_line_ids': [(0,0,{'attribute_id': attr_id, 'value_ids': [(6,0, value_ids)]})]}); the ORM generates product.product variants for each combination."
+  }
+]

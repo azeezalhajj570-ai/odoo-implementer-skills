@@ -1,0 +1,53 @@
+{
+  "domain": "Platform",
+  "version": "19.0",
+  "modules": ["mail", "bus"],
+  "key_models": {
+    "mail.thread": "Abstract mixin providing chatter, followers, subtypes, tracking, and message posting. Key methods: message_post, message_subscribe, message_unsubscribe, message_track, _message_auto_subscribe_followers, _message_get_default_recipients.",
+    "mail.activity": "Scheduled to-do item linked to a record. Fields: res_model, res_id, activity_type_id, user_id, date_deadline, summary, note, automated.",
+    "mail.activity.mixin": "Mixin that adds activity_schedule, activity_feedback, activity_reschedule, and activity_ids to models.",
+    "mail.activity.type": "Activity category/template. Fields: name, category (default, upload_document, phonecall, meeting), default_user_id, default_note, delay_count, delay_unit, summary, chaining_type, triggered_next_type_id.",
+    "mail.activity.plan": "Predefined set of activities. Fields: res_model_ids, company_id, template_ids (mail.activity.plan.template).",
+    "mail.message": "Stored message on a thread. Fields: res_model, res_id, model, message_type (email, comment, notification, user_notification, sms), subtype_id, parent_id, author_id, partner_ids.",
+    "mail.notification": "Per-recipient notification record for a mail.message. Fields: mail_message_id, notification_type (email, inbox, sms, snailmail, push), notification_status (ready, sent, delivered, bounced, exception, canceled), failure_type, author_id.",
+    "mail.mail": "Outgoing email queue record. Fields: mail_message_id, state (outgoing, sent, received, exception, cancelled), email_to, email_from, body_html, auto_delete, failure_reason.",
+    "mail.template": "QWeb email template. Fields: model_id, subject, email_from, email_to, partner_to, body_html, report_template_ids, lang, auto_delete.",
+    "mail.alias": "Inbound email alias routing. Fields: alias_name, alias_model_id, alias_parent_model_id, alias_defaults, alias_contact (everyone, partners, employees), alias_bounced_content.",
+    "mail.channel": "Discuss conversation. Fields: name, channel_type (channel, group, chat), group_public_id, is_member, uuid (for guests).",
+    "mail.channel.member": "Membership of a partner/user in a channel. Fields: channel_id, partner_id, guest_id, fetched_message_id, seen_message_id, custom_channel_name, custom_notifications.",
+    "mail.blacklist": "Opt-out / bounced email address. Fields: email, active, message_ids.",
+    "mail.bounce": "Raw bounce message metadata. Fields: email, msg_id, model, res_id.",
+    "mail.followers": "Subscription of a partner or channel to a record. Fields: res_model, res_id, partner_id, channel_id, subtype_ids."
+  },
+  "key_files": {
+    "mail/models/mail_thread.py": "Core mail.thread mixin: message_post, message_subscribe, message_route, bounce handling, tracking, followers.",
+    "mail/models/mail_message.py": "mail.message model: message storage, search, moderation, notification generation, message_format.",
+    "mail/models/mail_notification.py": "mail.notification model: per-recipient notification status and failure tracking.",
+    "mail/models/mail_mail.py": "mail.mail model: SMTP queue, send, split by recipient, state management, exception handling.",
+    "mail/models/mail_template.py": "mail.template model: QWeb rendering, report attachment, template copy/generation.",
+    "mail/models/mail_activity.py": "mail.activity, mail.activity.type, mail.activity.mixin, mail.activity.plan and scheduling logic.",
+    "mail/models/mail_alias.py": "mail.alias model and inbound message routing.",
+    "mail/models/mail_channel.py": "Discuss channel and member models, permissions, RTC, guest access.",
+    "mail/models/mail_blacklist.py": "Blacklist model and mail.thread.blacklist mixin.",
+    "mail/models/mail_bounce.py": "Bounce detection and metadata storage.",
+    "mail/models/mail_followers.py": "Follower subscriptions and subtype inheritance."
+  },
+  "crons": {
+    "ir_cron_mail_gateway_action": "Fetch incoming emails from configured IMAP/POP servers. Model: fetchmail.server, method: _fetch_mails.",
+    "ir_cron_send_scheduled_message": "Send scheduled messages. Model: mail.message.schedule, method: _send_notifications.",
+    "mail.ir_cron_delete_notification": "Delete old notifications. Model: mail.notification, method: _notification_delete_old.",
+    "mail.ir_cron_delete_tokens": "Clean expired mail/channel guest tokens. Model: mail.channel, method: _gc_delete_guest_tokens.",
+    "mail.ir_cron_update_notification": "Update notification cache / batch status. Model: mail.notification, method: _notify_update."
+  },
+  "security_groups": {
+    "base.group_user": "Standard internal user. Can read/post on threads they can access, manage own activities, and subscribe to channels.",
+    "base.group_system": "Administrator / Settings user. Full access to mail configuration: aliases, outgoing mail servers, activity types, templates, blacklist."
+  },
+  "record_rules": {
+    "mail.message.user_has_access": "Restricts mail.message read to messages on records the user can access, plus messages where the user is a direct recipient or author.",
+    "mail.notification.user_notification": "Users can read notifications addressed to themselves or authored by themselves.",
+    "mail.activity.user.own": "Users can see activities assigned to themselves or created by themselves, plus activities on records they can access.",
+    "mail.followers.user_followed_record": "Users can read followers on records they can access.",
+    "mail.channel.rule": "Channels are readable by members or when public/open groups; restricted by channel_type and group_public_id."
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "ecommerce_implementation",
+  "name": "eCommerce Full Implementation",
+  "description": "Complete eCommerce implementation workflow: analyze product catalog, validate checkout flow, configure pricelists, payment, delivery, SEO, and review.",
+  "version": "1.0",
+  "skill_id": "skill_ecommerce",
+  "compatible_agents": ["functional", "technical", "developer", "architect"],
+  "steps": [
+    {
+      "id": "analyze_catalog",
+      "name": "Analyze Product Catalog",
+      "description": "Review product templates, public categories, variants, and SEO metadata",
+      "tool": "analyze_product_catalog",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "validate_checkout",
+      "name": "Validate Checkout Flow",
+      "description": "Check cart creation, address capture, delivery carrier, and payment provider readiness",
+      "tool": "validate_checkout_flow",
+      "params": {},
+      "depends_on": ["analyze_catalog"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "configure_pricelists",
+      "name": "Configure Pricelists",
+      "description": "Set up website pricelists and price rules for B2C and B2C pricing",
+      "tool": "analyze_product_catalog",
+      "params": {},
+      "depends_on": ["analyze_catalog"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "setup_payment_delivery",
+      "name": "Setup Payment & Delivery",
+      "description": "Enable payment providers and delivery carriers, configure capture modes and shipping rules",
+      "tool": "validate_checkout_flow",
+      "params": {},
+      "depends_on": ["configure_pricelists"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "optimize_seo",
+      "name": "Optimize Product SEO",
+      "description": "Set SEO titles, descriptions, URL slugs, and verify sitemap inclusion",
+      "tool": "analyze_product_catalog",
+      "params": {},
+      "depends_on": ["analyze_catalog"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "final_review",
+      "name": "Final Review",
+      "description": "Run catalog and checkout validation again to confirm implementation quality",
+      "tool": "validate_checkout_flow",
+      "params": {},
+      "depends_on": ["setup_payment_delivery", "optimize_seo"],
+      "on_failure": "stop"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "4-8 hours"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "id": "mail_implementation",
+  "name": "Mail Framework Implementation",
+  "description": "Complete Mail and Communication framework implementation workflow: analyze requirements, configure thread/activity behavior, validate templates and gateway, generate security, and verify.",
+  "version": "1.0",
+  "skill_id": "skill_mail",
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer"],
+  "steps": [
+    {
+      "id": "analyze_requirements",
+      "name": "Analyze Requirements",
+      "description": "Gather mail requirements: chatter usage, activities, email templates, gateway aliases, notifications, bounce/blacklist, discuss channels.",
+      "tool": "analyze_mail_threads",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "configure_mail_thread",
+      "name": "Configure mail.thread",
+      "description": "Add mail.thread (and mail.thread.blacklist if needed) to models, define tracked fields, default recipients, and auto-subscribe rules.",
+      "tool": "analyze_mail_threads",
+      "params": {},
+      "depends_on": ["analyze_requirements"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "configure_activities",
+      "name": "Configure Activities",
+      "description": "Add mail.activity.mixin to models, create activity types/plans, and implement activity_schedule/activity_feedback hooks.",
+      "tool": "analyze_mail_threads",
+      "params": {},
+      "depends_on": ["configure_mail_thread"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "design_email_templates",
+      "name": "Design Email Templates",
+      "description": "Create QWeb mail.template records with subjects, bodies, recipients, attachments, and layout inheritance.",
+      "tool": "validate_email_templates",
+      "params": {},
+      "depends_on": ["configure_mail_thread"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "setup_mail_gateway",
+      "name": "Setup Mail Gateway",
+      "description": "Configure catchall/bounce aliases, mail.alias records, inbound routing, and message_new/message_update logic.",
+      "tool": "analyze_mail_threads",
+      "params": {},
+      "depends_on": ["analyze_requirements"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "validate_templates",
+      "name": "Validate Templates",
+      "description": "Validate templates for recipients, subject, body placeholders, and rendering readiness.",
+      "tool": "validate_email_templates",
+      "params": {},
+      "depends_on": ["design_email_templates"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "security_and_testing",
+      "name": "Security & Testing",
+      "description": "Define ACLs, record rules for mail.message/notification/activity, and write tests for message_post, follower subscription, and activity scheduling.",
+      "tool": "validate_email_templates",
+      "params": {},
+      "depends_on": ["configure_activities", "setup_mail_gateway", "validate_templates"],
+      "on_failure": "stop"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "3-6 hours"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "domain": "Website",
+  "version": "19.0",
+  "modules": ["website_sale", "sale", "product", "payment", "delivery", "website", "portal"],
+  "key_models": {
+    "product.template": "Product template. Fields: name, website_published, is_published, public_categ_ids, website_description_sale, website_size_y, website_size_x, website_sequence, list_price, type, invoice_policy, available_in_pos, sale_ok.",
+    "product.product": "Product variant. Fields: product_tmpl_id, product_template_attribute_value_ids, combination_indices, lst_price, standard_price, qty_available, website_price, extra_price.",
+    "product.public.category": "Public e-commerce category. Fields: name, parent_id, child_id, sequence, website_id, is_published.",
+    "sale.order": "Cart/sales order. Fields: website_id, partner_id, partner_invoice_id, partner_shipping_id, order_line, amount_total, amount_untaxed, state, date_order, access_token, transaction_ids, carrier_id, delivery_rating_success.",
+    "sale.order.line": "Cart line. Fields: order_id, product_id, product_template_id, product_uom_qty, price_unit, price_subtotal, price_tax, is_delivery, is_downpayment.",
+    "website": "Website configuration. Fields: name, domain, company_id, pricelist_id, warehouse_id, salesteam_id, configurator_done.",
+    "res.partner": "Customer. Fields: name, email, phone, mobile, street, city, zip, country_id, state_id, commercial_partner_id, child_ids.",
+    "payment.provider": "Payment provider. Fields: name, code, state, company_id, website_id, capture_manually, payment_method_ids, available_currency_ids.",
+    "payment.transaction": "Payment transaction. Fields: provider_id, reference, amount, currency_id, state, partner_id, sale_order_ids, landing_route.",
+    "delivery.carrier": "Shipping carrier. Fields: name, delivery_type, product_id, company_id, website_id, fixed_price, free_over, amount, zip_ids, state_ids, country_ids, rate_shipment, send_shipping.",
+    "product.pricelist": "Pricelist. Fields: name, currency_id, item_ids, company_id, website_id, selectable, code.",
+    "product.pricelist.item": "Price rule. Fields: pricelist_id, applied_on, min_quantity, date_start, date_end, product_tmpl_id, product_id, categ_id, compute_price, fixed_price, percent_price, base, base_pricelist_id, price_discount, price_surcharge, price_round.",
+    "website.visitor": "Anonymous or known visitor. Fields: access_token, partner_id, visit_count, lang_id, country_id, website_id, page_ids, sale_order_ids."
+  },
+  "key_files": {
+    "website_sale/models/product_template.py": "E-commerce fields and methods on product.template",
+    "website_sale/models/sale_order.py": "Cart logic, checkout helpers, and abandoned cart hooks",
+    "website_sale/controllers/main.py": "Shop and checkout HTTP controllers (product, cart, checkout, payment, confirmation)",
+    "website_sale/models/website.py": "Website pricelist and sale order helpers",
+    "website_sale/models/product_public_category.py": "Public category model and tree navigation",
+    "website_sale/models/website_visitor.py": "Visitor tracking and wishlist linking",
+    "payment/models/payment_provider.py": "Payment provider configuration and method selection",
+    "payment/models/payment_transaction.py": "Transaction lifecycle and order reconciliation",
+    "delivery/models/delivery_carrier.py": "Delivery carrier rating and shipping label logic",
+    "product/models/product_pricelist.py": "Pricelist price computation",
+    "product/models/product_pricelist_item.py": "Price rule engine and formula evaluation"
+  },
+  "crons": {
+    "website_sale_cron_abandoned_cart": "Send abandoned cart recovery emails. Model: sale.order, method: _cron_abandoned_cart",
+    "website_visitor_cron": "Clean and archive stale website visitor records. Model: website.visitor",
+    "sale_send_invoice_cron": "Automatically send confirmed sale order invoices by email. Model: sale.order"
+  },
+  "security_groups": {
+    "base.group_public": "Anonymous website visitors; can browse published products and categories",
+    "base.group_portal": "Portal customers; can access their orders, invoices, and downloads",
+    "base.group_user": "Internal users; can manage products, orders, and configuration in backend",
+    "sales_team.group_sale_salesman": "Access own sales orders created through e-commerce",
+    "sales_team.group_sale_manager": "Full CRUD on sales orders and product configuration",
+    "website.group_website_designer": "Full website builder and theme editing access",
+    "website.group_website_restricted_editor": "Edit page content, snippets, and products in front-end"
+  },
+  "record_rules": {
+    "product_template_public_rule": "Published products visible to public/portal: [('website_published','=',True),('sale_ok','=',True)]",
+    "product_product_public_rule": "Published variants visible to public/portal: [('website_published','=',True),('sale_ok','=',True)]",
+    "product_public_category_company_rule": "Multi-company isolation for public categories: [('company_id','in',company_ids+[False])]",
+    "product_template_company_rule": "Multi-company isolation for product templates: [('company_id','in',company_ids+[False])]",
+    "sale_order_portal_rule": "Portal users see only their own sale orders: [('partner_id','child_of',user.partner_id.id)]",
+    "sale_order_company_rule": "Multi-company isolation for sale orders: [('company_id','in',company_ids)]",
+    "website_page_rule": "Multi-website isolation for pages: [('website_id','in',[website_id,False])]",
+    "website_menu_rule": "Multi-website isolation for menus: [('website_id','in',[website_id,False])]"
+  }
+}

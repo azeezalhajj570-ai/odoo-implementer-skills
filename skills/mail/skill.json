@@ -4,7 +4,7 @@
   "description": "Expert knowledge of Odoo's mail, discuss, and notification framework including mail.thread, mail.activity.mixin, mail templates, email routing, bounce handling, notifications, and chatter.",
   "version": "19.0.1",
   "domain": "Platform",
-  "subdomain": "Communication",
+  "subdomain": "Mail & Communication",
   "supported_odoo_versions": ["19.0"],
   "supported_modules": [
     {"name": "mail", "version": "1.19", "location": "community", "required": true}
@@ -19,7 +19,7 @@
     "odoo_modules": ["mail", "bus"],
     "external_packages": []
   },
-  "compatible_agents": ["planner", "developer", "functional", "qa"],
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer"],
   "capabilities": [
     {"id": "cap_mail_thread", "name": "mail.thread", "description": "Message tracking, notifications, followers, subtypes, routing, bounce handling. Key methods: message_post, message_subscribe, message_route_process, _routing_handle_bounce.", "confidence": "high"},
     {"id": "cap_activities", "name": "Mail Activities", "description": "mail.activity.mixin, activity plans, activity types, scheduling, calendar integration, deadline management.", "confidence": "high"},

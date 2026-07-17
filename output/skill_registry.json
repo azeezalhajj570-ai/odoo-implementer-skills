@@ -1,6 +1,6 @@
 {
-  "indexed_at": "2026-07-17T16:25:22.330028+00:00",
-  "skill_count": 15,
+  "indexed_at": "2026-07-17T16:32:50.702378+00:00",
+  "skill_count": 16,
   "capabilities": {
     "cap_bom_design": [
       "skill_manufacturing"
@@ -28,6 +28,34 @@
     ],
     "cap_quality_integration": [
       "skill_manufacturing"
+    ],
+    "cap_product_catalog": [
+      "skill_ecommerce"
+    ],
+    "cap_product_variants": [
+      "skill_ecommerce"
+    ],
+    "cap_pricelists": [
+      "skill_ecommerce"
+    ],
+    "cap_cart_checkout": [
+      "skill_ecommerce",
+      "skill_website"
+    ],
+    "cap_payment_providers": [
+      "skill_ecommerce"
+    ],
+    "cap_delivery_methods": [
+      "skill_ecommerce"
+    ],
+    "cap_wishlist_comparison": [
+      "skill_ecommerce"
+    ],
+    "cap_digital_products": [
+      "skill_ecommerce"
+    ],
+    "cap_seo_products": [
+      "skill_ecommerce"
     ],
     "cap_version_upgrade": [
       "skill_migration"
@@ -298,9 +326,6 @@
     "cap_ecommerce_products": [
       "skill_website"
     ],
-    "cap_cart_checkout": [
-      "skill_website"
-    ],
     "cap_blog_content": [
       "skill_website"
     ],
@@ -389,6 +414,10 @@
       "skill_inventory",
       "skill_purchase"
     ],
+    "website": [
+      "skill_ecommerce",
+      "skill_website"
+    ],
     "migration": [
       "skill_migration"
     ],
@@ -415,9 +444,6 @@
     ],
     "marketing": [
       "skill_marketing"
-    ],
-    "website": [
-      "skill_website"
     ]
   },
   "skills": {
@@ -439,6 +465,27 @@
       "dependencies": [
         "skill_base",
         "skill_inventory"
+      ]
+    },
+    "skill_ecommerce": {
+      "name": "Odoo eCommerce Expert",
+      "version": "19.0.1",
+      "domain": "Website",
+      "capabilities": [
+        "cap_product_catalog",
+        "cap_product_variants",
+        "cap_pricelists",
+        "cap_cart_checkout",
+        "cap_payment_providers",
+        "cap_delivery_methods",
+        "cap_wishlist_comparison",
+        "cap_digital_products",
+        "cap_seo_products"
+      ],
+      "dependencies": [
+        "skill_base",
+        "skill_website",
+        "skill_crm"
       ]
     },
     "skill_migration": {

@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ecommerce_func_001",
+    "type": "functional",
+    "difficulty": "beginner",
+    "question": "How do I publish a product to the Odoo eCommerce shop?",
+    "expected_answer": "Open the product template (product.template), enable 'Visible on Website' (website_published) and ensure 'Can be Sold' (sale_ok) is checked. Assign public categories via public_categ_ids and save. The product will appear in the shop categories and search."
+  },
+  {
+    "id": "ecommerce_func_002",
+    "type": "functional",
+    "difficulty": "beginner",
+    "question": "How do I create product variants in the eCommerce shop?",
+    "expected_answer": "On the product template, add Attribute Lines (e.g., Color, Size). Each attribute line contains attribute values. Odoo generates product.product variants for each combination. You can set extra prices per value and disable unwanted combinations."
+  },
+  {
+    "id": "ecommerce_func_003",
+    "type": "functional",
+    "difficulty": "intermediate",
+    "question": "How do pricelists affect prices shown on the website?",
+    "expected_answer": "The website resolves a pricelist for the visitor (website.pricelist_id or partner property). The pricelist's item rules (product.pricelist.item) compute the final unit price for each product. Rules can be global, by category, product, or variant, using fixed, percentage, or formula-based pricing."
+  },
+  {
+    "id": "ecommerce_func_004",
+    "type": "functional",
+    "difficulty": "intermediate",
+    "question": "How do I configure a payment provider for the website?",
+    "expected_answer": "Go to Website > Configuration > Payment Providers. Select a provider (e.g., Stripe, PayPal), enter credentials, set state to 'Enabled', choose the website, and select supported payment methods. Set capture mode to 'Authorize and capture' or 'Authorize and capture later'."
+  },
+  {
+    "id": "ecommerce_func_005",
+    "type": "functional",
+    "difficulty": "intermediate",
+    "question": "How do I set up delivery methods in the eCommerce checkout?",
+    "expected_answer": "Create a delivery.carrier under Inventory/Sales > Configuration > Delivery > Delivery Methods. Define delivery type (fixed, based on rules, or integration), product for delivery service, pricing, and allowed countries/ZIPs. Enable it on the website. During checkout, the carrier is selected and shipping cost is added as a sale order line."
+  },
+  {
+    "id": "ecommerce_func_006",
+    "type": "functional",
+    "difficulty": "intermediate",
+    "question": "How does the abandoned cart recovery feature work?",
+    "expected_answer": "Website Sale identifies draft sale orders that are older than the configured recovery delay. A cron (website_sale_cron_abandoned_cart) sends a recovery email to customers with a known email or partner. The email contains a link back to the cart."
+  },
+  {
+    "id": "ecommerce_func_007",
+    "type": "functional",
+    "difficulty": "advanced",
+    "question": "How do I enable and manage product wishlists and comparisons?",
+    "expected_answer": "Wishlists are enabled in Website Settings. They use product.wishlist records linked to website.visitor or res.partner. The comparison feature uses the visitor session to compare product templates within the same public category. Both features require portal/visitor tracking."
+  },
+  {
+    "id": "ecommerce_func_008",
+    "type": "functional",
+    "difficulty": "advanced",
+    "question": "How do I configure a product as a digital download?",
+    "expected_answer": "Create a product template (type product or service), attach the downloadable files as ir.attachment, ensure the attachments are published and accessible to portal users, and set the invoice policy to 'Ordered quantities' so the customer can download after order confirmation."
+  },
+  {
+    "id": "ecommerce_func_009",
+    "type": "functional",
+    "difficulty": "advanced",
+    "question": "How do I optimize product pages for search engines?",
+    "expected_answer": "Set website_meta_title, website_meta_description, and seo_name on the product template. Use the SEO preview in the website editor to verify. Published products are included in the sitemap automatically. Add alt text to product images and keep URLs clean."
+  },
+  {
+    "id": "ecommerce_func_010",
+    "type": "functional",
+    "difficulty": "intermediate",
+    "question": "How is multi-website product visibility handled in Odoo eCommerce?",
+    "expected_answer": "Products are published globally via website_published; website-specific filtering can be done through product_public_category records or website-specific views. The current website context is determined by the domain or website_id in the request. Record rules on website.page and website.menu enforce multi-website isolation."
+  }
+]

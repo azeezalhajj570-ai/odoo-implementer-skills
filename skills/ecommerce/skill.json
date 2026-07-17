@@ -1,0 +1,135 @@
+{
+  "skill_id": "skill_ecommerce",
+  "name": "Odoo eCommerce Expert",
+  "description": "Expert-level knowledge of Odoo eCommerce including product catalog and variants, public categories, pricelists and price rules, cart and checkout flow, payment providers, delivery carriers, wishlists and product comparisons, digital products, abandoned cart recovery, and SEO-optimized product pages.",
+  "version": "19.0.1",
+  "domain": "Website",
+  "subdomain": "eCommerce",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [
+    {"name": "website_sale", "version": "19.0", "location": "community", "required": true},
+    {"name": "sale", "version": "19.0", "location": "community", "required": true},
+    {"name": "product", "version": "19.0", "location": "community", "required": true},
+    {"name": "payment", "version": "19.0", "location": "community", "required": true},
+    {"name": "delivery", "version": "19.0", "location": "community", "required": false},
+    {"name": "website", "version": "19.0", "location": "community", "required": false},
+    {"name": "portal", "version": "19.0", "location": "community", "required": false}
+  ],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Odoo ORM, security, and mail framework", "required": true},
+    {"skill": "skill_website", "description": "Website builder, themes, pages, and portal", "required": false},
+    {"skill": "skill_crm", "description": "Sales teams and customer relationship context", "required": false}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"},
+      {"skill_id": "skill_website", "version_requirement": ">=19.0", "relationship": "recommended_with"},
+      {"skill_id": "skill_crm", "version_requirement": ">=19.0", "relationship": "recommended_with"}
+    ],
+    "odoo_modules": ["website_sale", "sale", "product", "payment", "delivery", "website", "portal"],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer"],
+  "capabilities": [
+    {
+      "id": "cap_product_catalog",
+      "name": "Product Catalog Management",
+      "description": "Publish products, configure public categories, images, descriptions, SEO metadata, and product visibility for website shoppers.",
+      "confidence": "high"
+    },
+    {
+      "id": "cap_product_variants",
+      "name": "Product Variants & Combinations",
+      "description": "Configure product templates with attribute lines and values, manage variant extra prices, availability, and product configurator on the shop.",
+      "confidence": "high"
+    },
+    {
+      "id": "cap_pricelists",
+      "name": "Pricelists & Price Rules",
+      "description": "Configure advanced pricelists, price rules, currency-based pricing, and website-specific pricelist assignment.",
+      "confidence": "high"
+    },
+    {
+      "id": "cap_cart_checkout",
+      "name": "Cart & Checkout Flow",
+      "description": "Manage sale orders created as e-commerce carts, address collection, express checkout, cart recovery, and guest checkout behavior.",
+      "confidence": "high"
+    },
+    {
+      "id": "cap_payment_providers",
+      "name": "Payment Providers",
+      "description": "Configure payment providers, payment methods, tokens, capture modes, and transaction flow integration with sale orders.",
+      "confidence": "high"
+    },
+    {
+      "id": "cap_delivery_methods",
+      "name": "Delivery Methods & Shipping",
+      "description": "Set up delivery carriers, shipping cost rules, carrier-specific connectors, and delivery line injection during checkout.",
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_wishlist_comparison",
+      "name": "Wishlists & Product Comparisons",
+      "description": "Enable customer wishlists, comparison lists, and customer-specific product interactions tied to website visitors and portal users.",
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_digital_products",
+      "name": "Digital Products",
+      "description": "Configure downloadable products, attachments, and post-payment digital delivery through customer portal downloads.",
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_seo_products",
+      "name": "Product SEO & Shop Optimization",
+      "description": "Optimize product pages for search engines, manage sitemap entries, structured data, meta tags, and URL slugs for the shop.",
+      "confidence": "medium"
+    }
+  ],
+  "limitations": [
+    "Payment providers require valid acquiring credentials and may be subject to region availability",
+    "Delivery carrier live rates require carrier-specific API integration or third-party modules",
+    "Wishlist and comparison features require portal/visitor tracking and are limited to authenticated or cookied users",
+    "Abandoned cart recovery only applies to carts that have a known email or partner",
+    "Digital product downloads depend on portal attachment access and product type configuration"
+  ],
+  "required_tools": ["python", "database_access", "website_access"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string"},
+      "product_id": {"type": "integer"},
+      "order_id": {"type": "integer"},
+      "website_id": {"type": "integer"},
+      "context": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "recommendation": {"type": "string"},
+      "code": {"type": "string"},
+      "configuration": {"type": "array", "items": {"type": "object"}},
+      "explanations": {"type": "array", "items": {"type": "string"}}
+    }
+  },
+  "evaluation": {
+    "functional_count": 10,
+    "technical_count": 10,
+    "architecture_count": 5,
+    "debugging_count": 5,
+    "migration_count": 5,
+    "automation_count": 5,
+    "total_count": 40
+  },
+  "tags": ["website", "ecommerce", "website_sale", "product_catalog", "pricelists", "checkout", "payment", "delivery", "seo", "abandoned_cart"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "Odoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "source_count": 35,
+    "claim_count": 72,
+    "knowledge_graph_nodes": 26,
+    "changelog": "v19.0.1 — Initial eCommerce skill based on source code analysis of website_sale, sale, product, payment, delivery, and website modules"
+  }
+}
