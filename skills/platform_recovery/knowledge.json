@@ -1,0 +1,79 @@
+{
+  "domain": "Platform",
+  "version": "19.0",
+  "modules": [],
+  "key_concepts": {
+    "salvage": "The process of identifying valuable parts of a failed or under-implemented system and rebuilding around them.",
+    "mvp_recovery": "Choosing the smallest valuable use case that leverages existing working components and can ship quickly.",
+    "stub_codebase": "A project with clean structure and many components but no real implementation.",
+    "foundation_first": "Building production infrastructure (auth, storage, APIs, observability) before adding AI features.",
+    "buy_vs_build": "Using existing frameworks (LangChain, FastAPI, Prometheus) instead of custom implementations.",
+    "least_privilege_connectors": "Connectors that default to read-only access and require explicit approval for writes."
+  },
+  "keep_delete_merge_rules": {
+    "keep": [
+      "Working infrastructure that does what it claims (loaders, registries, validators, real graph engines)",
+      "Accurate reference data (breaking changes, best practices, checklists)",
+      "Well-designed schemas and contracts"
+    ],
+    "merge": [
+      "Multiple engines that apply the same pattern (simulation, incident, optimization)",
+      "Reasoning, planning, and decision into one intelligence layer",
+      "Execution, workflow, and tool adapters into one runtime"
+    ],
+    "delete": [
+      "Engines that only return hardcoded sample data",
+      "Dashboards fed by magic constants",
+      "Fake connectors with no real integration",
+      "Duplicate data structures for the same concept"
+    ]
+  },
+  "recommended_stack": {
+    "backend": "FastAPI + SQLModel/SQLAlchemy + PostgreSQL",
+    "cache_queue": "Redis + Celery/RQ/Arq",
+    "auth": "OAuth2 / OIDC + RBAC",
+    "ai": "OpenAI/Anthropic via LiteLLM + LangChain/LangGraph + sentence-transformers + pgvector",
+    "observability": "Prometheus + Grafana + OpenTelemetry + structured logs",
+    "graph": "Neo4j or PostgreSQL with pggraph",
+    "deployment": "Kubernetes + Helm"
+  },
+  "connector_security": {
+    "postgresql": "Read-only default, SSL, query timeout, least-privilege user, no DDL unless approved",
+    "odoo_orm": "XML-RPC/JSON-RPC with authenticated user, impersonation logging, no direct db writes",
+    "git": "SSH keys per tenant, branch protection checks, read-only default",
+    "docker": "Docker socket restricted, no privileged containers, audit all execs",
+    "kubernetes": "Service account per tenant, RBAC, namespace isolation, no cluster-admin"
+  },
+  "phases": [
+    {
+      "name": "Foundation",
+      "duration": "Months 1-3",
+      "focus": "PostgreSQL, Redis, FastAPI, auth, multi-tenancy, audit logs, real read-only connectors"
+    },
+    {
+      "name": "Real Digital Twin",
+      "duration": "Months 3-6",
+      "focus": "Graph DB backend, event-driven sync, delta history, staleness detection"
+    },
+    {
+      "name": "AI Layer",
+      "duration": "Months 6-9",
+      "focus": "LLM integration, RAG, embeddings, vector memory, human-in-the-loop"
+    },
+    {
+      "name": "Execution",
+      "duration": "Months 9-12",
+      "focus": "Sandboxed workflow execution, staging promotion, rollback, migration dry-run"
+    },
+    {
+      "name": "Operations",
+      "duration": "Months 12-18",
+      "focus": "Real monitoring, incident response, optimization from actual data, enterprise dashboard"
+    },
+    {
+      "name": "Scale",
+      "duration": "Months 18-24",
+      "focus": "Horizontal scaling, fleet management, enterprise governance"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "id": "rec_func_001",
+    "question": "A platform has 10 independent 'engines' that all return hardcoded templates. What is the first recovery action?",
+    "expected_answer": "Classify each engine as KEEP, MERGE, or DELETE. Merge engines with the same pattern and delete those that only return sample data. Do not try to incrementally patch stubs.",
+    "domain": "functional",
+    "difficulty": "medium"
+  },
+  {
+    "id": "rec_func_002",
+    "question": "A working skill loader, knowledge graph engine, and validation engine exist alongside many stubs. Which should be kept?",
+    "expected_answer": "Keep the skill loader, knowledge graph engine, and validation engine. They are genuinely useful infrastructure.",
+    "domain": "functional",
+    "difficulty": "easy"
+  },
+  {
+    "id": "rec_func_003",
+    "question": "A 'Digital Twin' is a dictionary overwritten by hardcoded sample data on every sync. What should replace it?",
+    "expected_answer": "Replace it with an event-driven graph model backed by a graph database, with delta history, conflict resolution, and staleness detection.",
+    "domain": "functional",
+    "difficulty": "medium"
+  },
+  {
+    "id": "rec_func_004",
+    "question": "The platform's 'AI' is entirely keyword matching. What is the recommended redesign?",
+    "expected_answer": "Replace custom keyword engines with LLM-based reasoning, RAG over skills/codebase, vector memory, and an existing agent framework such as LangGraph.",
+    "domain": "functional",
+    "difficulty": "easy"
+  },
+  {
+    "id": "rec_func_005",
+    "question": "All persistent state is stored in JSON files. What is the minimum production replacement?",
+    "expected_answer": "PostgreSQL for structured data, Redis for caching and queues, and object/blob storage for artifacts. JSON files are not a production database.",
+    "domain": "functional",
+    "difficulty": "easy"
+  },
+  {
+    "id": "rec_func_006",
+    "question": "A platform claims multi-tenancy but has no isolation. What three things must be added first?",
+    "expected_answer": "Row-level tenant isolation, tenant-scoped credentials/secrets, and per-tenant audit logs.",
+    "domain": "functional",
+    "difficulty": "medium"
+  },
+  {
+    "id": "rec_func_007",
+    "question": "What is the recommended first MVP for an under-implemented Odoo AI platform that already has validation and upgrade reference data?",
+    "expected_answer": "Ship automated Odoo module validation + upgrade impact reports. It leverages existing valuable components and is genuinely useful to Odoo partners.",
+    "domain": "functional",
+    "difficulty": "medium"
+  },
+  {
+    "id": "rec_func_008",
+    "question": "A connector registry accepts any callable with no authentication. What is the security fix?",
+    "expected_answer": "Add per-tenant authentication, least-privilege credentials, scoped actions, audit logging, and sandboxed execution for custom handlers.",
+    "domain": "functional",
+    "difficulty": "medium"
+  },
+  {
+    "id": "rec_func_009",
+    "question": "Why should foundation (auth, storage, observability) be built before AI features?",
+    "expected_answer": "AI features without a production foundation are unusable, insecure, and unscalable. Foundation enables safe execution, auditability, and iteration.",
+    "domain": "functional",
+    "difficulty": "easy"
+  },
+  {
+    "id": "rec_func_010",
+    "question": "A platform plans to support 6 layers and 30+ capabilities. What is the recommended scope strategy?",
+    "expected_answer": "Reduce scope to one valuable use case that leverages existing working components. Expand only after that use case ships and works in production.",
+    "domain": "functional",
+    "difficulty": "medium"
+  }
+]

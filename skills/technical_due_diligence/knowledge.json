@@ -1,0 +1,78 @@
+{
+  "domain": "Platform",
+  "version": "19.0",
+  "modules": [],
+  "key_concepts": {
+    "stub_architecture": "A system with clean package structure and dataclasses but no real implementation. Often mistaken for a working product.",
+    "keyword_matching_vs_ai": "Keyword matching returns the first matching template. AI uses probabilistic reasoning, embeddings, or structured generation.",
+    "digital_twin": "A physics-based or state-based model synchronized with real-world assets via event streams, not a static dictionary.",
+    "rule_engine": "A deterministic system that applies IF-THEN rules to observed state. Different from simulation or machine learning.",
+    "production_readiness": "The set of capabilities required to run software in production: observability, security, HA, backups, rollback, multi-tenancy, compliance.",
+    "technical_debt": "The future cost of shortcuts. Architecture debt occurs when the structure itself needs redesign.",
+    "false_complexity": "Many packages/files creating the appearance of a complex system while the logic remains trivial."
+  },
+  "review_checklists": {
+    "architecture": [
+      "Is the separation of concerns correct?",
+      "Which components are independent and which should be merged?",
+      "What is over-engineered?",
+      "What is under-engineered?",
+      "What will fail in production?"
+    ],
+    "ai": [
+      "Is there an actual model or only keyword matching?",
+      "Does memory use embeddings or string intersection?",
+      "Are decisions pre-scored or dynamically evaluated?",
+      "Is self-correction rule-based or learned?"
+    ],
+    "odoo": [
+      "Can it implement real Odoo modules?",
+      "Can it maintain and migrate real databases?",
+      "Does it support Community, Enterprise, OCA, custom modules?",
+      "Does it handle Studio, multi-company, localization?"
+    ],
+    "scalability": [
+      "What is the storage backend?",
+      "Are there full-table scans or linear scans?",
+      "Is there caching?",
+      "Is there concurrency control?",
+      "How does it handle partial failures?"
+    ],
+    "security": [
+      "Is there authentication and authorization?",
+      "How are secrets managed?",
+      "Is there input validation and sandboxing?",
+      "Are there audit logs?",
+      "What are the autonomous execution guardrails?"
+    ],
+    "production": [
+      "Is there observability and tracing?",
+      "Is there rollback and versioning?",
+      "Is there disaster recovery and HA?",
+      "Is there multi-tenancy and rate limiting?",
+      "Are there approval workflows?"
+    ]
+  },
+  "scorecard_dimensions": [
+    {"name": "Architecture", "weight": 1.0, "criteria": "Soundness, separation of concerns, appropriate complexity"},
+    {"name": "AI Design", "weight": 1.0, "criteria": "Use of real AI/ML vs keyword/templates"},
+    {"name": "Odoo Expertise", "weight": 1.0, "criteria": "Depth of Odoo-specific knowledge and integration"},
+    {"name": "Software Engineering", "weight": 1.0, "criteria": "Code quality, patterns, maintainability"},
+    {"name": "Scalability", "weight": 1.0, "criteria": "Ability to handle enterprise scale"},
+    {"name": "Security", "weight": 1.0, "criteria": "Auth, secrets, sandboxing, audit"},
+    {"name": "Maintainability", "weight": 1.0, "criteria": "Ease of change and extension"},
+    {"name": "Extensibility", "weight": 1.0, "criteria": "Plugin/skill architecture"},
+    {"name": "Production Readiness", "weight": 1.0, "criteria": "Operational capabilities"},
+    {"name": "Innovation", "weight": 0.8, "criteria": "Novelty of vision"},
+    {"name": "Commercial Potential", "weight": 0.8, "criteria": "Market fit and differentiation"}
+  ],
+  "verdict_scale": [
+    "Revolutionary",
+    "Excellent",
+    "Very Good",
+    "Good",
+    "Average",
+    "Below Average",
+    "Not Production Ready"
+  ]
+}

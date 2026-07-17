@@ -1,0 +1,114 @@
+{
+  "skill_id": "skill_tdd",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_architecture_review",
+      "name": "Architecture Review",
+      "description": "Evaluate whether layers are technically sound, separation of concerns is correct, components are over/under-engineered, and what should be merged or redesigned.",
+      "required_knowledge": ["layered_architecture", "separation_of_concerns", "microservices", "modular_design", "architecture_debt"],
+      "examples": [
+        "Review a 6-layer AI platform for component independence",
+        "Identify over-engineered engines that should be merged",
+        "Assess whether a Digital Twin is realistic or a dictionary"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_ai_design_review",
+      "name": "AI Design Review",
+      "description": "Determine whether reasoning, planning, decision, memory, and self-correction are real AI systems or keyword/template engines.",
+      "required_knowledge": ["llm", "rag", "embeddings", "agent_orchestration", "prompt_engineering", "vector_databases"],
+      "examples": [
+        "Distinguish an LLM planner from a hardcoded phase template",
+        "Evaluate whether a memory system uses embeddings or keyword matching",
+        "Recommend replacing a custom reasoning engine with LangChain/LangGraph"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_odoo_review",
+      "name": "Odoo Implementation Review",
+      "description": "Assess whether a platform can implement, maintain, migrate, and operate real Odoo deployments across Enterprise, Community, OCA, and custom modules.",
+      "required_knowledge": ["odoo_19", "odoo_orm", "odoo_upgrade", "oca", "odoo_studio", "multi_company", "l10n"],
+      "examples": [
+        "Evaluate whether a platform can handle multi-company and localization",
+        "Check for real ORM introspection vs sample data",
+        "Assess upgrade automation beyond static breaking-change lists"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_scalability_review",
+      "name": "Scalability Review",
+      "description": "Identify bottlenecks under enterprise-scale assumptions and recommend backend, database, caching, and concurrency changes.",
+      "required_knowledge": ["distributed_systems", "postgresql", "redis", "kubernetes", "load_balancing", "caching"],
+      "examples": [
+        "Assess whether JSON file storage can survive 100 databases",
+        "Identify missing caching and indexing strategies",
+        "Recommend database replacement for in-memory graph storage"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_security_review",
+      "name": "Security Review",
+      "description": "Evaluate prompt injection, tool abuse, secrets management, credentials, database access, Git access, supply chain, plugin, and autonomous execution risks.",
+      "required_knowledge": ["prompt_injection", "rbac", "secrets_management", "supply_chain_security", "sandboxing", "audit_logging"],
+      "examples": [
+        "Assess plugin loading for remote code execution risks",
+        "Check for absence of secrets management and audit logs",
+        "Review autonomous execution approval workflows"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_production_readiness",
+      "name": "Production Readiness Assessment",
+      "description": "Check observability, tracing, audit logs, rollback, versioning, disaster recovery, HA, backups, multi-tenancy, rate limiting, approvals, policy, and compliance.",
+      "required_knowledge": ["observability", "opentelemetry", "prometheus", "grafana", "disaster_recovery", "compliance"],
+      "examples": [
+        "Score a platform on production readiness dimensions",
+        "Identify missing observability and rollback mechanisms",
+        "Recommend HA and backup strategies"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_competitive_review",
+      "name": "Competitive Analysis",
+      "description": "Compare platform capabilities against leading AI coding agents, Odoo tools, and enterprise platforms.",
+      "required_knowledge": ["github_copilot", "cursor", "claude_code", "openhands", "devin", "odoo_studio", "odoo_upgrade_service"],
+      "examples": [
+        "Compare code generation capabilities against Copilot and Devin",
+        "Assess Odoo-specific differentiation vs Odoo Studio",
+        "Identify capabilities competitors have that the platform lacks"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_technical_debt",
+      "name": "Technical Debt Assessment",
+      "description": "Estimate architecture debt, maintenance cost, learning curve, operational cost, complexity, documentation burden, testing burden, and future scalability.",
+      "required_knowledge": ["technical_debt", "software_maintenance", "cognitive_complexity", "test_quality"],
+      "examples": [
+        "Estimate maintenance cost of a 9,000-line stub codebase",
+        "Identify false-complexity from many empty engines",
+        "Assess test burden when tests verify mock data against itself"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_commercial_evaluation",
+      "name": "Commercial Evaluation",
+      "description": "Assess market fit, differentiation, competitive advantage, business value, risk level, time to production, team size, and development time.",
+      "required_knowledge": ["product_strategy", "market_fit", "competitive_advantage", "enterprise_sales"],
+      "examples": [
+        "Evaluate whether a platform can become a commercial SaaS",
+        "Estimate time to production and required team size",
+        "Assess investment risk level before funding"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

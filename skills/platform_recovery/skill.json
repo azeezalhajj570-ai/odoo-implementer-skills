@@ -1,0 +1,82 @@
+{
+  "skill_id": "skill_platform_recovery",
+  "name": "Platform Recovery and Salvage Planner",
+  "description": "Helps teams recover from under-implemented AI platforms by identifying valuable components, merging or deleting stubs, and producing phased rebuild roadmaps with real technology choices.",
+  "version": "19.0.1",
+  "domain": "Platform",
+  "subdomain": "Platform Recovery",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Software engineering and architecture fundamentals", "required": true},
+    {"skill": "skill_tdd", "description": "Technical due diligence assessment", "required": false}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"},
+      {"skill_id": "skill_tdd", "version_requirement": ">=19.0", "relationship": "recommended_with"}
+    ],
+    "odoo_modules": [],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "manager", "architect", "developer", "reviewer"],
+  "capabilities": [
+    {"id": "cap_value_extraction", "name": "Valuable Component Extraction", "description": "Identify which parts of a stub codebase are worth keeping and which should be discarded.", "confidence": "high"},
+    {"id": "cap_component_consolidation", "name": "Component Consolidation", "description": "Recommend merging redundant engines and deleting unnecessary components.", "confidence": "high"},
+    {"id": "cap_foundation_design", "name": "Production Foundation Design", "description": "Design real backend, auth, multi-tenancy, connectors, and storage architecture.", "confidence": "high"},
+    {"id": "cap_ai_redesign", "name": "AI Layer Redesign", "description": "Replace keyword/template engines with LLMs, RAG, embeddings, and existing agent frameworks.", "confidence": "high"},
+    {"id": "cap_twin_redesign", "name": "Digital Twin Redesign", "description": "Replace dictionary-based twins with event-driven graph models, delta history, and conflict resolution.", "confidence": "high"},
+    {"id": "cap_connector_design", "name": "Real Connector Design", "description": "Design secure, least-privilege connectors for PostgreSQL, Odoo ORM, Git, Docker, and Kubernetes.", "confidence": "high"},
+    {"id": "cap_rebuild_roadmap", "name": "Phased Rebuild Roadmap", "description": "Produce a time-boxed, team-sized, milestone-driven plan to rebuild the platform.", "confidence": "medium"},
+    {"id": "cap_scope_reduction", "name": "Scope Reduction Strategy", "description": "Identify the smallest valuable use case to ship first instead of rebuilding all layers.", "confidence": "medium"}
+  ],
+  "limitations": [
+    "Requires an existing due diligence review or detailed project knowledge",
+    "Cannot automatically execute the recovery plan",
+    "Recommendations assume access to a qualified engineering team"
+  ],
+  "required_tools": ["python", "filesystem", "git"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string", "description": "Recovery objective (e.g., full rebuild, scope reduction, foundation design)"},
+      "project_path": {"type": "string", "description": "Path to project root"},
+      "due_diligence_report": {"type": "object", "description": "Structured findings from a prior review"},
+      "constraints": {"type": "object", "description": "Budget, team size, timeline, existing infrastructure"},
+      "context": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "keep": {"type": "array", "items": {"type": "string"}},
+      "merge": {"type": "array", "items": {"type": "object"}},
+      "delete": {"type": "array", "items": {"type": "string"}},
+      "foundation": {"type": "object"},
+      "ai_redesign": {"type": "object"},
+      "phased_roadmap": {"type": "array", "items": {"type": "object"}},
+      "mvp_scope": {"type": "string"},
+      "team_estimate": {"type": "object"}
+    }
+  },
+  "evaluation": {
+    "functional_count": 15,
+    "technical_count": 35,
+    "architecture_count": 30,
+    "debugging_count": 5,
+    "migration_count": 0,
+    "automation_count": 10,
+    "total_count": 95
+  },
+  "tags": ["platform_recovery", "rebuild", "salvage", "architecture", "ai_redesign", "digital_twin", "roadmap"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "Odoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "updated_at": "2026-07-17T12:00:00Z",
+    "source_count": 1,
+    "claim_count": 60,
+    "knowledge_graph_nodes": 25,
+    "changelog": "v19.0.1 — Initial platform recovery skill derived from OAIOS salvage recommendations"
+  }
+}

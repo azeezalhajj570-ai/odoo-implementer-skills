@@ -1,0 +1,71 @@
+{
+  "workflow_id": "wf_platform_recovery",
+  "name": "Platform Recovery and Rebuild Planning",
+  "description": "Turn a due diligence report into a concrete salvage and rebuild plan.",
+  "version": "19.0.1",
+  "steps": [
+    {
+      "order": 1,
+      "name": "Ingest Due Diligence Report",
+      "description": "Load structured findings, scorecard, and verdict.",
+      "tool": "filesystem",
+      "inputs": ["due_diligence_report"]
+    },
+    {
+      "order": 2,
+      "name": "Classify Components",
+      "description": "Label every component as KEEP, MERGE, or DELETE.",
+      "tool": "platform_recovery/classify_components",
+      "inputs": ["findings"]
+    },
+    {
+      "order": 3,
+      "name": "Design Production Foundation",
+      "description": "Specify backend, database, cache, queue, auth, multi-tenancy, and observability stack.",
+      "tool": "reasoning_engine",
+      "inputs": ["constraints", "compliance_requirements"]
+    },
+    {
+      "order": 4,
+      "name": "Redesign AI Layer",
+      "description": "Replace keyword engines with LLM, RAG, embeddings, and agent framework.",
+      "tool": "reasoning_engine",
+      "inputs": ["ai_requirements", "model_preferences"]
+    },
+    {
+      "order": 5,
+      "name": "Redesign Digital Twin",
+      "description": "Define event-driven sync, graph backend, delta history, and conflict resolution.",
+      "tool": "reasoning_engine",
+      "inputs": ["twin_scale_assumptions"]
+    },
+    {
+      "order": 6,
+      "name": "Define Connectors",
+      "description": "Specify PostgreSQL, Odoo ORM, Git, Docker, and Kubernetes connectors with security rules.",
+      "tool": "reasoning_engine",
+      "inputs": ["connector_requirements"]
+    },
+    {
+      "order": 7,
+      "name": "Generate Roadmap",
+      "description": "Produce phased rebuild plan with team size and dates.",
+      "tool": "platform_recovery/generate_roadmap",
+      "inputs": ["team_size", "start_date"]
+    },
+    {
+      "order": 8,
+      "name": "Define MVP Scope",
+      "description": "Identify the smallest valuable use case to ship first.",
+      "tool": "reasoning_engine",
+      "inputs": ["kept_components", "market_use_cases"]
+    },
+    {
+      "order": 9,
+      "name": "Write Recovery Plan",
+      "description": "Assemble final recovery plan document.",
+      "tool": "report_generator",
+      "inputs": ["classified_components", "foundation", "ai_redesign", "twin_redesign", "roadmap", "mvp"]
+    }
+  ]
+}

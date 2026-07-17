@@ -1,0 +1,72 @@
+[
+  {
+    "id": "tdd_tech_001",
+    "question": "How can you programmatically detect whether a 'ReasoningEngine' uses real AI or keyword matching?",
+    "expected_answer": "Inspect the implementation: if it iterates over hardcoded keyword lists and returns static templates, it is not AI. Look for LLM calls, embeddings, or probabilistic models.",
+    "domain": "technical",
+    "difficulty": "easy"
+  },
+  {
+    "id": "tdd_tech_002",
+    "question": "What storage architecture would you recommend for a Digital Twin supporting 100 Odoo databases with millions of nodes and edges?",
+    "expected_answer": "A graph database (Neo4j or PostgreSQL with graph extension) for relationships, time-series store for metrics, and event-driven sync with delta history.",
+    "domain": "technical",
+    "difficulty": "medium"
+  },
+  {
+    "id": "tdd_tech_003",
+    "question": "A connector registry accepts arbitrary callables as handlers with no authentication or capability scoping. What is the minimum fix?",
+    "expected_answer": "Add per-tenant authentication, least-privilege credentials, scoped actions (read-only default), audit logging, and sandboxed execution for custom handlers.",
+    "domain": "technical",
+    "difficulty": "medium"
+  },
+  {
+    "id": "tdd_tech_004",
+    "question": "A project uses JSON files for all persistent state. Name three production problems this causes.",
+    "expected_answer": "No concurrent write safety, no indexing/querying, no transactions, corruption risk, inability to scale beyond small data sizes.",
+    "domain": "technical",
+    "difficulty": "easy"
+  },
+  {
+    "id": "tdd_tech_005",
+    "question": "What is the difference between a simulation engine and a rule engine that returns pre-authored impact templates?",
+    "expected_answer": "A simulation engine models state transitions, dependencies, and probabilities. A rule engine applies static IF-THEN mappings. Pre-authored templates without state modeling is a rule engine, not simulation.",
+    "domain": "technical",
+    "difficulty": "medium"
+  },
+  {
+    "id": "tdd_tech_006",
+    "question": "A platform's memory system finds similar projects by intersecting word sets from descriptions. What modern alternative should replace it?",
+    "expected_answer": "Dense embeddings (sentence-transformers) with a vector database (pgvector, Chroma, Pinecone) and metadata filtering.",
+    "domain": "technical",
+    "difficulty": "easy"
+  },
+  {
+    "id": "tdd_tech_007",
+    "question": "For autonomous execution of Odoo module installation or migration, what guardrails are mandatory?",
+    "expected_answer": "Read-only dry-run, human approval for destructive actions, staging environment, rollback plan, audit log, least-privilege database user, and impact simulation.",
+    "domain": "technical",
+    "difficulty": "medium"
+  },
+  {
+    "id": "tdd_tech_008",
+    "question": "A health engine initializes metrics as constants in source code. Design the minimum production replacement.",
+    "expected_answer": "Collect metrics from PostgreSQL (pg_stat_statements, pg_stat_activity), Odoo logs, system APIs, or Prometheus exporters; store time-series data; alert on thresholds.",
+    "domain": "technical",
+    "difficulty": "medium"
+  },
+  {
+    "id": "tdd_tech_009",
+    "question": "What signals indicate a 'WorkflowRunner' is not actually running workflows?",
+    "expected_answer": "It iterates over JSON step descriptions without executing real operations; no state machine; no integration with external systems; no retry or timeout handling.",
+    "domain": "technical",
+    "difficulty": "easy"
+  },
+  {
+    "id": "tdd_tech_010",
+    "question": "A platform claims multi-tenancy but only has an environment_id string with no isolation. What must be added?",
+    "expected_answer": "Row-level tenant isolation, separate credential namespaces, per-tenant execution queues, tenant-aware audit logs, and resource quotas.",
+    "domain": "technical",
+    "difficulty": "medium"
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "id": "rec_tech_001",
+    "question": "Design a production backend stack for a recovered AI/Odoo platform.",
+    "expected_answer": "FastAPI + SQLModel/SQLAlchemy + PostgreSQL for API and data; Redis for caching and job queues; Celery/RQ/Arq for background tasks; OAuth2/OIDC + RBAC for auth; Prometheus + Grafana + OpenTelemetry for observability.",
+    "domain": "technical",
+    "difficulty": "medium"
+  },
+  {
+    "id": "rec_tech_002",
+    "question": "How would you redesign a keyword-based ReasoningEngine using modern AI tooling?",
+    "expected_answer": "Use LangGraph or similar for agent orchestration, call an LLM with structured output (Pydantic/JSON schema), retrieve context from a vector DB, and implement human-in-the-loop for high-stakes decisions.",
+    "domain": "technical",
+    "difficulty": "medium"
+  },
+  {
+    "id": "rec_tech_003",
+    "question": "What database backend would you use for a Digital Twin supporting millions of nodes and relationships?",
+    "expected_answer": "A graph database such as Neo4j or PostgreSQL with a graph extension (pggraph/Age). Use time-series storage for metrics and event sourcing for sync history.",
+    "domain": "technical",
+    "difficulty": "medium"
+  },
+  {
+    "id": "rec_tech_004",
+    "question": "Describe the minimum viable connector for PostgreSQL in a multi-tenant platform.",
+    "expected_answer": "Per-tenant connection pool with read-only default role, SSL required, statement timeout, query whitelist/blacklist, secrets manager integration, and full audit logging.",
+    "domain": "technical",
+    "difficulty": "medium"
+  },
+  {
+    "id": "rec_tech_005",
+    "question": "How do you safely execute destructive operations like Odoo module installation or migration?",
+    "expected_answer": "Dry-run first, require human approval, run in staging, use least-privilege DB user, create backup/rollback point, log all actions, and never execute directly on production without verification.",
+    "domain": "technical",
+    "difficulty": "medium"
+  },
+  {
+    "id": "rec_tech_006",
+    "question": "A platform uses JSON files for experience memory and writes the entire file on every update. What is the production replacement?",
+    "expected_answer": "Store lessons and project records in PostgreSQL. Use a vector DB for semantic similarity. Keep write-ahead logging and avoid full-file rewrites.",
+    "domain": "technical",
+    "difficulty": "easy"
+  },
+  {
+    "id": "rec_tech_007",
+    "question": "What is the recommended approach for multi-agent coordination instead of custom dataclass assignments?",
+    "expected_answer": "Use an existing agent framework (LangGraph, CrewAI, AutoGen) with persistent state, message queues, retry logic, and observability rather than in-memory dataclasses.",
+    "domain": "technical",
+    "difficulty": "medium"
+  },
+  {
+    "id": "rec_tech_008",
+    "question": "How would you convert hardcoded simulation templates into a real simulation capability?",
+    "expected_answer": "Build a rule/decision engine for static knowledge, but add state-space modeling, dependency graph analysis, and Monte Carlo or discrete-event simulation for actual what-if analysis.",
+    "domain": "technical",
+    "difficulty": "hard"
+  },
+  {
+    "id": "rec_tech_009",
+    "question": "What observability instrumentation is required for an autonomous Odoo operations platform?",
+    "expected_answer": "OpenTelemetry traces for every request, Prometheus metrics for connectors and executions, structured JSON logs, centralized log aggregation, and alerting on errors/latency.",
+    "domain": "technical",
+    "difficulty": "medium"
+  },
+  {
+    "id": "rec_tech_010",
+    "question": "Estimate the team and timeline to turn this stub platform into a production system.",
+    "expected_answer": "Approximately 12-15 engineers over 24-36 months, split into foundation, digital twin, AI layer, execution, operations, and scale phases.",
+    "domain": "technical",
+    "difficulty": "medium"
+  }
+]

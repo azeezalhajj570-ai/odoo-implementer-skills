@@ -1,0 +1,81 @@
+{
+  "skill_id": "skill_tdd",
+  "name": "AI Platform Technical Due Diligence",
+  "description": "Performs independent, skeptical, engineering-grade technical due diligence reviews of AI platforms, autonomous agent systems, and Odoo-related architectures. Evaluates architecture soundness, AI design, Odoo expertise, scalability, security, production readiness, and commercial viability.",
+  "version": "19.0.1",
+  "domain": "Platform",
+  "subdomain": "Technical Due Diligence",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Software engineering and architecture fundamentals", "required": true}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"}
+    ],
+    "odoo_modules": [],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "manager", "reviewer", "architect", "qa"],
+  "capabilities": [
+    {"id": "cap_architecture_review", "name": "Architecture Review", "description": "Evaluate separation of concerns, component independence, over-engineering, under-engineering, and architectural debt across platform layers.", "confidence": "high"},
+    {"id": "cap_ai_design_review", "name": "AI Design Review", "description": "Distinguish real AI/ML systems from keyword matchers and template lookups. Evaluate reasoning, planning, memory, self-correction, and multi-agent coordination.", "confidence": "high"},
+    {"id": "cap_odoo_review", "name": "Odoo Implementation Review", "description": "Assess whether a platform can actually implement, maintain, migrate, and operate Odoo Enterprise, Community, OCA, and custom modules.", "confidence": "high"},
+    {"id": "cap_scalability_review", "name": "Scalability Review", "description": "Identify bottlenecks under enterprise-scale assumptions: thousands of modules, hundreds of databases, billions of rows, distributed teams, multi-cloud.", "confidence": "high"},
+    {"id": "cap_security_review", "name": "Security Review", "description": "Evaluate prompt injection, tool abuse, MCP security, secrets management, credential handling, supply chain, plugin, and autonomous execution risks.", "confidence": "high"},
+    {"id": "cap_production_readiness", "name": "Production Readiness Assessment", "description": "Check observability, tracing, audit logs, rollback, versioning, disaster recovery, HA, backups, multi-tenancy, rate limiting, approvals, policy, and compliance.", "confidence": "high"},
+    {"id": "cap_competitive_review", "name": "Competitive Analysis", "description": "Compare platform capabilities against GitHub Copilot, Cursor, Claude Code, OpenHands, Devin, Odoo Studio, Odoo Upgrade Service, and similar tools.", "confidence": "medium"},
+    {"id": "cap_technical_debt", "name": "Technical Debt Assessment", "description": "Estimate architecture debt, maintenance cost, learning curve, operational cost, complexity, documentation burden, testing burden, and future scalability.", "confidence": "medium"},
+    {"id": "cap_commercial_evaluation", "name": "Commercial Evaluation", "description": "Assess market fit, differentiation, competitive advantage, business value, risk level, time to production, team size, and development time.", "confidence": "medium"}
+  ],
+  "limitations": [
+    "Requires access to source code, architecture docs, and test results for accurate review",
+    "Scores are qualitative and should be calibrated against investor/enterprise criteria",
+    "Does not perform automated penetration testing or performance benchmarking"
+  ],
+  "required_tools": ["python", "filesystem", "git", "ripgrep"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string", "description": "Review objective (e.g., full due diligence, AI architecture only, security only)"},
+      "project_path": {"type": "string", "description": "Path to project root"},
+      "project_overview": {"type": "string", "description": "Free-form project description"},
+      "scale_assumptions": {"type": "object", "description": "Expected scale (modules, databases, rows, teams)"},
+      "competitors": {"type": "array", "items": {"type": "string"}, "description": "List of competitors to compare against"},
+      "context": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "verdict": {"type": "string", "enum": ["Revolutionary", "Excellent", "Very Good", "Good", "Average", "Below Average", "Not Production Ready"]},
+      "scorecard": {"type": "object"},
+      "layer_reviews": {"type": "array", "items": {"type": "object"}},
+      "findings": {"type": "array", "items": {"type": "object"}},
+      "recommendations": {"type": "array", "items": {"type": "string"}},
+      "risks": {"type": "array", "items": {"type": "object"}},
+      "commercial_assessment": {"type": "object"}
+    }
+  },
+  "evaluation": {
+    "functional_count": 20,
+    "technical_count": 40,
+    "architecture_count": 30,
+    "debugging_count": 5,
+    "migration_count": 0,
+    "automation_count": 5,
+    "total_count": 100
+  },
+  "tags": ["due_diligence", "architecture_review", "ai_review", "odoo_review", "scalability", "security", "production_readiness", "investment"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "Odoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "updated_at": "2026-07-17T12:00:00Z",
+    "source_count": 1,
+    "claim_count": 80,
+    "knowledge_graph_nodes": 30,
+    "changelog": "v19.0.1 — Initial technical due diligence skill derived from OAIOS platform review"
+  }
+}

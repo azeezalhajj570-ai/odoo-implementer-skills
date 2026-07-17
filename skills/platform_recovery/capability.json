@@ -1,0 +1,102 @@
+{
+  "skill_id": "skill_platform_recovery",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_value_extraction",
+      "name": "Valuable Component Extraction",
+      "description": "Identify genuinely useful components in a stub codebase (loaders, validators, graph engines, reference data) and separate them from throwaway stubs.",
+      "required_knowledge": ["code_archaeology", "refactoring", "value_assessment"],
+      "examples": [
+        "Keep a working skill loader but discard empty health engine",
+        "Preserve validation engine and upgrade breaking-change data",
+        "Identify knowledge graph engine as reusable infrastructure"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_component_consolidation",
+      "name": "Component Consolidation",
+      "description": "Merge redundant engines that share the same pattern and delete unnecessary components that add no value.",
+      "required_knowledge": ["modular_design", "domain_driven_design", "consolidation_patterns"],
+      "examples": [
+        "Merge SimulationEngine and UpgradeSimulationEngine into one rule engine",
+        "Merge ReasoningEngine, Planner, and DecisionEngine into an LLM-based intelligence layer",
+        "Delete ExecutiveDashboard until real metrics exist"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_foundation_design",
+      "name": "Production Foundation Design",
+      "description": "Design the backend, database, cache, queue, API, auth, multi-tenancy, and audit infrastructure needed for production.",
+      "required_knowledge": ["fastapi", "postgresql", "redis", "celery", "oauth2", "rbac", "multi_tenancy"],
+      "examples": [
+        "Replace JSON file storage with PostgreSQL and Redis",
+        "Add OAuth2/RBAC and row-level tenant isolation",
+        "Build structured audit logs and API layer"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_ai_redesign",
+      "name": "AI Layer Redesign",
+      "description": "Replace custom keyword/template engines with LLM-based reasoning, RAG, embeddings, and existing agent frameworks.",
+      "required_knowledge": ["llm", "rag", "embeddings", "langchain", "langgraph", "litellm"],
+      "examples": [
+        "Use LangGraph for agent orchestration",
+        "Replace keyword memory with vector database + embeddings",
+        "Add human-in-the-loop for destructive actions"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_twin_redesign",
+      "name": "Digital Twin Redesign",
+      "description": "Replace dictionary-based twins with event-driven graph models that support delta history, conflict resolution, and staleness detection.",
+      "required_knowledge": ["digital_twin", "graph_databases", "event_driven_architecture", "crdt"],
+      "examples": [
+        "Use Neo4j or pggraph for twin storage",
+        "Implement event-driven sync with connector health",
+        "Add snapshot diffing and rollback points"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_connector_design",
+      "name": "Real Connector Design",
+      "description": "Design secure, least-privilege connectors for PostgreSQL, Odoo ORM, Git, Docker, and Kubernetes with audit and retry.",
+      "required_knowledge": ["odoo_xmlrpc", "postgresql", "docker_sdk", "kubernetes", "ssh", "secrets_management"],
+      "examples": [
+        "Build read-only PostgreSQL connector with query timeout",
+        "Design Odoo XML-RPC connector with user impersonation",
+        "Secure Docker/Kubernetes connectors with service accounts"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_rebuild_roadmap",
+      "name": "Phased Rebuild Roadmap",
+      "description": "Produce a time-boxed, team-sized, milestone-driven plan to rebuild the platform from foundation to operations.",
+      "required_knowledge": ["project_planning", "team_sizing", "milestones", "risk_management"],
+      "examples": [
+        "Phase 1: Foundation (months 1-3)",
+        "Phase 2: Real Digital Twin (months 3-6)",
+        "Phase 3: AI Layer (months 6-9)"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_scope_reduction",
+      "name": "Scope Reduction Strategy",
+      "description": "Identify the smallest valuable use case to ship first instead of rebuilding all layers at once.",
+      "required_knowledge": ["mvp", "scope_management", "value_prioritization"],
+      "examples": [
+        "Ship Odoo module validation + upgrade impact reports first",
+        "Defer full Digital Twin until a single connector works end-to-end",
+        "Focus on one domain (e.g., CRM) before generalizing"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

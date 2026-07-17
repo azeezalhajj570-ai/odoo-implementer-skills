@@ -1,0 +1,72 @@
+[
+  {
+    "id": "tdd_func_001",
+    "question": "A platform claims to have a 'Reasoning Engine' but the code only matches keywords like 'implement' and 'migrate' against a static dictionary. What is the correct assessment?",
+    "expected_answer": "It is not a reasoning engine; it is keyword classification with static templates. Score AI Design low and recommend replacing it with an LLM or probabilistic classifier.",
+    "domain": "functional",
+    "difficulty": "medium"
+  },
+  {
+    "id": "tdd_func_002",
+    "question": "A Digital Twin implementation stores nodes and edges in a Python dictionary and overwrites them on every sync with hardcoded sample data. Is this a real Digital Twin?",
+    "expected_answer": "No. A real Digital Twin requires event-driven synchronization, delta computation, conflict resolution, staleness detection, and a graph/time-series backend.",
+    "domain": "functional",
+    "difficulty": "medium"
+  },
+  {
+    "id": "tdd_func_003",
+    "question": "A platform has 400 automated tests but most verify that hardcoded dataclasses return their hardcoded values. What does this indicate?",
+    "expected_answer": "High test count with low information value. The tests create a false sense of quality and do not validate real behavior.",
+    "domain": "functional",
+    "difficulty": "easy"
+  },
+  {
+    "id": "tdd_func_004",
+    "question": "A system claims to monitor CPU, memory, and PostgreSQL slow queries but all metric values are constants in source code. Is it production-ready?",
+    "expected_answer": "No. Production monitoring requires real data collection, metrics pipeline, alerting, and historical storage.",
+    "domain": "functional",
+    "difficulty": "easy"
+  },
+  {
+    "id": "tdd_func_005",
+    "question": "A platform's 'Multi-Agent Coordinator' creates dataclass assignments but never executes, tracks, or persists them. What is the correct verdict?",
+    "expected_answer": "It is a data structure, not a coordinator. It lacks process management, queues, persistence, and inter-agent communication.",
+    "domain": "functional",
+    "difficulty": "medium"
+  },
+  {
+    "id": "tdd_func_006",
+    "question": "A platform supports '5,000 custom modules' but stores all state in a single JSON file with full linear scans. What is the primary scalability concern?",
+    "expected_answer": "Single-file JSON storage is not a database. It will fail on size, concurrency, and query performance.",
+    "domain": "functional",
+    "difficulty": "easy"
+  },
+  {
+    "id": "tdd_func_007",
+    "question": "A platform has no authentication, no secrets manager, no audit logs, and a plugin manager that dynamically loads Python files. What is the security risk level?",
+    "expected_answer": "Critical. The combination of unrestricted plugin loading and no auth/audit creates remote code execution and privilege escalation risks.",
+    "domain": "functional",
+    "difficulty": "easy"
+  },
+  {
+    "id": "tdd_func_008",
+    "question": "A platform can validate Python syntax, XML parsing, Odoo manifests, and ACL CSV format. What does this indicate about its Odoo expertise?",
+    "expected_answer": "It has genuinely useful Odoo-specific validation capabilities, but validation alone does not imply implementation or migration capability.",
+    "domain": "functional",
+    "difficulty": "medium"
+  },
+  {
+    "id": "tdd_func_009",
+    "question": "A platform compares itself to GitHub Copilot, Devin, and Odoo Studio but generates no real code, executes no real operations, and has no Odoo integration. What is the competitive conclusion?",
+    "expected_answer": "It is weaker in every practical dimension. The differentiation must come from vision or specific niche capabilities, not current functionality.",
+    "domain": "functional",
+    "difficulty": "medium"
+  },
+  {
+    "id": "tdd_func_010",
+    "question": "A clean, modular codebase with many packages and dataclasses but trivial logic is best described as what?",
+    "expected_answer": "False complexity or a well-organized architectural specification. It appears sophisticated but implements little.",
+    "domain": "functional",
+    "difficulty": "medium"
+  }
+]

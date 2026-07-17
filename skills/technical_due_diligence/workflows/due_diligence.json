@@ -1,0 +1,64 @@
+{
+  "workflow_id": "wf_tdd_full_review",
+  "name": "Full Technical Due Diligence Review",
+  "description": "End-to-end due diligence review of an AI/Odoo platform.",
+  "version": "19.0.1",
+  "steps": [
+    {
+      "order": 1,
+      "name": "Ingest Project Context",
+      "description": "Read README, architecture docs, and source tree overview.",
+      "tool": "filesystem",
+      "inputs": ["project_path"]
+    },
+    {
+      "order": 2,
+      "name": "Analyze Source Code Stubs",
+      "description": "Detect hardcoded lookup tables, empty engines, and mock data.",
+      "tool": "technical_due_diligence/analyze_source",
+      "inputs": ["project_path"]
+    },
+    {
+      "order": 3,
+      "name": "Review Architecture Layers",
+      "description": "Evaluate each layer for separation of concerns and component independence.",
+      "tool": "reasoning_engine",
+      "inputs": ["layer_definitions"]
+    },
+    {
+      "order": 4,
+      "name": "AI Design Review",
+      "description": "Check for real models, embeddings, tool use, and probabilistic reasoning.",
+      "tool": "reasoning_engine",
+      "inputs": ["ai_components"]
+    },
+    {
+      "order": 5,
+      "name": "Odoo Capability Review",
+      "description": "Assess real Odoo integration vs sample data and static templates.",
+      "tool": "reasoning_engine",
+      "inputs": ["odoo_claims"]
+    },
+    {
+      "order": 6,
+      "name": "Security and Production Readiness",
+      "description": "Evaluate auth, secrets, audit, HA, rollback, and compliance.",
+      "tool": "reasoning_engine",
+      "inputs": ["security_checklist", "production_checklist"]
+    },
+    {
+      "order": 7,
+      "name": "Generate Scorecard",
+      "description": "Aggregate findings into a scored report.",
+      "tool": "technical_due_diligence/generate_scorecard",
+      "inputs": ["findings"]
+    },
+    {
+      "order": 8,
+      "name": "Produce Verdict and Recommendations",
+      "description": "Write final verdict with evidence and prioritized next steps.",
+      "tool": "report_generator",
+      "inputs": ["scorecard", "findings"]
+    }
+  ]
+}

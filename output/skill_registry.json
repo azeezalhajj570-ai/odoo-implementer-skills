@@ -1,6 +1,6 @@
 {
-  "indexed_at": "2026-07-17T13:54:42.780333+00:00",
-  "skill_count": 4,
+  "indexed_at": "2026-07-17T15:09:20.512735+00:00",
+  "skill_count": 6,
   "capabilities": {
     "cap_lead_scoring": [
       "skill_crm"
@@ -28,6 +28,33 @@
     ],
     "cap_team_management": [
       "skill_crm"
+    ],
+    "cap_architecture_review": [
+      "skill_tdd"
+    ],
+    "cap_ai_design_review": [
+      "skill_tdd"
+    ],
+    "cap_odoo_review": [
+      "skill_tdd"
+    ],
+    "cap_scalability_review": [
+      "skill_tdd"
+    ],
+    "cap_security_review": [
+      "skill_tdd"
+    ],
+    "cap_production_readiness": [
+      "skill_tdd"
+    ],
+    "cap_competitive_review": [
+      "skill_tdd"
+    ],
+    "cap_technical_debt": [
+      "skill_tdd"
+    ],
+    "cap_commercial_evaluation": [
+      "skill_tdd"
     ],
     "cap_orm": [
       "skill_base"
@@ -97,6 +124,30 @@
     ],
     "cap_bounce_handling": [
       "skill_mail"
+    ],
+    "cap_value_extraction": [
+      "skill_platform_recovery"
+    ],
+    "cap_component_consolidation": [
+      "skill_platform_recovery"
+    ],
+    "cap_foundation_design": [
+      "skill_platform_recovery"
+    ],
+    "cap_ai_redesign": [
+      "skill_platform_recovery"
+    ],
+    "cap_twin_redesign": [
+      "skill_platform_recovery"
+    ],
+    "cap_connector_design": [
+      "skill_platform_recovery"
+    ],
+    "cap_rebuild_roadmap": [
+      "skill_platform_recovery"
+    ],
+    "cap_scope_reduction": [
+      "skill_platform_recovery"
     ]
   },
   "domains": {
@@ -104,8 +155,10 @@
       "skill_crm"
     ],
     "platform": [
+      "skill_tdd",
       "skill_base",
-      "skill_mail"
+      "skill_mail",
+      "skill_platform_recovery"
     ],
     "marketing": [
       "skill_marketing"
@@ -130,6 +183,25 @@
       "dependencies": [
         "skill_base",
         "skill_mail"
+      ]
+    },
+    "skill_tdd": {
+      "name": "AI Platform Technical Due Diligence",
+      "version": "19.0.1",
+      "domain": "Platform",
+      "capabilities": [
+        "cap_architecture_review",
+        "cap_ai_design_review",
+        "cap_odoo_review",
+        "cap_scalability_review",
+        "cap_security_review",
+        "cap_production_readiness",
+        "cap_competitive_review",
+        "cap_technical_debt",
+        "cap_commercial_evaluation"
+      ],
+      "dependencies": [
+        "skill_base"
       ]
     },
     "skill_base": {
@@ -182,6 +254,25 @@
       ],
       "dependencies": [
         "skill_base"
+      ]
+    },
+    "skill_platform_recovery": {
+      "name": "Platform Recovery and Salvage Planner",
+      "version": "19.0.1",
+      "domain": "Platform",
+      "capabilities": [
+        "cap_value_extraction",
+        "cap_component_consolidation",
+        "cap_foundation_design",
+        "cap_ai_redesign",
+        "cap_twin_redesign",
+        "cap_connector_design",
+        "cap_rebuild_roadmap",
+        "cap_scope_reduction"
+      ],
+      "dependencies": [
+        "skill_base",
+        "skill_tdd"
       ]
     }
   }
