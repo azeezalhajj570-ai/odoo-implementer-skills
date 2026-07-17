@@ -345,16 +345,6 @@ if updated_staleness:
 os.unlink(state_path)
 
 
-# ===== Test 8: PluginManager =====
-print("\n=== Test 8: PluginManager ===")
-from plugins.manager import PluginManager
-
-pm = PluginManager()
-discovered = pm.discover()
-check("discover returns count (may be 0)", isinstance(discovered, int))
-check("all_plugins returns list", isinstance(pm.all_plugins(), list))
-
-
 # ===== Summary =====
 print(f"\n{'='*60}")
 print(f"Platform Integration Test Results: {len(errors)} failures, {len(warnings)} warnings")

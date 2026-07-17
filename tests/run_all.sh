@@ -38,6 +38,9 @@ else
     echo "  SKIPPED: PyYAML not installed"
 fi
 
+# Test 4: Platform Integration
+run_test "Platform Integration" "$ROOT/tests/test_platform_integration.py"
+
 echo ""
 echo "=========================================="
 if [ $FAILURES -eq 0 ]; then
