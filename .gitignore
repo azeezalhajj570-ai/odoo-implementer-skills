@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Output (generated artifacts — committed separately)
+output/databases/
+output/reports/
+output/logs/
+output/skill_state.json
+output/experience_memory.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
