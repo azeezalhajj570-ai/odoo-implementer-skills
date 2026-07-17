@@ -1,0 +1,39 @@
+{
+  "domain": "Sales",
+  "version": "19.0",
+  "modules": ["crm", "crm_iap_mine", "crm_iap_enrich", "partner_autocomplete", "sales_team", "utm", "phone_validation"],
+  "key_models": {
+    "crm.lead": "Lead/Opportunity. Inherits: mail.thread.cc, mail.thread.blacklist, mail.thread.phone, mail.activity.mixin, utm.mixin, format.address.mixin, mail.tracking.duration.mixin. Key fields: stage_id, probability, automated_probability, team_id, user_id, partner_id, expected_revenue, campaign_id, medium_id, source_id.",
+    "crm.stage": "Pipeline stage. Fields: name, sequence, is_won, rotting_threshold_days, team_ids, fold.",
+    "crm.lead.scoring.frequency": "PLS frequency per (team_id, variable, value). Fields: variable, value, won_count (Float +0.1), lost_count (Float +0.1), team_id.",
+    "crm.lead.scoring.frequency.field": "Configurable PLS field. Fields: name, field_id (ir.model.fields on crm.lead), color.",
+    "crm.team": "Sales team with assignment config. Fields: assignment_enabled, assignment_domain, assignment_max, use_leads, use_opportunities.",
+    "crm.team.member": "Team member with personal assignment config. Fields: assignment_domain, assignment_domain_preferred, assignment_optout, assignment_max, lead_day_count, lead_month_count.",
+    "crm.iap.lead.mining.request": "Lead mining request. Fields: lead_number (max 200), search_type (companies/people), lead_type, team_id, user_id, country_ids, industry_ids, role_ids, seniority_id."
+  },
+  "key_files": {
+    "crm/models/crm_lead.py": "Core lead model with PLS (1537+ lines)",
+    "crm/models/crm_lead_scoring_frequency.py": "Frequency table + field models",
+    "crm/models/crm_team.py": "Team assignment pipeline",
+    "crm_iap_mine/models/crm_iap_lead_mining_request.py": "Lead mining engine",
+    "crm_iap_enrich/models/crm_lead.py": "Lead enrichment cron + per-lead",
+    "partner_autocomplete/models/res_partner.py": "DnB autocomplete integration"
+  },
+  "crons": {
+    "website_crm_score_cron": "PLS recompute (daily, inactive by default). Model: crm.lead, method: _cron_update_automated_probabilities",
+    "ir_cron_crm_lead_assign": "Lead assignment (daily, inactive by default). Model: crm.team, method: _cron_assign_leads",
+    "ir_cron_lead_enrichment": "Lead enrichment (periodic, configurable). Model: crm.lead, method: _iap_enrich_leads_cron"
+  },
+  "security_groups": {
+    "sales_team.group_sale_salesman": "Own leads CRU, stage read, lost reason read",
+    "sales_team.group_sale_manager": "All leads CRUD, stage CRUD, lost reason CRUD",
+    "sales_team.group_sale_salesman_all_leads": "See all leads (combined with salesman rule)",
+    "crm.group_use_lead": "Show Lead menu",
+    "crm.group_use_recurring_revenues": "Show Recurring Revenues menu"
+  },
+  "record_rules": {
+    "crm_rule_personal_lead": "['|',('user_id','=',user.id),('user_id','=',False)] — salesman sees own + unassigned",
+    "crm_lead_company_rule": "[('company_id','in',company_ids+[False])] — multi-company isolation",
+    "crm_rule_all_lead": "[(1,'=',1)] — full access for salesman_all_leads group"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "skill_id": "skill_base",
+  "name": "Odoo Platform Foundation",
+  "description": "Core Odoo platform knowledge including ORM, security, views, mail framework, automation, and system architecture. Required by all domain skills.",
+  "version": "19.0.1",
+  "domain": "Platform",
+  "subdomain": "Core",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [
+    {"name": "base", "version": "19.0", "location": "community", "required": true},
+    {"name": "web", "version": "19.0", "location": "community", "required": true},
+    {"name": "mail", "version": "19.0", "location": "community", "required": true}
+  ],
+  "prerequisites": [],
+  "dependencies": {
+    "skills": [],
+    "odoo_modules": ["base", "web", "mail"],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer", "coding"],
+  "capabilities": [
+    {"id": "cap_orm", "name": "Odoo ORM", "description": "Model definition, fields, inheritance, computed fields, constraints, search, read, write, create, unlink", "confidence": "high"},
+    {"id": "cap_security", "name": "Odoo Security", "description": "Access control lists, record rules, security groups, implied groups, field-level security", "confidence": "high"},
+    {"id": "cap_views", "name": "XML Views", "description": "Form, tree, kanban, search, graph, pivot, calendar, gantt, activity views with inheritance and xpath", "confidence": "high"},
+    {"id": "cap_automation", "name": "Automation Framework", "description": "Server actions, automated actions, cron jobs, scheduled actions", "confidence": "high"},
+    {"id": "cap_mail", "name": "Mail Framework", "description": "mail.thread, mail.activity.mixin, notifications, templates, email routing, bounce handling", "confidence": "high"},
+    {"id": "cap_controllers", "name": "HTTP Controllers", "description": "Route definitions, authentication, request handling, response formats", "confidence": "high"},
+    {"id": "cap_reports", "name": "QWeb Reports", "description": "PDF/HTML report generation, paper formats, barcodes, custom reports", "confidence": "high"},
+    {"id": "cap_i18n", "name": "Internationalization", "description": "Translations, translatable fields, language support, i18n tools", "confidence": "medium"},
+    {"id": "cap_testing", "name": "Testing", "description": "TransactionCase, HttpCase, test tags, mock patterns, performance testing", "confidence": "high"}
+  ],
+  "limitations": [
+    "Does not cover domain-specific business logic",
+    "Generic ORM knowledge; domain-specific models require domain skills"
+  ],
+  "required_tools": ["python", "xml_editor", "database_access"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string", "description": "The task or question about Odoo platform"},
+      "context": {"type": "object", "description": "Optional context about the environment"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "answer": {"type": "string"},
+      "code_examples": {"type": "array", "items": {"type": "object"}},
+      "references": {"type": "array", "items": {"type": "string"}}
+    }
+  },
+  "evaluation": {
+    "functional_count": 15,
+    "technical_count": 40,
+    "architecture_count": 15,
+    "debugging_count": 15,
+    "migration_count": 10,
+    "automation_count": 10,
+    "total_count": 105
+  },
+  "tags": ["platform", "core", "orm", "security", "views", "mail", "automation"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "ODoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "source_count": 40,
+    "claim_count": 85,
+    "knowledge_graph_nodes": 15
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "crm_implementation",
+  "name": "CRM Full Implementation",
+  "description": "Complete CRM implementation workflow: analyze requirements, configure pipeline, set up scoring, generate module, validate.",
+  "version": "1.0",
+  "skill_id": "skill_crm",
+  "compatible_agents": ["functional", "technical", "developer", "architect"],
+  "steps": [
+    {
+      "id": "analyze_requirements",
+      "name": "Analyze Requirements",
+      "description": "Analyze CRM requirements from project context or user input",
+      "tool": "analyze_pipeline",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "validate_scoring",
+      "name": "Validate Lead Scoring",
+      "description": "Validate existing PLS configuration and data sufficiency",
+      "tool": "validate_lead_scoring",
+      "params": {},
+      "depends_on": ["analyze_requirements"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "generate_security",
+      "name": "Generate Security Rules",
+      "description": "Generate CRM security configuration (groups, ACLs, record rules)",
+      "tool": "analyze_pipeline",
+      "params": {},
+      "depends_on": ["validate_scoring"],
+      "on_failure": "stop"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "2-4 hours"
+  }
+}

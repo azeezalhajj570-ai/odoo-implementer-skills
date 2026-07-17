@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Validation Report",
+  "description": "Report from the QA Agent (Phase 7) verifying integrity of a Knowledge Factory output.",
+  "type": "object",
+  "required": ["report_id", "target", "generated_at", "summary", "checks"],
+  "additionalProperties": false,
+  "properties": {
+    "report_id": { "type": "string", "pattern": "^qa_\\d{8}_\\d{6}$" },
+    "target": {
+      "type": "object",
+      "required": ["type", "path"],
+      "properties": {
+        "type": { "type": "string", "enum": ["knowledge_base", "implementation_guide", "skill", "schema", "full_pipeline"] },
+        "path": { "type": "string" },
+        "domain": { "type": "string" }
+      }
+    },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "summary": {
+      "type": "object",
+      "required": ["total_checks", "passed", "failed", "warnings"],
+      "properties": {
+        "total_checks": { "type": "integer" },
+        "passed": { "type": "integer" },
+        "failed": { "type": "integer" },
+        "warnings": { "type": "integer" },
+        "pass_rate": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["check_id", "category", "status", "message"],
+        "properties": {
+          "check_id": { "type": "string" },
+          "category": {
+            "type": "string",
+            "enum": ["broken_references", "missing_citations", "duplicate_content", "contradictions", "hallucination_risk", "unsupported_claims", "missing_metadata", "invalid_json", "schema_validation", "cross_reference_integrity", "stale_data"]
+          },
+          "severity": { "type": "string", "enum": ["error", "warning", "info"] },
+          "status": { "type": "string", "enum": ["passed", "failed", "warning"] },
+          "message": { "type": "string" },
+          "location": { "type": "string" },
+          "suggestion": { "type": "string" }
+        }
+      }
+    },
+    "corrective_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": { "type": "string" },
+          "applied": { "type": "boolean" },
+          "detail": { "type": "string" }
+        }
+      }
+    }
+  }
+}

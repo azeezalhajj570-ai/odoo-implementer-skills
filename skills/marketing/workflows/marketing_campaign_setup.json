@@ -1,0 +1,43 @@
+{
+  "id": "marketing_campaign_setup",
+  "name": "Marketing Campaign Setup",
+  "description": "End-to-end marketing campaign setup workflow: analyze requirements, configure campaign, generate email templates, validate.",
+  "version": "1.0",
+  "skill_id": "skill_marketing",
+  "compatible_agents": ["functional", "technical", "developer"],
+  "steps": [
+    {
+      "id": "analyze_requirements",
+      "name": "Analyze Campaign Requirements",
+      "description": "Analyze campaign requirements from user input",
+      "tool": "analyze_campaign",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "validate_config",
+      "name": "Validate Marketing Configuration",
+      "description": "Validate overall marketing setup before campaign creation",
+      "tool": "validate_marketing_config",
+      "params": {},
+      "depends_on": ["analyze_requirements"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "generate_templates",
+      "name": "Generate Email Templates",
+      "description": "Generate email templates for the campaign",
+      "tool": "analyze_campaign",
+      "params": {},
+      "depends_on": ["validate_config"],
+      "on_failure": "stop"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "1-2 hours"
+  }
+}

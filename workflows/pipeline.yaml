@@ -1,0 +1,158 @@
+# Odoo Knowledge Factory — Full Pipeline Workflow
+# This workflow orchestrates all 7 phases for a single Odoo domain.
+
+pipeline:
+  name: "Full Domain Knowledge Pipeline"
+  version: "2.0"
+  
+  phases:
+    - id: phase_1_domain_research
+      name: "Domain Research"
+      agents: ["domain_research_agent"]
+      inputs:
+        - name: domain
+          source: "user"
+        - name: versions
+          source: "user"
+        - name: audience
+          source: "user"
+        - name: depth
+          source: "user"
+      outputs:
+        - name: knowledge_base
+          path: "output/databases/{domain}_knowledge.json"
+          schema: "schemas/knowledge_base.json"
+        - name: knowledge_base_md
+          path: "output/reports/{domain}_knowledge.md"
+      prompt: "prompts/domain_research/domain_research_agent.yaml"
+      stopping_conditions:
+        max_sources: 80
+        consecutive_empty: 3
+      validation:
+        schema_check: true
+        verification_sample: 0.20
+
+    - id: phase_2_source_code
+      name: "Source Code Intelligence"
+      agents: ["source_code_analysis_agent"]
+      depends_on: ["phase_1_domain_research"]
+      inputs:
+        - name: knowledge_base
+          source: "phase_1_domain_research.knowledge_base"
+        - name: enterprise_path
+          source: "user"
+        - name: community_path
+          source: "user"
+        - name: custom_path
+          source: "user"
+      outputs:
+        - name: module_catalog
+          path: "output/databases/{domain}_modules.json"
+          schema: "schemas/module_catalog.json"
+        - name: model_catalog
+          path: "output/databases/{domain}_models.json"
+          schema: "schemas/model_catalog.json"
+        - name: implementation_guide
+          path: "output/reports/{domain}_implementation.md"
+      prompt: "prompts/source_code_analysis/source_code_analysis_agent.yaml"
+
+    - id: phase_3_business_process
+      name: "Business Intelligence"
+      agents: ["business_process_agent"]
+      depends_on: ["phase_1_domain_research", "phase_2_source_code"]
+      inputs:
+        - name: knowledge_base
+          source: "phase_1_domain_research.knowledge_base"
+        - name: module_catalog
+          source: "phase_2_source_code.module_catalog"
+        - name: implementation_guide
+          source: "phase_2_source_code.implementation_guide"
+      outputs:
+        - name: business_processes
+          path: "output/reports/{domain}_business_processes.md"
+      prompt: "prompts/business_process/business_process_agent.yaml"
+
+    - id: phase_4_ai_integration
+      name: "AI Intelligence"
+      agents: ["ai_integration_agent"]
+      depends_on: ["phase_1_domain_research", "phase_2_source_code"]
+      inputs:
+        - name: knowledge_base
+          source: "phase_1_domain_research.knowledge_base"
+        - name: implementation_guide
+          source: "phase_2_source_code.implementation_guide"
+      outputs:
+        - name: ai_opportunities
+          path: "output/databases/{domain}_ai_opportunities.json"
+        - name: ai_integration_guide
+          path: "output/reports/{domain}_ai_integration.md"
+      prompt: "prompts/ai_integration/ai_integration_agent.yaml"
+
+    - id: phase_5_skill_generation
+      name: "AI Skill Generation"
+      agents: ["skill_generator_agent"]
+      depends_on: ["phase_1_domain_research", "phase_2_source_code", "phase_4_ai_integration"]
+      inputs:
+        - name: knowledge_base
+          source: "phase_1_domain_research.knowledge_base"
+        - name: implementation_guide
+          source: "phase_2_source_code.implementation_guide"
+        - name: ai_opportunities
+          source: "phase_4_ai_integration.ai_opportunities"
+      outputs:
+        - name: skills
+          path: "skills/{domain}/"
+          collection: true
+          schema: "schemas/skill_definition.json"
+      prompt: "prompts/skill_generator/skill_generator_agent.yaml"
+
+    - id: phase_6_knowledge_packaging
+      name: "Knowledge Packaging"
+      agents: ["documentation_generator", "json_generator", "knowledge_graph_generator", "rag_packaging_agent"]
+      depends_on: ["phase_1_domain_research", "phase_2_source_code", "phase_5_skill_generation"]
+      inputs:
+        - name: all_artifacts
+          source: "all_previous_phases"
+      outputs:
+        - name: canonical_json
+          path: "output/databases/{domain}_complete.json"
+        - name: markdown_docs
+          path: "output/reports/{domain}_complete.md"
+        - name: knowledge_graph
+          path: "output/reports/{domain}_graph.md"
+        - name: rag_metadata
+          path: "output/databases/{domain}_rag_metadata.json"
+          schema: "schemas/metadata.json"
+        - name: search_index
+          path: "output/databases/{domain}_search_index.json"
+      prompts:
+        documentation: "prompts/documentation_generator/documentation_generator_agent.yaml"
+        json: "prompts/json_generator/json_generator_agent.yaml"
+        knowledge_graph: "prompts/knowledge_graph_generator/knowledge_graph_generator_agent.yaml"
+        rag: "prompts/rag_packaging/rag_packaging_agent.yaml"
+
+    - id: phase_7_qa
+      name: "Quality Assurance"
+      agents: ["qa_agent"]
+      depends_on: ["phase_6_knowledge_packaging"]
+      inputs:
+        - name: all_artifacts
+          source: "phase_6_knowledge_packaging"
+      outputs:
+        - name: qa_report
+          path: "output/reports/{domain}_qa_report.json"
+          schema: "schemas/validation_report.json"
+        - name: qa_summary
+          path: "output/reports/{domain}_qa_summary.md"
+      prompt: "prompts/qa_agent/qa_agent.yaml"
+      validation:
+        fail_on_error: true
+        fail_on_warning: false
+
+  error_handling:
+    - on: "schema_validation_failure"
+      action: "retry_phase_with_fix"
+    - on: "qa_errors"
+      action: "flag_for_human_review"
+    - on: "source_fetch_failure"
+      action: "skip_source_and_continue"

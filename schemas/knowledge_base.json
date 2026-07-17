@@ -1,0 +1,142 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Odoo Domain Knowledge Base",
+  "description": "Canonical schema for an Odoo domain knowledge base produced by Phase 1 (Domain Research).",
+  "type": "object",
+  "required": ["domain", "odoo_versions", "audience", "depth", "generated_at", "sources", "sections", "checklists", "faqs", "verification_report"],
+  "additionalProperties": false,
+  "properties": {
+    "domain": {
+      "type": "string",
+      "description": "Canonical domain name, e.g. 'Accounting', 'CRM', 'Inventory'",
+      "pattern": "^[A-Z][a-zA-Z\\s-]+$"
+    },
+    "odoo_versions": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^\\d+\\.\\d+$" },
+      "minItems": 1,
+      "description": "Odoo versions covered (e.g. ['17.0','18.0','19.0'])"
+    },
+    "audience": {
+      "type": "string",
+      "description": "Comma-separated target audience description"
+    },
+    "depth": {
+      "type": "string",
+      "enum": ["overview", "standard", "deep"]
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 generation timestamp"
+    },
+    "excluded_scope": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Topics explicitly excluded from this knowledge base"
+    },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Source" },
+      "minItems": 1
+    },
+    "sections": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Section" },
+      "minItems": 1
+    },
+    "checklists": {
+      "type": "object",
+      "properties": {
+        "implementation": { "type": "array", "items": { "type": "string" } },
+        "testing": { "type": "array", "items": { "type": "string" } },
+        "go_live": { "type": "array", "items": { "type": "string" } },
+        "migration": { "type": "array", "items": { "type": "string" } },
+        "audit": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "faqs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["q", "a", "source_ids"],
+        "properties": {
+          "q": { "type": "string" },
+          "a": { "type": "string" },
+          "source_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+        }
+      }
+    },
+    "verification_report": { "$ref": "#/definitions/VerificationReport" }
+  },
+  "definitions": {
+    "Source": {
+      "type": "object",
+      "required": ["id", "title", "author_or_org", "url", "tier", "fetch_verified", "topics"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^src_\\d{4}$" },
+        "title": { "type": "string" },
+        "author_or_org": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "date_published": { "type": ["string", "null"] },
+        "date_accessed": { "type": "string", "format": "date-time" },
+        "tier": { "type": "string", "enum": ["official", "oca_community", "third_party_verified", "unverified_opinion"] },
+        "fetch_verified": { "type": "boolean" },
+        "access_method": { "type": ["string", "null"] },
+        "topics": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      }
+    },
+    "Section": {
+      "type": "object",
+      "required": ["id", "title", "relevance_weight", "claims"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^sec_\\w+$" },
+        "title": { "type": "string" },
+        "relevance_weight": { "type": "string", "enum": ["high", "medium", "low"] },
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["text", "source_ids", "confidence"],
+            "properties": {
+              "text": { "type": "string" },
+              "source_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+              "confidence": { "type": "string", "enum": ["official", "community_verified", "unverified"] }
+            }
+          }
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["topic", "position_a", "position_b"],
+            "properties": {
+              "topic": { "type": "string" },
+              "position_a": { "$ref": "#/definitions/Position" },
+              "position_b": { "$ref": "#/definitions/Position" }
+            }
+          }
+        },
+        "known_gaps": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "Position": {
+      "type": "object",
+      "required": ["text", "source_ids"],
+      "properties": {
+        "text": { "type": "string" },
+        "source_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      }
+    },
+    "VerificationReport": {
+      "type": "object",
+      "required": ["sample_size", "passed", "failed", "corrections"],
+      "properties": {
+        "sample_size": { "type": "integer", "minimum": 0 },
+        "passed": { "type": "integer", "minimum": 0 },
+        "failed": { "type": "integer", "minimum": 0 },
+        "corrections": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

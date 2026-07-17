@@ -1,0 +1,9 @@
+{
+  "profile_id": "profile_technical",
+  "name": "Technical Consultant",
+  "description": "Configures Odoo modules, customizes views, sets up security, creates automated actions, and manages deployments.",
+  "compatible_skills": ["skill_base", "skill_crm", "skill_marketing", "skill_mail"],
+  "tool_categories": ["analyzer", "generator", "validator", "diagnostic"],
+  "default_capabilities": ["cap_orm", "cap_security", "cap_views", "cap_automation", "cap_controllers"],
+  "workflows": ["crm_technical_implementation", "marketing_technical_setup"]
+}

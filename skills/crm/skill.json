@@ -1,0 +1,81 @@
+{
+  "skill_id": "skill_crm",
+  "name": "Odoo CRM Expert",
+  "description": "Expert-level knowledge of Odoo CRM including predictive lead scoring (Naive Bayes), lead mining, lead enrichment, partner autocomplete, pipeline management, sales automation, and marketing attribution.",
+  "version": "19.0.1",
+  "domain": "Sales",
+  "subdomain": "CRM",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [
+    {"name": "crm", "version": "1.9", "location": "community", "required": true},
+    {"name": "crm_iap_mine", "version": "19.0", "location": "enterprise", "required": false},
+    {"name": "crm_iap_enrich", "version": "19.0", "location": "enterprise", "required": false},
+    {"name": "partner_autocomplete", "version": "19.0", "location": "enterprise", "required": false}
+  ],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Odoo ORM, security, and mail framework", "required": true},
+    {"skill": "skill_mail", "description": "Email and notification framework", "required": false}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"},
+      {"skill_id": "skill_mail", "version_requirement": ">=19.0", "relationship": "recommended_with"}
+    ],
+    "odoo_modules": ["crm", "sales_team", "utm", "phone_validation"],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer"],
+  "capabilities": [
+    {"id": "cap_lead_scoring", "name": "Predictive Lead Scoring", "description": "Naive Bayes ML model trained on historical conversion data. Configure PLS variables, rebuild frequency tables, interpret probability scores. Formula: P(Won|values) ∝ ∏ P(value|Won)×P(Won). Batch compute step=50000, update step=5000.", "confidence": "high"},
+    {"id": "cap_lead_mining", "name": "IAP Lead Mining", "description": "Generate leads from external B2B database via DnB API. Filter by country, industry, company size, role, seniority. 1 credit/lead + 1/contact. Endpoint: /api/dnb/1/search_by_criteria.", "confidence": "high"},
+    {"id": "cap_lead_enrichment", "name": "IAP Lead Enrichment", "description": "Enrich leads with business data via Clearbit API. Auto-enrich on create or manual per-lead. 1 credit/enrichment. Skips generic email providers.", "confidence": "high"},
+    {"id": "cap_partner_autocomplete", "name": "Partner Autocomplete", "description": "Auto-populate company info via DnB. Works on new company contacts only. Endpoints: search_by_name, search_by_vat, enrich_by_duns, enrich_by_domain.", "confidence": "high"},
+    {"id": "cap_pipeline", "name": "Pipeline Design", "description": "Multi-stage pipeline with kanban stages, probability tracking, won/lost lifecycle. Stage configuration with rotting thresholds, team-based stages.", "confidence": "high"},
+    {"id": "cap_lead_assignment", "name": "Lead Auto-Assignment", "description": "Weighted random allocation to teams, round-robin to members with preference domains. Daily quota = assignment_max/30 - lead_day_count. Configurable cron.", "confidence": "high"},
+    {"id": "cap_opportunity", "name": "Opportunity Management", "description": "Lead-to-opportunity conversion, merge, recurring revenue tracking, expected revenue, prorated MRR.", "confidence": "high"},
+    {"id": "cap_marketing_attribution", "name": "Marketing Attribution", "description": "UTM-based campaign/source/medium tracking via utm.mixin. Last-touch attribution model. Campaign IDs, source IDs, medium IDs on every lead.", "confidence": "high"},
+    {"id": "cap_team_management", "name": "Sales Team Management", "description": "Team configuration, member assignment rules, dashboard KPIs, forecast reporting.", "confidence": "medium"}
+  ],
+  "limitations": [
+    "PLS requires sufficient historical won/lost data for meaningful probabilities",
+    "IAP services require purchased credit packs",
+    "Marketing attribution is last-touch only; no multi-touch models"
+  ],
+  "required_tools": ["python", "database_access", "iap_credits"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string"},
+      "lead_id": {"type": "integer"},
+      "context": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "recommendation": {"type": "string"},
+      "code": {"type": "string"},
+      "configuration": {"type": "array", "items": {"type": "object"}},
+      "explanations": {"type": "array", "items": {"type": "string"}}
+    }
+  },
+  "evaluation": {
+    "functional_count": 30,
+    "technical_count": 40,
+    "architecture_count": 10,
+    "debugging_count": 10,
+    "migration_count": 5,
+    "automation_count": 10,
+    "total_count": 105
+  },
+  "tags": ["sales", "crm", "lead_scoring", "pipeline", "iap", "pls", "attribution"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "Odoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "source_count": 28,
+    "claim_count": 65,
+    "knowledge_graph_nodes": 22,
+    "changelog": "v19.0.1 — Initial CRM skill based on source code analysis of crm v1.9, crm_iap_mine, crm_iap_enrich, partner_autocomplete"
+  }
+}

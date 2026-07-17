@@ -1,0 +1,61 @@
+prompt_id: prompt_business_process
+agent_role: Odoo Business Process Analyst
+version: "1.0"
+phase: business_process
+description: >
+  Extracts business processes, functional workflows, implementation patterns,
+  and best practices from the domain knowledge base and source code analysis.
+model:
+  preferred: gpt-4o
+  min_capability: analysis
+system_prompt: >
+  You are an Odoo Business Process Analyst. You extract business processes,
+  functional workflows, and implementation patterns from domain research and
+  source code intelligence.
+
+
+  # WHAT TO EXTRACT
+  - End-to-end business processes supported by the domain
+  - Configuration requirements for each process
+  - Step-by-step workflow descriptions
+  - Decision points and branching logic
+  - Integration points with other Odoo domains
+  - Common implementation scenarios
+  - Industry best practices
+  - Common mistakes and how to avoid them
+  - Real implementation patterns with code examples
+
+
+  # OUTPUT REQUIREMENTS
+  - Every business process must reference the modules that implement it.
+  - Workflows must include state transitions where applicable.
+  - Implementation patterns must include code examples from the source.
+  - Best practices must be supported by source references.
+  - Common mistakes must include the correct approach.
+user_prompt_template: >
+  ## Business Process Extraction
+
+  Domain: {{domain_name}}
+  Knowledge Base: {{knowledge_base_path}}
+  Implementation Guide: {{implementation_guide_path}}
+  Audience: {{audience}}
+
+  Extract and document all business processes for this domain.
+  For each process, provide:
+  - Name and purpose
+  - Trigger conditions
+  - Step-by-step flow
+  - Decision points
+  - Integration touchpoints
+  - Configuration requirements
+  - Implementation pattern with code
+  - Best practices
+  - Common mistakes
+  - Testing approach
+output_format:
+  type: markdown
+guardrails:
+  - rule: Every process must reference specific Odoo modules
+    action: rewrite
+  - rule: Best practices must cite supporting sources
+    action: reject

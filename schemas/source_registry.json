@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Odoo Source Registry",
+  "description": "Registry of sources discovered and catalogued during Phase 2 (Source Discovery). Maintains deduplication, tier classification, and fetch status.",
+  "type": "object",
+  "required": ["registry_id", "domain", "generated_at", "entries"],
+  "additionalProperties": false,
+  "properties": {
+    "registry_id": { "type": "string", "pattern": "^reg_\\d{8}_\\d{6}$" },
+    "domain": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "odoo_version": { "type": "string", "pattern": "^\\d+\\.\\d+$" },
+    "total_candidates": { "type": "integer", "minimum": 0 },
+    "total_accepted": { "type": "integer", "minimum": 0 },
+    "total_rejected": { "type": "integer", "minimum": 0 },
+    "stopping_condition": {
+      "type": "object",
+      "properties": {
+        "reason": { "type": "string", "enum": ["budget_exhausted", "three_consecutive_empty", "manual_stop"] },
+        "at_source_count": { "type": "integer" }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "url", "tier", "status"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^src_\\d{4}$" },
+          "title": { "type": "string" },
+          "author_or_org": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "date_published": { "type": ["string", "null"] },
+          "date_accessed": { "type": "string", "format": "date-time" },
+          "tier": { "type": "string", "enum": ["official", "oca_community", "third_party_verified", "unverified_opinion"] },
+          "status": { "type": "string", "enum": ["candidate", "fetched", "verified", "rejected"] },
+          "fetch_verified": { "type": "boolean" },
+          "access_method": { "type": "string" },
+          "topics": { "type": "array", "items": { "type": "string" } },
+          "rejection_reason": { "type": "string" },
+          "cross_checks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "against_source_id": { "type": "string" },
+                "confirms_claim": { "type": "string" },
+                "contradicts_claim": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

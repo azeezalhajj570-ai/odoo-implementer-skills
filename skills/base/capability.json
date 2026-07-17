@@ -1,0 +1,27 @@
+{
+  "skill_id": "skill_base",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_orm",
+      "name": "Odoo ORM",
+      "description": "Model definition, fields, inheritance, computed fields, constraints, search, read, write, create, unlink",
+      "required_knowledge": ["model_inheritance", "field_types", "computed_fields", "constraints", "orm_methods"],
+      "examples": [
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_automation",
+      "name": "Automation Framework",
+      "description": "Server actions, automated actions, cron jobs, scheduled actions",
+      "required_knowledge": ["ir_actions_server", "base_automation", "ir_cron", "mail_activity"],
+      "examples": [
+        "Create a server action triggered on lead creation",
+        "Schedule a cron to recompute lead scores daily",
+        "Configure an automated action for high-value opportunities"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

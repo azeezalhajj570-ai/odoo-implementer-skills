@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Odoo Module Catalog",
+  "description": "Catalog of Odoo modules for a domain, produced by Phase 3 (Source Code Intelligence).",
+  "type": "object",
+  "required": ["domain", "generated_at", "modules", "dependency_graph"],
+  "additionalProperties": false,
+  "properties": {
+    "domain": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "modules": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Module" }
+    },
+    "dependency_graph": {
+      "type": "object",
+      "properties": {
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "prefixItems": [
+              { "type": "string" },
+              { "type": "string" }
+            ],
+            "minItems": 2,
+            "maxItems": 2
+          }
+        }
+      }
+    },
+    "dependency_graph_mermaid": { "type": "string" }
+  },
+  "definitions": {
+    "Module": {
+      "type": "object",
+      "required": ["technical_name", "version", "category", "license", "depends", "models"],
+      "properties": {
+        "technical_name": { "type": "string" },
+        "display_name": { "type": "string" },
+        "version": { "type": "string" },
+        "location": { "type": "string", "enum": ["community", "enterprise", "custom", "oca"] },
+        "application": { "type": "boolean" },
+        "installable": { "type": "boolean" },
+        "auto_install": { "type": "boolean" },
+        "license": { "type": "string" },
+        "category": { "type": "string" },
+        "depends": { "type": "array", "items": { "type": "string" } },
+        "optional_depends": { "type": "array", "items": { "type": "string" } },
+        "external_dependencies": {
+          "type": "object",
+          "properties": {
+            "python": { "type": "array", "items": { "type": "string" } },
+            "bin": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "models": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Technical names of models defined in this module"
+        },
+        "extended_models": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Models extended via _inherit from other modules"
+        },
+        "data_files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": { "type": "string" },
+              "purpose": { "type": "string" }
+            }
+          }
+        },
+        "demo_files": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "crons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "xml_id": { "type": "string" },
+              "name": { "type": "string" },
+              "model": { "type": "string" },
+              "method": { "type": "string" },
+              "interval_number": { "type": "integer" },
+              "interval_type": { "type": "string" },
+              "active": { "type": "boolean" }
+            }
+          }
+        },
+        "controllers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "route": { "type": "string" },
+                "method": { "type": "string" },
+                "auth": { "type": "string" }
+              }
+            }
+          }
+        },
+        "security": {
+          "type": "object",
+          "properties": {
+            "groups": { "type": "array", "items": { "type": "object" } },
+            "acls": { "type": "array", "items": { "type": "object" } },
+            "record_rules": { "type": "array", "items": { "type": "object" } }
+          }
+        },
+        "maintainers": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

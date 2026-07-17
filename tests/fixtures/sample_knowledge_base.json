@@ -1,0 +1,89 @@
+{
+  "domain": "Sample Domain",
+  "odoo_versions": ["19.0"],
+  "audience": "Test Audience",
+  "depth": "standard",
+  "generated_at": "2026-07-17T12:00:00Z",
+  "excluded_scope": ["Out of scope items"],
+  "sources": [
+    {
+      "id": "src_0001",
+      "title": "Sample Documentation",
+      "author_or_org": "Odoo S.A.",
+      "url": "https://www.odoo.com/documentation/19.0/sample.html",
+      "date_published": "2026",
+      "date_accessed": "2026-07-17T12:00:00Z",
+      "tier": "official",
+      "fetch_verified": true,
+      "access_method": "web_fetch",
+      "topics": ["sample", "testing"]
+    },
+    {
+      "id": "src_0002",
+      "title": "Sample GitHub Repository",
+      "author_or_org": "Odoo S.A.",
+      "url": "https://github.com/odoo/odoo/tree/19.0/addons/sample",
+      "date_published": null,
+      "date_accessed": "2026-07-17T12:00:00Z",
+      "tier": "official",
+      "fetch_verified": true,
+      "access_method": "github_search",
+      "topics": ["sample", "module"]
+    }
+  ],
+  "sections": [
+    {
+      "id": "sec_concepts",
+      "title": "Core Concepts",
+      "relevance_weight": "high",
+      "claims": [
+        {
+          "text": "Odoo 19.0 provides a sample module for testing purposes.",
+          "source_ids": ["src_0001"],
+          "confidence": "official"
+        },
+        {
+          "text": "The sample module depends on base and web.",
+          "source_ids": ["src_0002"],
+          "confidence": "official"
+        }
+      ],
+      "conflicts": [],
+      "known_gaps": ["No detailed API documentation found for custom extensions"]
+    },
+    {
+      "id": "sec_configuration",
+      "title": "Configuration",
+      "relevance_weight": "medium",
+      "claims": [
+        {
+          "text": "The sample module can be configured via Settings > Sample.",
+          "source_ids": ["src_0001"],
+          "confidence": "official"
+        }
+      ],
+      "conflicts": [],
+      "known_gaps": []
+    }
+  ],
+  "checklists": {
+    "implementation": ["Install the sample module", "Configure basic settings"],
+    "testing": ["Test basic functionality", "Verify module installs correctly"],
+    "go_live": ["Verify configuration", "Train users"],
+    "migration": ["Check for breaking changes from v18"],
+    "audit": ["Review security configuration"]
+  },
+  "faqs": [
+    {
+      "q": "How do I install the sample module?",
+      "a": "Go to Apps, search for Sample, and click Install.",
+      "source_ids": ["src_0001"]
+    }
+  ],
+  "verification_report": {
+    "sample_size": 1,
+    "passed": 1,
+    "failed": 0,
+    "corrections": []
+  }
+}

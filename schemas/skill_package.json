@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OpenCode AI Skill Package",
+  "description": "Canonical schema for a portable AI Skill that can be loaded dynamically by OpenCode agents.",
+  "type": "object",
+  "required": ["skill_id", "name", "version", "description", "domain", "supported_odoo_versions", "capabilities", "compatible_agents", "dependencies", "input_schema", "output_schema"],
+  "additionalProperties": false,
+  "properties": {
+    "skill_id": { "type": "string", "pattern": "^skill_\\w+$" },
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "domain": { "type": "string" },
+    "subdomain": { "type": "string" },
+    "supported_odoo_versions": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^\\d+\\.\\d+$" },
+      "minItems": 1
+    },
+    "supported_modules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "version"],
+        "properties": {
+          "name": { "type": "string" },
+          "version": { "type": "string" },
+          "location": { "type": "string", "enum": ["community", "enterprise", "custom", "oca"] },
+          "required": { "type": "boolean" }
+        }
+      }
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "skill": { "type": "string" },
+          "description": { "type": "string" },
+          "required": { "type": "boolean" }
+        }
+      }
+    },
+    "dependencies": {
+      "type": "object",
+      "properties": {
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["skill_id", "version_requirement"],
+            "properties": {
+              "skill_id": { "type": "string" },
+              "version_requirement": { "type": "string" },
+              "relationship": { "type": "string", "enum": ["depends_on", "extends", "requires", "recommended_with", "optional_with"] }
+            }
+          }
+        },
+        "odoo_modules": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "external_packages": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "compatible_agents": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["planner", "manager", "worker", "developer", "researcher", "functional", "qa", "documentation", "reviewer", "coding"]
+      }
+    },
+    "capabilities": { "$ref": "#/definitions/CapabilityList" },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "required_tools": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "input_schema": {
+      "type": "object",
+      "description": "JSON Schema for skill invocation input parameters"
+    },
+    "output_schema": {
+      "type": "object",
+      "description": "JSON Schema for skill output"
+    },
+    "evaluation": {
+      "type": "object",
+      "properties": {
+        "functional_count": { "type": "integer" },
+        "technical_count": { "type": "integer" },
+        "architecture_count": { "type": "integer" },
+        "debugging_count": { "type": "integer" },
+        "migration_count": { "type": "integer" },
+        "automation_count": { "type": "integer" },
+        "total_count": { "type": "integer" }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "author": { "type": "string" },
+        "license": { "type": "string" },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" },
+        "source_count": { "type": "integer" },
+        "claim_count": { "type": "integer" },
+        "knowledge_graph_nodes": { "type": "integer" },
+        "changelog": { "type": "string" }
+      }
+    }
+  },
+  "definitions": {
+    "CapabilityList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "description"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^cap_\\w+$" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "required_knowledge": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "examples": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "confidence": { "type": "string", "enum": ["high", "medium", "low"] }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Odoo Model Catalog",
+  "description": "Detailed model catalog with fields, methods, computed fields, constraints, and relationships.",
+  "type": "object",
+  "required": ["domain", "generated_at", "models"],
+  "additionalProperties": false,
+  "properties": {
+    "domain": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "models": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Model" }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "from_model": { "type": "string" },
+          "to_model": { "type": "string" },
+          "type": { "type": "string", "enum": ["many2one", "one2many", "many2many", "inherits", "delegates"] },
+          "field": { "type": "string" }
+        }
+      }
+    },
+    "model_graph_mermaid": { "type": "string" }
+  },
+  "definitions": {
+    "Model": {
+      "type": "object",
+      "required": ["name", "module", "type"],
+      "properties": {
+        "name": { "type": "string" },
+        "module": { "type": "string" },
+        "type": { "type": "string", "enum": ["regular", "abstract", "transient", "sql_view"] },
+        "description": { "type": "string" },
+        "inherits": { "type": "array", "items": { "type": "string" } },
+        "delegates": { "type": "array", "items": { "type": "string" } },
+        "order": { "type": "string" },
+        "rec_name": { "type": "string" },
+        "table": { "type": "string" },
+        "mailing_enabled": { "type": "boolean" },
+        "mixins": { "type": "array", "items": { "type": "string" } },
+        "fields": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Field" }
+        },
+        "computed_fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "type": { "type": "string" },
+              "depends": { "type": "array", "items": { "type": "string" } },
+              "store": { "type": "boolean" },
+              "compute_method": { "type": "string" }
+            }
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string", "enum": ["python", "sql"] },
+              "code": { "type": "string" },
+              "message": { "type": "string" }
+            }
+          }
+        },
+        "onchange_methods": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "depends": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "sql_indexes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "expression": { "type": "string" }
+            }
+          }
+        },
+        "methods": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "decorators": { "type": "array", "items": { "type": "string" } },
+              "purpose": { "type": "string" },
+              "override": { "type": "boolean" },
+              "source_file": { "type": "string" },
+              "line_number": { "type": "integer" }
+            }
+          }
+        }
+      }
+    },
+    "Field": {
+      "type": "object",
+      "required": ["name", "type"],
+      "properties": {
+        "name": { "type": "string" },
+        "type": { "type": "string" },
+        "relation": { "type": "string" },
+        "required": { "type": "boolean" },
+        "readonly": { "type": "boolean" },
+        "tracking": { "type": ["integer", "boolean"] },
+        "compute": { "type": "string" },
+        "inverse": { "type": "string" },
+        "depends": { "type": "array", "items": { "type": ["string"] } },
+        "default": { "type": ["string", "number", "boolean", "null"] },
+        "groups": { "type": "string" },
+        "company_dependent": { "type": "boolean" },
+        "translate": { "type": ["boolean", "string"] },
+        "copy": { "type": "boolean" },
+        "help": { "type": "string" },
+        "index": { "type": ["boolean", "string"] },
+        "store": { "type": "boolean" }
+      }
+    }
+  }
+}

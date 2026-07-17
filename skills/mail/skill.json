@@ -1,0 +1,50 @@
+{
+  "skill_id": "skill_mail",
+  "name": "Odoo Mail & Communication Framework",
+  "description": "Expert knowledge of Odoo's mail, discuss, and notification framework including mail.thread, mail.activity.mixin, mail templates, email routing, bounce handling, notifications, and chatter.",
+  "version": "19.0.1",
+  "domain": "Platform",
+  "subdomain": "Communication",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [
+    {"name": "mail", "version": "1.19", "location": "community", "required": true}
+  ],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Odoo ORM and security", "required": true}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"}
+    ],
+    "odoo_modules": ["mail", "bus"],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "developer", "functional", "qa"],
+  "capabilities": [
+    {"id": "cap_mail_thread", "name": "mail.thread", "description": "Message tracking, notifications, followers, subtypes, routing, bounce handling. Key methods: message_post, message_subscribe, message_route_process, _routing_handle_bounce.", "confidence": "high"},
+    {"id": "cap_activities", "name": "Mail Activities", "description": "mail.activity.mixin, activity plans, activity types, scheduling, calendar integration, deadline management.", "confidence": "high"},
+    {"id": "cap_email_templates", "name": "Email Templates", "description": "QWeb-based email templates, template inheritance, dynamic placeholders, AI prompt integration, render engine.", "confidence": "high"},
+    {"id": "cap_notifications", "name": "Notifications", "description": "In-app notifications, email notifications, SMS notifications, push notifications, digest emails.", "confidence": "medium"},
+    {"id": "cap_bounce_handling", "name": "Bounce Handling", "description": "Inbound email routing, bounce detection, auto-blacklist after 5 bounces/3 months, failure type classification (mail_bounce, mail_spam, mail_smtp, etc.).", "confidence": "high"}
+  ],
+  "limitations": [],
+  "required_tools": ["python"],
+  "input_schema": {"type": "object", "properties": {"task": {"type": "string"}}},
+  "output_schema": {"type": "object", "properties": {"answer": {"type": "string"}, "code": {"type": "string"}}},
+  "evaluation": {
+    "functional_count": 15,
+    "technical_count": 30,
+    "architecture_count": 10,
+    "debugging_count": 10,
+    "migration_count": 5,
+    "automation_count": 5,
+    "total_count": 75
+  },
+  "tags": ["mail", "communication", "notifications", "email", "chatter"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "source_count": 15,
+    "claim_count": 35
+  }
+}

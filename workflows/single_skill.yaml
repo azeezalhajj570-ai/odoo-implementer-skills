@@ -1,0 +1,38 @@
+# Knowledge Factory — Single Skill Generation Workflow
+# Generates a single AI Skill from existing domain artifacts.
+
+workflow:
+  name: "Single Skill Generation"
+  version: "1.0"
+  phases:
+    - id: skill_gen
+      name: "Generate AI Skill"
+      agent: "skill_generator_agent"
+      prompt: "prompts/skill_generator/skill_generator_agent.yaml"
+      inputs:
+        - name: domain
+          source: "user"
+        - name: subtopic
+          source: "user"
+        - name: knowledge_base
+          source: "file"  # path to existing knowledge base JSON
+        - name: implementation_guide
+          source: "file"  # path to existing implementation guide
+        - name: ai_integration
+          source: "file"  # path to existing AI integration analysis
+      outputs:
+        - name: skill
+          path: "skills/{domain}/{subtopic}_skill.json"
+          schema: "schemas/skill_definition.json"
+
+    - id: skill_qa
+      name: "Validate Skill"
+      agent: "qa_agent"
+      depends_on: ["skill_gen"]
+      inputs:
+        - name: skill
+          source: "skill_gen.skill"
+      outputs:
+        - name: qa_report
+          path: "output/reports/{domain}_{subtopic}_qa.json"
+          schema: "schemas/validation_report.json"

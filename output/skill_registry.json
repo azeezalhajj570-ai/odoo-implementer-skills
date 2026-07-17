@@ -1,0 +1,188 @@
+{
+  "indexed_at": "2026-07-17T13:54:42.780333+00:00",
+  "skill_count": 4,
+  "capabilities": {
+    "cap_lead_scoring": [
+      "skill_crm"
+    ],
+    "cap_lead_mining": [
+      "skill_crm"
+    ],
+    "cap_lead_enrichment": [
+      "skill_crm"
+    ],
+    "cap_partner_autocomplete": [
+      "skill_crm"
+    ],
+    "cap_pipeline": [
+      "skill_crm"
+    ],
+    "cap_lead_assignment": [
+      "skill_crm"
+    ],
+    "cap_opportunity": [
+      "skill_crm"
+    ],
+    "cap_marketing_attribution": [
+      "skill_crm"
+    ],
+    "cap_team_management": [
+      "skill_crm"
+    ],
+    "cap_orm": [
+      "skill_base"
+    ],
+    "cap_security": [
+      "skill_base"
+    ],
+    "cap_views": [
+      "skill_base"
+    ],
+    "cap_automation": [
+      "skill_base"
+    ],
+    "cap_mail": [
+      "skill_base"
+    ],
+    "cap_controllers": [
+      "skill_base"
+    ],
+    "cap_reports": [
+      "skill_base"
+    ],
+    "cap_i18n": [
+      "skill_base"
+    ],
+    "cap_testing": [
+      "skill_base"
+    ],
+    "cap_email_marketing": [
+      "skill_marketing"
+    ],
+    "cap_marketing_automation": [
+      "skill_marketing"
+    ],
+    "cap_ab_testing": [
+      "skill_marketing"
+    ],
+    "cap_link_tracking": [
+      "skill_marketing"
+    ],
+    "cap_utm_tracking": [
+      "skill_marketing"
+    ],
+    "cap_sms_marketing": [
+      "skill_marketing"
+    ],
+    "cap_social_marketing": [
+      "skill_marketing"
+    ],
+    "cap_campaign_templates": [
+      "skill_marketing"
+    ],
+    "cap_ai_content": [
+      "skill_marketing"
+    ],
+    "cap_mail_thread": [
+      "skill_mail"
+    ],
+    "cap_activities": [
+      "skill_mail"
+    ],
+    "cap_email_templates": [
+      "skill_mail"
+    ],
+    "cap_notifications": [
+      "skill_mail"
+    ],
+    "cap_bounce_handling": [
+      "skill_mail"
+    ]
+  },
+  "domains": {
+    "sales": [
+      "skill_crm"
+    ],
+    "platform": [
+      "skill_base",
+      "skill_mail"
+    ],
+    "marketing": [
+      "skill_marketing"
+    ]
+  },
+  "skills": {
+    "skill_crm": {
+      "name": "Odoo CRM Expert",
+      "version": "19.0.1",
+      "domain": "Sales",
+      "capabilities": [
+        "cap_lead_scoring",
+        "cap_lead_mining",
+        "cap_lead_enrichment",
+        "cap_partner_autocomplete",
+        "cap_pipeline",
+        "cap_lead_assignment",
+        "cap_opportunity",
+        "cap_marketing_attribution",
+        "cap_team_management"
+      ],
+      "dependencies": [
+        "skill_base",
+        "skill_mail"
+      ]
+    },
+    "skill_base": {
+      "name": "Odoo Platform Foundation",
+      "version": "19.0.1",
+      "domain": "Platform",
+      "capabilities": [
+        "cap_orm",
+        "cap_security",
+        "cap_views",
+        "cap_automation",
+        "cap_mail",
+        "cap_controllers",
+        "cap_reports",
+        "cap_i18n",
+        "cap_testing"
+      ],
+      "dependencies": []
+    },
+    "skill_marketing": {
+      "name": "Odoo Marketing Automation Expert",
+      "version": "19.0.1",
+      "domain": "Marketing",
+      "capabilities": [
+        "cap_email_marketing",
+        "cap_marketing_automation",
+        "cap_ab_testing",
+        "cap_link_tracking",
+        "cap_utm_tracking",
+        "cap_sms_marketing",
+        "cap_social_marketing",
+        "cap_campaign_templates",
+        "cap_ai_content"
+      ],
+      "dependencies": [
+        "skill_base",
+        "skill_mail"
+      ]
+    },
+    "skill_mail": {
+      "name": "Odoo Mail & Communication Framework",
+      "version": "19.0.1",
+      "domain": "Platform",
+      "capabilities": [
+        "cap_mail_thread",
+        "cap_activities",
+        "cap_email_templates",
+        "cap_notifications",
+        "cap_bounce_handling"
+      ],
+      "dependencies": [
+        "skill_base"
+      ]
+    }
+  }
+}

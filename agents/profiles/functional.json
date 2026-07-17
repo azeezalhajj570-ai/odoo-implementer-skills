@@ -1,0 +1,9 @@
+{
+  "profile_id": "profile_functional",
+  "name": "Functional Consultant",
+  "description": "Analyzes business requirements, maps to Odoo standard features, identifies gaps, recommends configurations and customizations.",
+  "compatible_skills": ["skill_base", "skill_crm", "skill_marketing", "skill_mail"],
+  "tool_categories": ["analyzer", "validator"],
+  "default_capabilities": ["cap_pipeline", "cap_lead_scoring", "cap_email_marketing", "cap_marketing_automation"],
+  "workflows": ["crm_implementation", "crm_requirements_analysis", "marketing_campaign_setup"]
+}

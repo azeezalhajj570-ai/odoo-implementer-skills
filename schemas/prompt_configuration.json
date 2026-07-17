@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Prompt Configuration",
+  "description": "Schema for configuring an agent prompt in the Knowledge Factory pipeline.",
+  "type": "object",
+  "required": ["prompt_id", "agent_role", "phase", "system_prompt", "output_format", "validation"],
+  "additionalProperties": false,
+  "properties": {
+    "prompt_id": { "type": "string", "pattern": "^prompt_\\w+$" },
+    "agent_role": { "type": "string", "description": "Role name for the AI agent" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+$" },
+    "phase": {
+      "type": "string",
+      "enum": ["domain_research", "source_discovery", "source_verification", "source_code_analysis", "business_process", "ai_integration", "skill_generator", "documentation_generator", "json_generator", "knowledge_graph_generator", "qa_agent", "rag_packaging"]
+    },
+    "description": { "type": "string" },
+    "model": {
+      "type": "object",
+      "properties": {
+        "preferred": { "type": "string" },
+        "min_capability": { "type": "string" }
+      }
+    },
+    "system_prompt": { "type": "string" },
+    "user_prompt_template": { "type": "string" },
+    "input_schema_ref": { "type": "string" },
+    "output_format": {
+      "type": "object",
+      "required": ["type", "schema_ref"],
+      "properties": {
+        "type": { "type": "string", "enum": ["json", "markdown", "yaml", "text"] },
+        "schema_ref": { "type": "string" },
+        "example": { "type": "string" }
+      }
+    },
+    "guardrails": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rule", "action"],
+        "properties": {
+          "rule": { "type": "string" },
+          "action": { "type": "string", "enum": ["reject", "flag", "rewrite", "ask"] }
+        }
+      }
+    },
+    "stopping_conditions": {
+      "type": "object",
+      "properties": {
+        "max_sources": { "type": "integer" },
+        "consecutive_empty_queries": { "type": "integer" },
+        "max_tokens": { "type": "integer" },
+        "timeout_minutes": { "type": "integer" }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": ["schema_ref", "checks"],
+      "properties": {
+        "schema_ref": { "type": "string" },
+        "checks": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

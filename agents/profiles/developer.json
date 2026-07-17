@@ -1,0 +1,9 @@
+{
+  "profile_id": "profile_developer",
+  "name": "Backend Developer",
+  "description": "Builds Odoo modules: Python models, XML views, security rules, automated actions, report templates, and tests.",
+  "compatible_skills": ["skill_base", "skill_crm", "skill_marketing", "skill_mail"],
+  "tool_categories": ["analyzer", "generator", "validator", "diagnostic"],
+  "default_capabilities": ["cap_orm", "cap_security", "cap_views", "cap_automation", "cap_controllers", "cap_reports", "cap_testing"],
+  "workflows": ["crm_technical_implementation", "generate_crm_module", "validate_crm_module"]
+}

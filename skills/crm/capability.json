@@ -1,0 +1,103 @@
+{
+  "skill_id": "skill_crm",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_lead_scoring",
+      "name": "Predictive Lead Scoring",
+      "description": "Configure and optimize Naive Bayes PLS model. Set frequency fields, interpret probabilities, rebuild frequency tables, diagnose scoring issues.",
+      "required_knowledge": ["naive_bayes", "frequency_table", "crm_lead_scoring_frequency", "probability_clamping"],
+      "examples": [
+        "Configure PLS with custom fields like industry_id",
+        "Diagnose why all leads show 50% probability",
+        "Manually trigger PLS recomputation",
+        "Add a new scoring field and rebuild the frequency table"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_lead_mining",
+      "name": "IAP Lead Mining",
+      "description": "Generate B2B leads from external database using configurable filters. Manage IAP credit consumption and lead import.",
+      "required_knowledge": ["crm_iap_mine", "lead_generation", "iap_credits"],
+      "examples": [
+        "Generate leads for US SaaS companies with 50-200 employees",
+        "Set up automatic lead mining for new market entry",
+        "Monitor IAP credit usage for lead generation"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_lead_enrichment",
+      "name": "Lead Enrichment",
+      "description": "Enrich leads with company data via IAP Clearbit integration. Configure automatic vs on-demand enrichment.",
+      "required_knowledge": ["crm_iap_enrich", "iap_enrich_api", "email_domain_parsing"],
+      "examples": [
+        "Configure auto-enrichment for all new leads",
+        "Manually enrich a batch of existing leads",
+        "Handle enrichment failures gracefully"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_partner_autocomplete",
+      "name": "Partner Autocomplete",
+      "description": "DnB-powered company data autocomplete for new contacts.",
+      "required_knowledge": ["partner_autocomplete", "dnb_api", "iap_autocomplete"],
+      "examples": [
+        "Configure partner autocomplete in settings",
+        "Debug autocomplete failures",
+        "Handle enrichment of company data after creation"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_pipeline",
+      "name": "Pipeline Design",
+      "description": "Design and configure multi-stage sales pipelines with probability tracking, stage-dependent fields, and team-based stages.",
+      "required_knowledge": ["crm_stage", "stage_configuration", "probability_tracking"],
+      "examples": [
+        "Design a 5-stage B2B SaaS pipeline",
+        "Configure rotting thresholds for stale opportunities",
+        "Set team-specific stages for different sales channels"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_lead_assignment",
+      "name": "Lead Auto-Assignment",
+      "description": "Configure automatic lead assignment to teams and salespeople using weighted random allocation and round-robin distribution.",
+      "required_knowledge": ["assignment_rules", "team_configuration", "round_robin", "quota_management"],
+      "examples": [
+        "Set up round-robin lead distribution for a 5-person sales team",
+        "Configure territory-based lead assignment",
+        "Debug why a salesperson isn't receiving assigned leads"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_opportunity",
+      "name": "Opportunity Management",
+      "description": "Lead-to-opportunity conversion, merging duplicates, recurring revenue tracking, expected revenue proration.",
+      "required_knowledge": ["lead_conversion", "merge_opportunities", "recurring_revenue"],
+      "examples": [
+        "Convert a qualified lead to opportunity with correct partner linking",
+        "Merge duplicate opportunities preserving all history",
+        "Set up recurring revenue tracking for subscription-based sales"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_marketing_attribution",
+      "name": "Marketing Attribution",
+      "description": "UTM-based campaign tracking from first touch to closed won. Campaign/source/medium on leads via utm.mixin.",
+      "required_knowledge": ["utm", "campaign_tracking", "attribution_reporting"],
+      "examples": [
+        "Set up UTM tracking for a multi-channel campaign",
+        "Generate marketing attribution reports in CRM",
+        "Analyze which campaigns generate the most revenue"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+# Knowledge Factory — Standalone QA Pipeline
+# Runs QA validation on existing artifacts without re-generating them.
+
+workflow:
+  name: "Standalone QA Pipeline"
+  version: "1.0"
+  
+  phases:
+    - id: qa_validation
+      name: "Validate All Artifacts"
+      agent: "qa_agent"
+      prompt: "prompts/qa_agent/qa_agent.yaml"
+      inputs:
+        - name: artifact_paths
+          source: "user"
+        - name: artifact_types
+          source: "user"
+        - name: domain
+          source: "user"
+      outputs:
+        - name: combined_report
+          path: "output/reports/{domain}_combined_qa.json"
+          
+      validation_steps:
+        - check: "broken_references"
+          scan: ["source_ids", "section_ids", "skill_ids", "model_names"]
+        - check: "missing_citations"
+          scan: ["claims", "faqs"]
+        - check: "duplicate_content"
+          threshold: 0.85  # cosine similarity threshold
+        - check: "contradictions"
+          compare: ["claims.text"]
+        - check: "invalid_json"
+          validate_parse: true
+        - check: "schema_validation"
+          schemas:
+            - "schemas/knowledge_base.json"
+            - "schemas/module_catalog.json"
+            - "schemas/model_catalog.json"
+            - "schemas/skill_definition.json"
+            - "schemas/metadata.json"
+        - check: "cross_reference_integrity"
+          references:
+            - from: "claims.source_ids"
+              to: "sources.id"
+            - from: "sections.claims.source_ids"
+              to: "sources.id"

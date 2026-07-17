@@ -1,0 +1,9 @@
+{
+  "profile_id": "profile_architect",
+  "name": "Solution Architect",
+  "description": "Designs end-to-end Odoo solutions across multiple domains, evaluates trade-offs, ensures scalability and maintainability.",
+  "compatible_skills": ["skill_base", "skill_crm", "skill_marketing", "skill_mail"],
+  "tool_categories": ["analyzer", "migrator", "diagnostic"],
+  "default_capabilities": ["cap_orm", "cap_security", "cap_views", "cap_reports", "cap_automation"],
+  "workflows": ["crm_architecture_review", "project_architecture_analysis"]
+}

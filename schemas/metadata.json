@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RAG-Optimized Metadata",
+  "description": "Metadata for a domain knowledge artifact, optimized for RAG indexing, chunking, and embedding.",
+  "type": "object",
+  "required": ["artifact_id", "type", "domain", "version", "generated_at", "chunking", "embedding", "cross_references"],
+  "additionalProperties": false,
+  "properties": {
+    "artifact_id": { "type": "string" },
+    "type": {
+      "type": "string",
+      "enum": ["knowledge_base", "implementation_guide", "skill", "reference"]
+    },
+    "domain": { "type": "string" },
+    "subdomain": { "type": "string" },
+    "version": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "size_bytes": { "type": "integer" },
+    "word_count": { "type": "integer" },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Classification tags for retrieval filtering"
+    },
+    "chunking": {
+      "type": "object",
+      "required": ["strategy", "max_chunk_size", "overlap"],
+      "properties": {
+        "strategy": { "type": "string", "enum": ["by_section", "by_paragraph", "by_token", "semantic"] },
+        "max_chunk_size": { "type": "integer" },
+        "overlap": { "type": "integer" },
+        "chunks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "chunk_id": { "type": "string" },
+              "start_offset": { "type": "integer" },
+              "end_offset": { "type": "integer" },
+              "section_id": { "type": "string" },
+              "tokens_estimate": { "type": "integer" }
+            }
+          }
+        }
+      }
+    },
+    "embedding": {
+      "type": "object",
+      "properties": {
+        "model": { "type": "string" },
+        "dimensions": { "type": "integer" },
+        "distance_metric": { "type": "string", "enum": ["cosine", "euclidean", "dot_product"] },
+        "chunk_embeddings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "chunk_id": { "type": "string" },
+              "vector": { "type": "array", "items": { "type": "number" } }
+            }
+          }
+        }
+      }
+    },
+    "cross_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["target_type", "target_id", "relationship"],
+        "properties": {
+          "target_type": { "type": "string", "enum": ["knowledge_base", "implementation_guide", "skill", "source", "module"] },
+          "target_id": { "type": "string" },
+          "relationship": { "type": "string", "enum": ["extends", "references", "contradicts", "supersedes", "requires", "related_to"] }
+        }
+      }
+    },
+    "search_index": {
+      "type": "object",
+      "properties": {
+        "keywords": { "type": "array", "items": { "type": "string" } },
+        "key_phrases": { "type": "array", "items": { "type": "string" } },
+        "models_referenced": { "type": "array", "items": { "type": "string" } },
+        "modules_referenced": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

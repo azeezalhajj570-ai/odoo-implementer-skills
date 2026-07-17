@@ -1,0 +1,81 @@
+{
+  "skill_id": "skill_marketing",
+  "name": "Odoo Marketing Automation Expert",
+  "description": "Expert-level knowledge of Odoo marketing automation including Email Marketing (mass_mailing v2.7), Marketing Automation campaigns (9 trigger types), A/B testing, SMS marketing, social marketing, link tracking, UTM attribution, and AI-powered content generation.",
+  "version": "19.0.1",
+  "domain": "Marketing",
+  "subdomain": "Marketing Automation",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [
+    {"name": "mass_mailing", "version": "2.7", "location": "community", "required": true},
+    {"name": "marketing_automation", "version": "19.0", "location": "enterprise", "required": true},
+    {"name": "mass_mailing_sms", "version": "19.0", "location": "enterprise", "required": false},
+    {"name": "link_tracker", "version": "1.1", "location": "community", "required": true},
+    {"name": "utm", "version": "1.1", "location": "community", "required": true}
+  ],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Odoo ORM, security, and mail framework", "required": true},
+    {"skill": "skill_mail", "description": "Email and notification framework", "required": true}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"},
+      {"skill_id": "skill_mail", "version_requirement": ">=19.0", "relationship": "depends_on"}
+    ],
+    "odoo_modules": ["mass_mailing", "marketing_automation", "link_tracker", "utm"],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer"],
+  "capabilities": [
+    {"id": "cap_email_marketing", "name": "Email Marketing", "description": "Mass mailing creation, drag-and-drop email builder, A/B testing, scheduling, link tracking, recipient targeting (lists, filters, domains), statistics (opens, clicks, bounces, replies), blacklist management, unsubscribe flows.", "confidence": "high"},
+    {"id": "cap_marketing_automation", "name": "Marketing Automation Campaigns", "description": "Multi-step campaign workflows with 9 trigger types (begin, activity, mail_open, mail_not_open, mail_click, mail_not_click, mail_reply, mail_not_reply, mail_bounce). 2 activity types: email and server action. Participant state machine: running -> completed/unlinked. Scheduled via 12h sync cron + 1h execution cron.", "confidence": "high"},
+    {"id": "cap_ab_testing", "name": "A/B Testing", "description": "Built-in email A/B testing with random split sampling. Winner selection criteria: manual, open rate, click rate, reply rate, leads generated, quotations, revenues. Cron-based winner dispatch.", "confidence": "high"},
+    {"id": "cap_link_tracking", "name": "Link Tracking & Attribution", "description": "Automatic link shortening in emails via link_tracker. Click recording with IP, country, timestamp. UTM parameter injection. Redirect via /r/<code>. Integration with mass_mailing and marketing_automation.", "confidence": "high"},
+    {"id": "cap_utm_tracking", "name": "UTM Campaign Tracking", "description": "utm.mixin providing campaign_id, medium_id, source_id. Auto-creation of UTM records. Cookie-based tracking with 31-day expiry. Integration across CRM, mass_mailing, website.", "confidence": "high"},
+    {"id": "cap_sms_marketing", "name": "SMS Marketing", "description": "SMS campaign creation via mass_mailing_sms. IAP SMS or Twilio backend. Mailing lists, blacklists, delivery tracking.", "confidence": "medium"},
+    {"id": "cap_social_marketing", "name": "Social Marketing", "description": "Multi-platform post scheduling (Facebook, Instagram, LinkedIn, X/Twitter, YouTube). Social streams for monitoring. Post campaigns.", "confidence": "medium"},
+    {"id": "cap_campaign_templates", "name": "Campaign Templates", "description": "6 pre-built campaign templates: Tag Hot Contacts, Welcome Flow, Double Opt-in, Commercial Prospection, Schedule Calls, Prioritize Hot Leads. Extensible via _get_campaign_templates_info.", "confidence": "high"},
+    {"id": "cap_ai_content", "name": "AI-Powered Content", "description": "AI prompt integration in email templates via o_editor_prompt divs. AI-generated subject lines, body content, and SEO meta tags. Integration with ai.agent platform.", "confidence": "medium"}
+  ],
+  "limitations": [
+    "Marketing Automation requires mass_mailing (Email Marketing) as a dependency",
+    "SMS requires IAP credits or Twilio account",
+    "A/B testing only available for email, not multi-channel",
+    "No dedicated abandoned cart module; requires manual configuration"
+  ],
+  "required_tools": ["python", "email_server", "iap_credits"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string"},
+      "campaign_context": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "campaign_design": {"type": "object"},
+      "implementation_steps": {"type": "array"},
+      "code_examples": {"type": "array"},
+      "optimization_tips": {"type": "array"}
+    }
+  },
+  "evaluation": {
+    "functional_count": 35,
+    "technical_count": 35,
+    "architecture_count": 10,
+    "debugging_count": 10,
+    "migration_count": 5,
+    "automation_count": 10,
+    "total_count": 105
+  },
+  "tags": ["marketing", "email", "automation", "campaign", "ab_testing", "utm", "sms", "social"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "Odoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "source_count": 25,
+    "claim_count": 58,
+    "knowledge_graph_nodes": 20
+  }
+}
