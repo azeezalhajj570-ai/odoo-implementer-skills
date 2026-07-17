@@ -1,0 +1,90 @@
+{
+  "skill_id": "skill_social_marketing",
+  "name": "Odoo Social Marketing Expert",
+  "description": "Expert-level knowledge of Odoo Social Marketing including social account management, multi-platform publishing (Facebook, Instagram, LinkedIn, X/Twitter, YouTube), post scheduling, stream monitoring, campaign tracking, media attachments, and AI-generated content integration.",
+  "version": "19.0.1",
+  "domain": "Marketing",
+  "subdomain": "Social Marketing",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [
+    {"name": "social_marketing", "version": "19.0", "location": "enterprise", "required": true},
+    {"name": "social_facebook", "version": "19.0", "location": "enterprise", "required": false},
+    {"name": "social_instagram", "version": "19.0", "location": "enterprise", "required": false},
+    {"name": "social_linkedin", "version": "19.0", "location": "enterprise", "required": false},
+    {"name": "social_twitter", "version": "19.0", "location": "enterprise", "required": false},
+    {"name": "social_youtube", "version": "19.0", "location": "enterprise", "required": false},
+    {"name": "utm", "version": "19.0", "location": "community", "required": true}
+  ],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Odoo ORM, security, and mail framework", "required": true},
+    {"skill": "skill_marketing", "description": "Marketing campaigns and UTM tracking", "required": false},
+    {"skill": "skill_mail", "description": "Email and notification framework", "required": false}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"},
+      {"skill_id": "skill_marketing", "version_requirement": ">=19.0", "relationship": "recommended_with"},
+      {"skill_id": "skill_mail", "version_requirement": ">=19.0", "relationship": "recommended_with"}
+    ],
+    "odoo_modules": ["social_marketing", "social_facebook", "social_instagram", "social_linkedin", "social_twitter", "social_youtube", "utm", "mail"],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer"],
+  "capabilities": [
+    {"id": "cap_social_accounts", "name": "Social Account Management", "description": "Configure and manage social media accounts (social.account) across Facebook, Instagram, LinkedIn, X/Twitter, and YouTube. Handle OAuth authorization, token refresh, page linking, and account-level permissions.", "confidence": "high"},
+    {"id": "cap_social_posting", "name": "Multi-Platform Publishing", "description": "Create, schedule, and publish social.post records across one or more platforms. Manage post states (draft, scheduled, posted, failed), per-platform live posts (social.live.post), character limits, and platform-specific formatting.", "confidence": "high"},
+    {"id": "cap_post_scheduling", "name": "Post Scheduling & Cron", "description": "Schedule posts via scheduled_date field and the social posting cron. Handle timezone-aware publication, failed state fallback, and batch processing of due posts.", "confidence": "high"},
+    {"id": "cap_media_attachments", "name": "Social Media Attachments", "description": "Attach images and videos to social.post records via ir.attachment. Validate media requirements per platform (dimensions, size, format, count) and link attachments to live posts.", "confidence": "high"},
+    {"id": "cap_stream_monitoring", "name": "Stream Monitoring", "description": "Create social.stream and collect social.stream.post records for mentions, hashtags, pages, and engagement tracking. Configure stream types and refresh cadence per platform API.", "confidence": "high"},
+    {"id": "cap_campaign_tracking", "name": "Campaign & UTM Tracking", "description": "Link social.post records to utm.campaign via campaign_id. Track source, medium, and campaign attribution for social traffic using utm.mixin.", "confidence": "high"},
+    {"id": "cap_ai_content", "name": "AI-Generated Content", "description": "Integrate social posting with ai.agent to generate post content, suggestions, and hashtags. Maintain brand voice and platform constraints.", "confidence": "medium"},
+    {"id": "cap_social_security", "name": "Social Marketing Security", "description": "Configure social marketing user and manager groups, record rules for multi-company/account isolation, and access control for streams, accounts, and posts.", "confidence": "high"},
+    {"id": "cap_social_analytics", "name": "Social Analytics & Reporting", "description": "Read engagement metrics from live posts, build dashboards, and report on social campaign performance by platform, account, and campaign.", "confidence": "medium"}
+  ],
+  "limitations": [
+    "Publishing requires valid OAuth tokens and is subject to platform API rate limits",
+    "Media validation rules vary by platform and can change without notice",
+    "Instagram direct publishing requires Business/Creator accounts and proper Meta permissions",
+    "YouTube posting typically requires videos, not text-only posts",
+    "Stream monitoring is limited by platform search API availability and rate limits"
+  ],
+  "required_tools": ["python", "database_access", "social_api_tokens"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string"},
+      "post_id": {"type": "integer"},
+      "account_id": {"type": "integer"},
+      "campaign_id": {"type": "integer"},
+      "context": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "recommendation": {"type": "string"},
+      "code": {"type": "string"},
+      "configuration": {"type": "array", "items": {"type": "object"}},
+      "explanations": {"type": "array", "items": {"type": "string"}}
+    }
+  },
+  "evaluation": {
+    "functional_count": 10,
+    "technical_count": 10,
+    "architecture_count": 5,
+    "debugging_count": 5,
+    "migration_count": 2,
+    "automation_count": 5,
+    "total_count": 37
+  },
+  "tags": ["marketing", "social_marketing", "social_media", "facebook", "instagram", "linkedin", "twitter", "youtube", "utm", "campaigns"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "Odoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "source_count": 24,
+    "claim_count": 58,
+    "knowledge_graph_nodes": 18,
+    "changelog": "v19.0.1 — Initial Social Marketing skill based on Odoo 19 social_marketing, social_facebook, social_instagram, social_linkedin, social_twitter, social_youtube modules"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "id": "project_implementation",
+  "name": "Project Full Implementation",
+  "description": "Complete Odoo Project implementation workflow: analyze requirements, configure projects and tasks, set up timesheets, validate assignments, and launch.",
+  "version": "1.0",
+  "skill_id": "skill_project",
+  "compatible_agents": ["functional", "technical", "developer", "architect"],
+  "steps": [
+    {
+      "id": "analyze_requirements",
+      "name": "Analyze Requirements",
+      "description": "Analyze project management requirements: teams, projects, visibility, timesheets, billing, forecasting",
+      "tool": "analyze_project_health",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "configure_projects",
+      "name": "Configure Projects",
+      "description": "Create projects, stages, tags, analytic accounts, and visibility settings",
+      "tool": "analyze_project_health",
+      "params": {},
+      "depends_on": ["analyze_requirements"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "setup_timesheets",
+      "name": "Set Up Timesheets",
+      "description": "Configure hr.employee linkage, timesheet products, and project allow_timesheets flag",
+      "tool": "validate_task_assignment",
+      "params": {},
+      "depends_on": ["configure_projects"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "validate_assignments",
+      "name": "Validate Task Assignments",
+      "description": "Check task distribution, capacity, deadlines, and unassigned work",
+      "tool": "validate_task_assignment",
+      "params": {},
+      "depends_on": ["configure_projects"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "configure_security",
+      "name": "Configure Security",
+      "description": "Assign project groups and record rules for multi-company and visibility",
+      "tool": "validate_task_assignment",
+      "params": {},
+      "depends_on": ["setup_timesheets", "validate_assignments"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "setup_automation",
+      "name": "Set Up Automation",
+      "description": "Configure stage email templates, automated actions, and SLA alerts",
+      "tool": "analyze_project_health",
+      "params": {},
+      "depends_on": ["configure_security"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "final_health_check",
+      "name": "Final Health Check",
+      "description": "Run project health analysis and confirm launch readiness",
+      "tool": "analyze_project_health",
+      "params": {},
+      "depends_on": ["setup_automation"],
+      "on_failure": "continue"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "2-4 hours"
+  }
+}

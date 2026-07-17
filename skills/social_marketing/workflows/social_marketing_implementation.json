@@ -1,0 +1,79 @@
+{
+  "id": "social_marketing_implementation",
+  "name": "Social Marketing Full Implementation",
+  "description": "Complete Social Marketing implementation workflow: analyze requirements, connect accounts, configure campaigns, schedule posts, validate, and monitor.",
+  "version": "1.0",
+  "skill_id": "skill_social_marketing",
+  "compatible_agents": ["functional", "technical", "developer", "architect", "qa"],
+  "steps": [
+    {
+      "id": "analyze_requirements",
+      "name": "Analyze Requirements",
+      "description": "Analyze social marketing requirements: platforms, accounts, campaigns, posting cadence, and team permissions",
+      "tool": "analyze_social_posts",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "connect_accounts",
+      "name": "Connect Social Accounts",
+      "description": "Connect Facebook, Instagram, LinkedIn, X/Twitter, and YouTube accounts and pages",
+      "tool": "validate_scheduled_post",
+      "params": {},
+      "depends_on": ["analyze_requirements"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "configure_campaigns",
+      "name": "Configure UTM Campaigns",
+      "description": "Create or map utm.campaign records and configure source/medium attribution for social traffic",
+      "tool": "analyze_social_posts",
+      "params": {},
+      "depends_on": ["connect_accounts"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "create_content",
+      "name": "Create and Schedule Content",
+      "description": "Create social.post records with message, media, campaign links, and scheduled_date",
+      "tool": "validate_scheduled_post",
+      "params": {},
+      "depends_on": ["configure_campaigns"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "setup_streams",
+      "name": "Setup Stream Monitoring",
+      "description": "Configure social.stream records for mentions, hashtags, and page monitoring",
+      "tool": "analyze_social_posts",
+      "params": {},
+      "depends_on": ["connect_accounts"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "validate_posts",
+      "name": "Validate Scheduled Posts",
+      "description": "Validate scheduled posts for platform constraints, media, and scheduled_date before publication",
+      "tool": "validate_scheduled_post",
+      "params": {},
+      "depends_on": ["create_content"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "review_analytics",
+      "name": "Review Analytics",
+      "description": "Review social.live.post engagement metrics and campaign performance after posts are published",
+      "tool": "analyze_social_posts",
+      "params": {},
+      "depends_on": ["validate_posts"],
+      "on_failure": "continue"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "3-5 hours"
+  }
+}

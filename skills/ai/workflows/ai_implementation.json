@@ -1,0 +1,79 @@
+{
+  "id": "ai_implementation",
+  "name": "AI Agent Full Implementation",
+  "description": "Complete AI agent implementation workflow: analyze requirements, validate provider, configure agent, register tools, set security, deploy, and monitor.",
+  "version": "1.0",
+  "skill_id": "skill_ai",
+  "compatible_agents": ["functional", "technical", "developer", "architect", "manager"],
+  "steps": [
+    {
+      "id": "analyze_requirements",
+      "name": "Analyze Requirements",
+      "description": "Analyze business requirements, target channels (Discuss, activities, tasks), and agent responsibilities",
+      "tool": "analyze_ai_agent",
+      "params": {},
+      "on_failure": "stop"
+    },
+    {
+      "id": "validate_provider",
+      "name": "Validate LLM Provider",
+      "description": "Validate the chosen ai.provider configuration for credentials, base URL, and security",
+      "tool": "validate_ai_provider_config",
+      "params": {},
+      "depends_on": ["analyze_requirements"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "configure_agent",
+      "name": "Configure AI Agent",
+      "description": "Create ai.agent with system prompt, welcome message, model, provider, memory, and handoff settings",
+      "tool": "analyze_ai_agent",
+      "params": {},
+      "depends_on": ["validate_provider"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "register_tools",
+      "name": "Register and Bind Tools",
+      "description": "Create ai.tool records with valid JSON schemas and bind them to the agent",
+      "tool": "analyze_ai_agent",
+      "params": {},
+      "depends_on": ["configure_agent"],
+      "on_failure": "continue"
+    },
+    {
+      "id": "setup_security",
+      "name": "Set Up Security",
+      "description": "Configure security groups, record rules, and encrypted credential access for AI resources",
+      "tool": "validate_ai_provider_config",
+      "params": {},
+      "depends_on": ["configure_agent"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "deploy_agent",
+      "name": "Deploy Agent",
+      "description": "Deploy the agent to Discuss channels, activity types, or project tasks",
+      "tool": "analyze_ai_agent",
+      "params": {},
+      "depends_on": ["register_tools", "setup_security"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "monitor_usage",
+      "name": "Monitor Usage and Iterate",
+      "description": "Enable usage tracking, set limits, review logs, and refine prompts/tools based on feedback",
+      "tool": "analyze_ai_agent",
+      "params": {},
+      "depends_on": ["deploy_agent"],
+      "on_failure": "continue"
+    }
+  ],
+  "validation": {
+    "type": "all_steps_pass"
+  },
+  "metadata": {
+    "author": "Odoo AI Skill Platform",
+    "estimated_duration": "3-6 hours"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "domain": "Marketing",
+  "version": "19.0",
+  "modules": ["social_marketing", "social_facebook", "social_instagram", "social_linkedin", "social_twitter", "social_youtube", "utm", "mail"],
+  "key_models": {
+    "social.account": "Connected social media account. Key fields: name, media_type (facebook, instagram, linkedin, twitter, youtube), media_id, account_id, is_media_disconnected, company_id, social_page_ids.",
+    "social.page": "Social page managed by an account. Key fields: name, account_id, page_id, is_selected, media_type, sequence.",
+    "social.post": "Social post to publish. Key fields: name, message, post_message, account_ids, live_post_ids, scheduled_date, state (draft/scheduled/posted/failed), campaign_id, utm_source_id, utm_medium_id, image_ids, is_ai_content, ai_prompt.",
+    "social.live.post": "Per-account published post. Key fields: post_id, account_id, state (draft/scheduled/posted/failed/ready/published), live_coverage_ref, page_id, engagement metrics (like_count, comment_count, share_count, impression_count).",
+    "social.stream": "Stream configuration for monitoring. Key fields: name, media_type, stream_type, account_id, search_term, sequence.",
+    "social.stream.post": "Post collected from a stream. Key fields: stream_id, author_name, message, link, published_date, like_count, comment_count, share_count, is_favorite.",
+    "utm.campaign": "Marketing campaign. Key fields: name, user_id, stage_id, tag_ids. Social posts reference it via campaign_id.",
+    "utm.source": "Traffic source. Social posts set utm_source_id (e.g., 'Facebook', 'LinkedIn').",
+    "utm.medium": "Traffic medium. Social posts set utm_medium_id (e.g., 'Social')."
+  },
+  "key_files": {
+    "social_marketing/models/social_account.py": "Social account model with OAuth state and media connection",
+    "social_marketing/models/social_page.py": "Social page model for linked pages",
+    "social_marketing/models/social_post.py": "Core post model with scheduling, publishing, media, campaign links",
+    "social_marketing/models/social_live_post.py": "Live post instances per account with engagement metrics",
+    "social_marketing/models/social_stream.py": "Stream definitions for monitoring",
+    "social_marketing/models/social_stream_post.py": "Collected posts from social streams",
+    "social_marketing/models/utm_campaign.py": "UTM campaign integration with social posts",
+    "social_marketing/data/social_marketing_cron.xml": "Social post publishing cron"
+  },
+  "crons": {
+    "social_post_cron": "Publish scheduled posts (periodic, active by default). Model: social.post, method: _publish_scheduled_posts",
+    "social_stream_refresh_cron": "Refresh social streams (periodic). Model: social.stream, method: _refresh_streams"
+  },
+  "security_groups": {
+    "social_marketing.group_social_marketing_user": "Create and manage social posts, accounts, streams, and campaigns",
+    "social_marketing.group_social_marketing_manager": "Full configuration: accounts, streams, crons, all posts, settings",
+    "base.group_system": "Required for social account OAuth setup and technical settings",
+    "base.group_user": "Internal users can view published posts and dashboards"
+  },
+  "record_rules": {
+    "social_account_company_rule": "[('company_id','in',company_ids+[False])] — multi-company isolation for social accounts",
+    "social_post_company_rule": "[('company_id','in',company_ids+[False])] — multi-company isolation for social posts",
+    "social_stream_company_rule": "[('company_id','in',company_ids+[False])] — multi-company isolation for social streams"
+  }
+}

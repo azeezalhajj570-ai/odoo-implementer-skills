@@ -1,0 +1,114 @@
+{
+  "skill_id": "skill_ai",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_ai_agent_config",
+      "name": "AI Agent Configuration",
+      "description": "Create and tune ai.agent records including system prompt, welcome message, model selection, allowed tools, visibility, and handoff rules.",
+      "required_knowledge": ["ai.agent", "system_prompt", "welcome_message", "allowed_tools", "agent_visibility"],
+      "examples": [
+        "Create a support agent that answers FAQs and escalates to humans",
+        "Configure an agent with a custom system prompt and restricted tool set",
+        "Set agent visibility so only specific channel members can invoke it"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_ai_providers",
+      "name": "LLM Provider Integration",
+      "description": "Configure ai.provider records for cloud and local LLM endpoints, manage encrypted credentials, base URLs, timeouts, and retry policies.",
+      "required_knowledge": ["ai.provider", "api_key_storage", "base_url", "timeout", "max_retries", "azure_openai"],
+      "examples": [
+        "Add an OpenAI GPT-4o provider with encrypted API key",
+        "Configure an Ollama provider pointing to a local server",
+        "Set up Azure OpenAI with deployment name and endpoint"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_ai_models",
+      "name": "AI Model Registry",
+      "description": "Maintain ai.model records with model identifiers, context windows, pricing, provider links, and supported modalities.",
+      "required_knowledge": ["ai.model", "context_window", "token_pricing", "modality", "provider_link"],
+      "examples": [
+        "Register gpt-4o and claude-3-5-sonnet models with context windows",
+        "Update per-token pricing for a new model release",
+        "Map a model to multiple providers for fallback"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_ai_tools",
+      "name": "Tool Binding & Execution",
+      "description": "Register ai.tool records, define JSON schemas, bind tools to agents, and implement the tool execution loop with proper error handling.",
+      "required_knowledge": ["ai.tool", "tool_schema", "function_calling", "tool_execution", "json_schema"],
+      "examples": [
+        "Create a custom tool that searches CRM leads",
+        "Restrict an agent to only three allowed tools",
+        "Handle tool execution errors gracefully in the agent loop"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_ai_prompts",
+      "name": "Prompt Engineering",
+      "description": "Build ai.prompt records using o_editor_prompt HTML fields, variables, variants, and versioning for reusable templates.",
+      "required_knowledge": ["ai.prompt", "o_editor_prompt", "prompt_variables", "prompt_variants", "jinja2"],
+      "examples": [
+        "Create a prompt template for product description generation",
+        "Use prompt variables to inject record fields at runtime",
+        "Version a prompt and A/B test variants"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_ai_sessions",
+      "name": "Session & Memory Management",
+      "description": "Manage ai.agent.session and ai_message records, persist history, summarize long threads, and enforce session expiry.",
+      "required_knowledge": ["ai.agent.session", "ai_message", "conversation_history", "summarization", "session_expiry"],
+      "examples": [
+        "Link an AI session to a Discuss channel",
+        "Summarize a long conversation before context limit",
+        "Archive expired sessions via cron"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_ai_security",
+      "name": "AI Security & Governance",
+      "description": "Apply security groups and record rules for AI agents, provider credentials, usage limits, and administration.",
+      "required_knowledge": ["security_groups", "record_rules", "encrypted_fields", "usage_quotas", "least_privilege"],
+      "examples": [
+        "Grant AI manager group full CRUD on ai.agent",
+        "Restrict provider API keys to a credential manager group",
+        "Set record rules so users see only their own sessions"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_ai_deployment",
+      "name": "Agent Deployment",
+      "description": "Deploy agents to Discuss channels, mail activities, and project tasks with auto-responder and human handoff configuration.",
+      "required_knowledge": ["discuss_channel", "mail_activity", "project_task", "auto_responder", "human_handoff"],
+      "examples": [
+        "Assign an agent to a WhatsApp Discuss channel",
+        "Configure an agent to create activities on records",
+        "Trigger human takeover after three misunderstood messages"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_ai_monitoring",
+      "name": "Usage Monitoring & Limits",
+      "description": "Track token usage, requests, and cost per agent/provider/user. Configure quotas and alerting.",
+      "required_knowledge": ["usage_logs", "token_count", "cost_tracking", "quotas", "alerts"],
+      "examples": [
+        "View monthly token consumption per provider",
+        "Set a daily request limit per user",
+        "Create a cron that emails usage reports"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

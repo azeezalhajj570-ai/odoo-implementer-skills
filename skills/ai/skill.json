@@ -1,0 +1,85 @@
+{
+  "skill_id": "skill_ai",
+  "name": "Odoo AI Agent Expert",
+  "description": "Expert-level knowledge of Odoo AI agents, providers, models, tools, prompts, and sessions. Covers AI agent configuration, LLM provider integration (OpenAI, Anthropic, Azure OpenAI, Ollama, Groq), tool binding, prompt templating, security groups, usage limits, and deployment to Discuss channels, activities, and tasks.",
+  "version": "19.0.1",
+  "domain": "Platform",
+  "subdomain": "AI Agents",
+  "supported_odoo_versions": ["19.0"],
+  "supported_modules": [
+    {"name": "ai", "version": "19.0", "location": "community", "required": true},
+    {"name": "mail", "version": "19.0", "location": "community", "required": true},
+    {"name": "project", "version": "19.0", "location": "community", "required": false}
+  ],
+  "prerequisites": [
+    {"skill": "skill_base", "description": "Odoo ORM, security, and mail framework", "required": true},
+    {"skill": "skill_mail", "description": "Email, Discuss, and notification framework", "required": false}
+  ],
+  "dependencies": {
+    "skills": [
+      {"skill_id": "skill_base", "version_requirement": ">=19.0", "relationship": "depends_on"},
+      {"skill_id": "skill_mail", "version_requirement": ">=19.0", "relationship": "recommended_with"}
+    ],
+    "odoo_modules": ["ai", "mail", "base"],
+    "external_packages": []
+  },
+  "compatible_agents": ["planner", "manager", "developer", "researcher", "functional", "qa", "documentation", "reviewer"],
+  "capabilities": [
+    {"id": "cap_ai_agent_config", "name": "AI Agent Configuration", "description": "Configure ai.agent records: system prompt, welcome message, default model, provider, allowed tools, visibility, memory, and human handoff rules. Bind agents to Discuss channels, activities, and tasks.", "confidence": "high"},
+    {"id": "cap_ai_providers", "name": "LLM Provider Integration", "description": "Set up ai.provider records for OpenAI, Anthropic, Azure OpenAI, Ollama, Groq, and custom endpoints. Manage API keys, base URLs, timeout, max retries, and credential security via encrypted fields.", "confidence": "high"},
+    {"id": "cap_ai_models", "name": "AI Model Registry", "description": "Manage ai.model records: model names, context windows, token pricing, modality flags, provider links, and capability tags. Map models to providers and enforce compatibility.", "confidence": "high"},
+    {"id": "cap_ai_tools", "name": "Tool Binding & Execution", "description": "Register ai.tool records, define tool schemas, bind tools to agents, and handle tool execution loop. Includes @api decorators and JSON schema validation for function calling.", "confidence": "high"},
+    {"id": "cap_ai_prompts", "name": "Prompt Engineering", "description": "Create ai.prompt records with o_editor_prompt HTML divs, Jinja-style variables, prompt variants, and version control. Use prompt templates for content generation and agent instructions.", "confidence": "high"},
+    {"id": "cap_ai_sessions", "name": "Session & Memory Management", "description": "Manage ai.agent.session and ai_message records. Persist conversation history, summarize long threads, handle session expiry, and link sessions to Discuss channels or records.", "confidence": "medium"},
+    {"id": "cap_ai_security", "name": "AI Security & Governance", "description": "Configure security groups for AI agent management, provider credential access, usage quotas, and record rules. Enforce least-privilege access to provider secrets and agent administration.", "confidence": "high"},
+    {"id": "cap_ai_deployment", "name": "Agent Deployment", "description": "Deploy agents to Discuss channels, mail activities, and project tasks. Configure auto-responders, human takeover triggers, routing rules, and channel-member visibility.", "confidence": "medium"},
+    {"id": "cap_ai_monitoring", "name": "Usage Monitoring & Limits", "description": "Track token consumption, request counts, and costs per agent/provider/user. Configure usage limits, alerts, and cron-based reporting.", "confidence": "medium"}
+  ],
+  "limitations": [
+    "AI module features depend on the installed LLM providers and available API credits",
+    "Local models via Ollama require separate Ollama infrastructure and network access",
+    "Provider credentials must be stored securely; plaintext secrets are not supported",
+    "Tool execution inherits the permissions of the invoking user or bot user"
+  ],
+  "required_tools": ["python", "database_access", "llm_api_access"],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {"type": "string"},
+      "agent_id": {"type": "integer"},
+      "provider_id": {"type": "integer"},
+      "model_id": {"type": "integer"},
+      "channel_id": {"type": "integer"},
+      "context": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "recommendation": {"type": "string"},
+      "code": {"type": "string"},
+      "configuration": {"type": "array", "items": {"type": "object"}},
+      "explanations": {"type": "array", "items": {"type": "string"}},
+      "agent_config": {"type": "object"}
+    }
+  },
+  "evaluation": {
+    "functional_count": 10,
+    "technical_count": 10,
+    "architecture_count": 5,
+    "debugging_count": 5,
+    "migration_count": 2,
+    "automation_count": 5,
+    "total_count": 37
+  },
+  "tags": ["ai", "agents", "llm", "openai", "anthropic", "providers", "tools", "prompts", "discuss"],
+  "metadata": {
+    "author": "Odoo AI Knowledge Factory",
+    "license": "Odoo Enterprise Compatible",
+    "generated_at": "2026-07-17T12:00:00Z",
+    "source_count": 32,
+    "claim_count": 72,
+    "knowledge_graph_nodes": 28,
+    "changelog": "v19.0.1 — Initial AI skill based on Odoo 19 ai module source analysis"
+  }
+}

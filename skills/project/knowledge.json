@@ -1,0 +1,44 @@
+{
+  "domain": "Project",
+  "version": "19.0",
+  "modules": ["project", "hr_timesheet", "sale_timesheet", "project_forecast", "analytic", "hr", "sales_team"],
+  "key_models": {
+    "project.project": "Project header. Inherits: mail.thread, mail.activity.mixin. Key fields: name, privacy_visibility (portal/employees/followers), partner_id, user_id (project manager), date_start, date, stage_id, tag_ids, analytic_account_id, company_id, allow_timesheets, allow_forecast, collaborator_ids.",
+    "project.task": "Task. Inherits: mail.thread, mail.activity.mixin. Key fields: name, project_id, user_ids, stage_id, priority, kanban_state (normal/done/blocked), date_deadline, planned_hours, remaining_hours, timesheet_ids, milestone_id, tag_ids, company_id, partner_id.",
+    "project.task.type": "Kanban stage. Fields: name, sequence, fold, project_ids, mail_template_id (auto-send on reaching stage), rating_template_id.",
+    "project.tags": "Task/project tag. Fields: name, color.",
+    "project.collaborator": "External/internal collaborator access. Fields: project_id, partner_id, access_level (read/comment/edit).",
+    "project.milestone": "Project milestone. Fields: name, project_id, deadline, is_reached, task_ids.",
+    "account.analytic.line": "Timesheet/analytic entry. Fields: name, project_id, task_id, employee_id, user_id, unit_amount (hours), date, amount, account_id (analytic account).",
+    "hr.employee": "Employee linked to res.users for timesheet attribution. Fields: user_id, timesheet_cost, resource_calendar_id.",
+    "sale.order.line": "Sales order line linked to project/task for billing (sale_timesheet). Fields: project_id, task_id, product_id, price_unit."
+  },
+  "key_files": {
+    "project/models/project_project.py": "Core project model with visibility, stages, collaborators, and dashboard KPIs",
+    "project/models/project_task.py": "Core task model with assignment, stages, kanban state, deadlines, and activities",
+    "project/models/project_task_type.py": "Stage model with mail templates and sequence",
+    "project/models/project_collaborator.py": "Collaborator access rules",
+    "hr_timesheet/models/account_analytic_line.py": "Timesheet model and task timesheet integration",
+    "hr_timesheet/models/project_task.py": "Task planned/remaining hours and timesheet helpers",
+    "sale_timesheet/models/project.py": "Project profitability and sales order linkage",
+    "project_forecast/models/project_forecast.py": "Resource forecasting and capacity planning"
+  },
+  "crons": {
+    "project_forecast_scheduler": "Forecast scheduling and resource planning (Enterprise). Model: project.forecast, method: _cron_schedule_tasks",
+    "project_task_stage_auto_update": "Automated stage transitions and rotting task alerts. Model: project.task, method: _cron_auto_update_stage",
+    "project_rating_cron": "Request customer feedback after task completion. Model: project.task, method: _send_task_rating_mail"
+  },
+  "security_groups": {
+    "project.group_project_user": "Create/read/update own tasks and projects, read stages/tags, log timesheets",
+    "project.group_project_manager": "Full CRUD on projects, tasks, stages, tags, collaborators, and configuration",
+    "hr_timesheet.group_hr_timesheet_user": "Log and read own timesheets",
+    "hr_timesheet.group_hr_timesheet_approver": "Approve and manage employee timesheets"
+  },
+  "record_rules": {
+    "project_project_company_rule": "[('company_id','in',company_ids+[False])] — multi-company isolation for projects",
+    "project_task_company_rule": "[('company_id','in',company_ids+[False])] — multi-company isolation for tasks",
+    "project_project_visibility_rule": "restricts projects based on privacy_visibility and user membership",
+    "project_task_visibility_rule": "restricts tasks based on project visibility and assignment",
+    "project_task_private_rule": "private tasks visible only to followers and assignees"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "domain": "Platform",
+  "version": "19.0",
+  "modules": ["ai", "mail", "base", "project"],
+  "key_models": {
+    "ai.agent": "AI agent definition. Fields: name, system_prompt, welcome_message, model_id, provider_id, tool_ids, visibility, active, memory_enabled, max_history, handoff_threshold, user_id (bot user). Inherits: mail.thread, mail.activity.mixin.",
+    "ai.provider": "LLM provider configuration. Fields: name, provider_type (openai, anthropic, azure_openai, ollama, groq, custom), api_key (encrypted), base_url, timeout, max_retries, active, company_id.",
+    "ai.model": "LLM model registry. Fields: name, provider_id, model_name, context_window, input_price, output_price, modality (text, image, audio), active, capability_tags.",
+    "ai.agent.session": "Conversation session. Fields: agent_id, channel_id, res_model, res_id, user_id, state (active, closed, expired), message_ids, summary, last_activity_date.",
+    "ai.tool": "Tool definition. Fields: name, technical_name, description, schema (JSON), implementation_type (python, server_action), active, default_for_all.",
+    "ai.prompt": "Prompt template. Fields: name, category, content (HTML with o_editor_prompt div), variable_ids, active, version, default_agent_ids.",
+    "ai_message": "Message within an AI session. Fields: session_id, role (system, user, assistant, tool), content, tool_calls, tool_results, token_count, model_id, provider_id.",
+    "ai_agent_team_member": "Agent-to-agent team membership. Fields: agent_id, member_agent_id, sequence, role, handoff_condition."
+  },
+  "key_files": {
+    "ai/models/ai_agent.py": "Core ai.agent model with agent configuration and execution orchestration",
+    "ai/models/ai_provider.py": "ai.provider model and provider-specific client initialization",
+    "ai/models/ai_model.py": "ai.model registry with context window and pricing metadata",
+    "ai/models/ai_agent_session.py": "Session lifecycle, history management, and summarization",
+    "ai/models/ai_tool.py": "Tool registry, schema validation, and execution dispatcher",
+    "ai/models/ai_prompt.py": "Prompt templates with o_editor_prompt HTML rendering",
+    "ai/models/ai_message.py": "Message records and token counting",
+    "ai/security/ir.model.access.csv": "ACLs for AI models",
+    "ai/security/security.xml": "Groups and record rules for AI module"
+  },
+  "crons": {
+    "ai_cron_session_cleanup": "Archive expired sessions. Model: ai.agent.session, method: _cron_cleanup_expired_sessions",
+    "ai_cron_usage_report": "Generate usage/cost report. Model: ai.usage.log, method: _cron_send_usage_report",
+    "ai_cron_summarize_long_sessions": "Summarize sessions approaching context window. Model: ai.agent.session, method: _cron_summarize_long_sessions"
+  },
+  "security_groups": {
+    "ai.group_ai_user": "Use AI agents in channels and records they can access",
+    "ai.group_ai_manager": "Configure agents, prompts, and tools; manage deployments",
+    "ai.group_ai_admin": "Full access to providers, credentials, usage reports, and security settings",
+    "base.group_system": "Install AI module and access low-level configuration"
+  },
+  "record_rules": {
+    "ai_agent_multi_company_rule": "[('company_id','in',company_ids+[False])] — multi-company isolation for agents and providers",
+    "ai_provider_credential_rule": "Restricts API key read access to members of ai.group_ai_admin or explicit credential managers",
+    "ai_session_personal_rule": "[('|',('user_id','=',user.id),('user_id','=',False))] — users see own or unassigned sessions",
+    "ai_session_channel_rule": "Users can read sessions linked to channels they are members of"
+  }
+}

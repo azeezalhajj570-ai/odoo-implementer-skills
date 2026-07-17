@@ -1,0 +1,114 @@
+{
+  "skill_id": "skill_project",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_project_setup",
+      "name": "Project Setup & Configuration",
+      "description": "Create and configure projects with visibility, stages, tags, analytic accounts, and collaboration settings aligned to business requirements.",
+      "required_knowledge": ["project.project", "project_visibility", "project_stages", "project_tags", "analytic_account"],
+      "examples": [
+        "Create a customer-visible project with portal collaborators",
+        "Configure project stages for a software development workflow",
+        "Set up analytic accounting for project cost tracking"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_task_lifecycle",
+      "name": "Task Lifecycle Management",
+      "description": "Manage full task lifecycle: creation, assignment, priorities, kanban states, deadlines, stage transitions, and activity tracking.",
+      "required_knowledge": ["project.task", "project.task.type", "kanban_state", "mail.activity.mixin", "task_assignment"],
+      "examples": [
+        "Create a task and assign it to multiple users",
+        "Configure blocked/done kanban states",
+        "Automate stage-change notifications"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_timesheets",
+      "name": "Timesheet Tracking",
+      "description": "Record, validate, and analyze timesheets linked to employees, tasks, and analytic accounts. Support grid entry, timers, and billing.",
+      "required_knowledge": ["account.analytic.line", "hr.employee", "hr_timesheet", "planned_hours", "remaining_hours"],
+      "examples": [
+        "Log time against a task via grid view",
+        "Set up employee-user linkage for timesheets",
+        "Generate timesheet reports by project"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_project_planning",
+      "name": "Project Planning & Scheduling",
+      "description": "Plan projects with Gantt views, milestones, task dependencies, and deadline management to track progress versus plan.",
+      "required_knowledge": ["project.task", "date_deadline", "project_milestone", "gantt_view", "task_dependencies"],
+      "examples": [
+        "Build a Gantt schedule with task dependencies",
+        "Track milestone completion across projects",
+        "Use deadline warnings for overdue tasks"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_resource_allocation",
+      "name": "Resource Allocation",
+      "description": "Assign work to users and teams, balance workloads, and forecast capacity using project_forecast enterprise features.",
+      "required_knowledge": ["project.task", "user_ids", "project_forecast", "resource_planning", "capacity"],
+      "examples": [
+        "Balance open tasks across a development team",
+        "Forecast consultant capacity for the next quarter",
+        "Identify overloaded team members"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_project_profitability",
+      "name": "Project Profitability",
+      "description": "Analyze project profitability via timesheet costs, invoicing, and margin reporting using sale_timesheet enterprise integration.",
+      "required_knowledge": ["sale_timesheet", "sale.order.line", "account.analytic.line", "project_profitability_report", "billed_hours"],
+      "examples": [
+        "Link a project to a sales order for billing",
+        "Review project margin report",
+        "Configure timesheet product and billing rates"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_project_visibility",
+      "name": "Visibility & Collaboration",
+      "description": "Configure who can see projects and tasks: portal customers, internal employees, or private followers. Manage project.collaborator records.",
+      "required_knowledge": ["project.project", "project.collaborator", "portal", "privacy_visibility", "followers"],
+      "examples": [
+        "Share a project read-only with a portal customer",
+        "Restrict a project to internal employees only",
+        "Add external stakeholders as collaborators"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_stage_automation",
+      "name": "Stage Automation & KPIs",
+      "description": "Implement server actions, automated email notifications, SLAs, and dashboard KPIs for project health and burndown tracking.",
+      "required_knowledge": ["base.automation", "mail.template", "project.task.type", "kpi", "project_dashboard"],
+      "examples": [
+        "Send email when task moves to validation stage",
+        "Create a burndown chart KPI",
+        "Set up SLA deadline tracking"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_project_security",
+      "name": "Project Security Model",
+      "description": "Apply project security groups and record rules to enforce multi-company isolation, private tasks, and visibility restrictions.",
+      "required_knowledge": ["project.group_project_user", "project.group_project_manager", "record_rules", "multi_company", "private_tasks"],
+      "examples": [
+        "Restrict project managers to their own company",
+        "Allow employees to see only public projects",
+        "Protect private tasks from non-followers"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

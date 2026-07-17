@@ -1,0 +1,123 @@
+{
+  "skill_id": "skill_social_marketing",
+  "version": "19.0.1",
+  "capabilities": [
+    {
+      "id": "cap_social_accounts",
+      "name": "Social Account Management",
+      "description": "Configure and manage social media accounts across Facebook, Instagram, LinkedIn, X/Twitter, and YouTube. Handle OAuth authorization, page linking, and account permissions.",
+      "required_knowledge": ["social_account", "oauth", "social_page", "token_refresh"],
+      "examples": [
+        "Connect a Facebook Page to Odoo Social Marketing",
+        "Link a LinkedIn company page for publishing",
+        "Troubleshoot an expired Instagram access token",
+        "Configure multi-company social account isolation"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_social_posting",
+      "name": "Multi-Platform Publishing",
+      "description": "Create and publish social.post records across one or more platforms with per-platform formatting and live post tracking.",
+      "required_knowledge": ["social_post", "social_live_post", "post_states", "platform_formatting"],
+      "examples": [
+        "Publish a post to Facebook, LinkedIn, and X simultaneously",
+        "Handle a failed post and retry manually",
+        "Draft a post with platform-specific copy variants",
+        "Create text-only, image, and video posts"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_post_scheduling",
+      "name": "Post Scheduling & Cron",
+      "description": "Schedule posts via scheduled_date and manage the social publishing cron that posts due content.",
+      "required_knowledge": ["social_post_cron", "scheduled_date", "timezone", "post_state"],
+      "examples": [
+        "Schedule a campaign post for next Tuesday at 9am",
+        "Debug why scheduled posts are not publishing",
+        "Bulk reschedule posts for a different campaign",
+        "Configure the social posting cron frequency"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_media_attachments",
+      "name": "Social Media Attachments",
+      "description": "Attach images and videos to posts, validate platform-specific media requirements, and link attachments to live posts.",
+      "required_knowledge": ["ir_attachment", "social_post_images", "media_validation", "platform_limits"],
+      "examples": [
+        "Attach an image to a Facebook post",
+        "Validate video size for Instagram",
+        "Add multiple images to a LinkedIn carousel",
+        "Troubleshoot media upload failures"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_stream_monitoring",
+      "name": "Stream Monitoring",
+      "description": "Create social streams and collect stream posts for mentions, hashtags, pages, and engagement tracking.",
+      "required_knowledge": ["social_stream", "social_stream_post", "stream_types", "monitoring"],
+      "examples": [
+        "Monitor a Twitter hashtag in a social stream",
+        "Track Facebook page mentions",
+        "Configure stream refresh intervals",
+        "Analyze engagement from collected stream posts"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_campaign_tracking",
+      "name": "Campaign & UTM Tracking",
+      "description": "Link social posts to UTM campaigns and track source/medium/campaign attribution for social traffic.",
+      "required_knowledge": ["utm_campaign", "utm_source", "utm_medium", "campaign_id", "attribution"],
+      "examples": [
+        "Create a social post linked to a UTM campaign",
+        "Report social campaign performance by platform",
+        "Set up UTM parameters for social traffic",
+        "Track conversions from a social campaign"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_ai_content",
+      "name": "AI-Generated Content",
+      "description": "Generate social post content using ai.agent, including copy suggestions, hashtags, and tone adjustment.",
+      "required_knowledge": ["ai_agent", "ai_prompt", "content_generation", "brand_voice"],
+      "examples": [
+        "Generate Facebook post copy from a blog URL",
+        "Suggest hashtags for an Instagram post",
+        "Adjust tone to professional for LinkedIn",
+        "Create campaign posts from a product description"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "cap_social_security",
+      "name": "Social Marketing Security",
+      "description": "Configure social marketing user/manager groups, ACLs, and record rules for multi-company/account isolation.",
+      "required_knowledge": ["social_groups", "record_rules", "acl", "multi_company"],
+      "examples": [
+        "Assign social marketing manager permissions",
+        "Restrict an account to a specific company",
+        "Configure who can publish posts",
+        "Set up stream access control"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cap_social_analytics",
+      "name": "Social Analytics & Reporting",
+      "description": "Read engagement metrics from live posts and build reports on social performance by platform, account, and campaign.",
+      "required_knowledge": ["social_live_post", "engagement_metrics", "reporting", "dashboard"],
+      "examples": [
+        "Build a dashboard of posts by platform",
+        "Compare engagement across campaigns",
+        "Export social performance metrics",
+        "Track follower growth from streams"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}
