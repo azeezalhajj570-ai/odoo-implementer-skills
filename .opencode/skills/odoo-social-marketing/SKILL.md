@@ -62,10 +62,18 @@ For each company with active social accounts:
   ├─ 2. Detect industry from company name + partner notes (sport / tech / default)
   ├─ 3. DEDUP: check last 5 posts → avoid repeating topics
   ├─ 4. Call ai.agent._tool_web_search() with industry query + brand context
-  ├─ 5. Build post content (web results or fallback headlines)
-  ├─ 6. Create social.post with state='draft'
-  ├─ 7. Create mail.activity "Social Post Review" assigned to admin
-  └─ 8. Send email notification to company.email
+  │
+  ├── SUCCESS (real web results) ──────────────────┐
+  │   ├─ 5. Build post content from search results │
+  │   ├─ 6. Create social.post as draft            │
+  │   ├─ 7. Activity "Review: {Company} post"      │
+  │   └─ 8. Email notification to company.email    │
+  │                                                │
+  └── FAILURE (quota/rate limit/error) ────────────┘
+      ├─ 5. Detect error via keywords (failed, quota, rate limit, error)
+      ├─ 6. NO post created (fallback is not used)
+      ├─ 7. Alert activity ⚠️ "Web Search Failed: {Company}" on partner record
+      └─ 8. Error details in activity note (actual error + possible causes)
 ```
 
 ### Review & Publish Flow
@@ -148,6 +156,21 @@ result = agent._tool_web_search(
     context_hint          # brand context for relevance
 )
 ```
+
+### Web Search Error Handling
+
+When `_tool_web_search` returns an error (quota exceeded, rate limited, service unavailable), the pipeline detects it via keywords:
+```python
+error_keywords = ['failed', 'quota', 'rate limit', 'rate_limit', 'error', 'not available', 'try again later']
+is_error = any(kw in result_text.lower() for kw in error_keywords)
+```
+
+On error:
+- **No post is created** — no fallback content, no error text in a post
+- **Alert activity** created on the company's `res.partner` record with type "Social Post Review"
+- Activity summary: `⚠️ Web Search Failed: {Company Name}`
+- Activity note includes the actual error message + troubleshooting steps
+- Admin sees the alert in their Activities panel and can investigate (check API key, quota, etc.)
 
 ### Post Content Format
 

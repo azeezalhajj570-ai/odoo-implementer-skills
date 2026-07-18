@@ -150,6 +150,13 @@
     "tech": "latest AI technology news breakthroughs business",
     "default": "latest technology news"
   },
+  "web_search_error_keywords": ["failed", "quota", "rate limit", "rate_limit", "error", "not available", "try again later"],
+  "error_handling": {
+    "on_error": "Create alert activity on res.partner with type 'Social Post Review'",
+    "no_post": "Do NOT create a social.post — no fallback content allowed",
+    "activity_summary": "⚠️ Web Search Failed: {Company Name}",
+    "activity_note": "Error details + troubleshooting steps"
+  },
   "security_groups": {
     "social.group_social_user": "Social Marketing User — can create and manage posts",
     "social.group_social_manager": "Social Marketing Manager — full access to accounts and settings"

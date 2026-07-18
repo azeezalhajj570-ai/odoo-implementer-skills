@@ -107,6 +107,33 @@ ir.cron: interval=1 days, state='code'
          code: "env['ir.actions.server'].browse(X).run()"
 ```
 
+## Error Handling: Web Search Failure
+
+When `_tool_web_search` returns an error, the pipeline must NOT create a post with error text. Use keyword detection:
+
+```python
+error_keywords = ['failed', 'quota', 'rate limit', 'rate_limit', 'error', 'not available', 'try again later']
+is_error = any(kw in result_text.lower() for kw in error_keywords)
+```
+
+On error, create an alert activity on the company's partner record:
+```python
+alert_note = 'Web search failed for ' + company.name + '.\\n'
+alert_note += 'Error: ' + search_results[:300]
+alert_note += '\\nPossible causes: API quota exceeded, network issue, or service outage.'
+partner.activity_schedule(
+    act_type_xmlid=False,
+    activity_type_id=activity_type.id,
+    summary='⚠️ Web Search Failed: ' + company.name,
+    note=alert_note,
+    user_id=admin_user.id,
+    date_deadline=deadline,
+)
+continue  # skip post creation for this company
+```
+
+`activity_schedule` is available on `res.partner` (inherits mail.thread) but NOT on `res.users` or `res.company`.
+
 ## Common Patterns
 
 ### Detecting Industry
