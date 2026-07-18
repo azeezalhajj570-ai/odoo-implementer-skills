@@ -1,0 +1,157 @@
+{
+  "models": {
+    "social.post": {
+      "description": "Social media post — supports draft, scheduled, posted, failed states",
+      "key_fields": ["message", "account_ids", "state", "scheduled_date", "company_id", "source_id", "image_ids", "facebook_image_ids", "linkedin_image_ids", "instagram_image_ids", "twitter_image_ids"],
+      "state_flow": "draft → scheduled → posting → posted"
+    },
+    "social.account": {
+      "description": "Social media account linked to a platform and company",
+      "key_fields": ["name", "media_type", "company_id", "active", "utm_medium_id"],
+      "media_types": ["facebook", "instagram", "linkedin", "twitter", "youtube", "tiktok", "reddit"]
+    },
+    "ai.agent": {
+      "description": "AI agent — LLM-powered content generator with sources and topics",
+      "key_fields": ["name", "subtitle", "system_prompt", "llm_model", "response_style", "topic_ids", "sources_ids", "source_id", "restrict_to_sources", "active"],
+      "models_available": ["gemini-2.5-flash", "gemini-2.5-pro", "gemini-1.5-pro", "gpt-4o", "gpt-5", "gpt-5-mini"],
+      "response_styles": ["analytical", "balanced", "creative"],
+      "methods": ["_tool_web_search(ai_dict, query, mode, context_hint)"]
+    },
+    "ai.topic": {
+      "description": "AI topic with instructions and linked server action tools",
+      "key_fields": ["name", "description", "instructions", "tool_ids"]
+    },
+    "ai.agent.source": {
+      "description": "Web source or document attached to an AI agent as knowledge",
+      "key_fields": ["agent_id", "name", "url", "type", "is_active"],
+      "types": ["url", "binary", "document", "knowledge_article"],
+      "statuses": ["processing", "indexed", "failed"]
+    },
+    "ai.composer": {
+      "description": "AI composer configuration — system prompts for quick actions",
+      "key_fields": ["ai_agent", "name", "interface_key", "default_prompt", "is_system_default"],
+      "interface_keys": ["chatter_ai_button", "systray_ai_button", "html_field_record", "mail_composer", "html_field_text_select", "html_prompt_shortcut"]
+    },
+    "mail.activity": {
+      "description": "Activity/task on a record — used for review workflow",
+      "key_fields": ["activity_type_id", "summary", "note", "user_id", "date_deadline", "res_model", "res_id", "state"],
+      "note": "state field is computed (not stored) — cannot be used in domain filters"
+    },
+    "mail.activity.type": {
+      "description": "Activity type definition — defines review behavior",
+      "key_fields": ["name", "icon", "delay_count", "delay_unit", "summary", "res_model", "decoration_type"],
+      "delay_units": ["days", "weeks", "months"],
+      "decoration_types": ["warning", "danger"]
+    },
+    "base.automation": {
+      "description": "Automated action rule triggered on model events",
+      "key_fields": ["name", "model_id", "trigger", "filter_domain", "filter_pre_domain", "action_server_ids", "active"],
+      "triggers": ["on_write", "on_create", "on_create_or_write", "on_state_set", "on_time", "on_stage_set", "on_user_set"]
+    },
+    "ir.actions.server": {
+      "description": "Server action — runs Python code on records",
+      "key_fields": ["name", "model_id", "binding_model_id", "binding_type", "state", "code", "use_in_ai", "ai_tool_description", "ai_tool_is_candidate"],
+      "binding_types": ["action", "report"],
+      "note": "Set use_in_ai=True and ai_tool_description to make it available as AI tool"
+    },
+    "ir.cron": {
+      "description": "Scheduled action — runs on timer interval",
+      "key_fields": ["name", "active", "interval_number", "interval_type", "nextcall", "state", "code", "user_id"],
+      "note": "Odoo 19: no numbercall field. Use state='code' with code field. model_id may be required."
+    },
+    "res.company": {
+      "description": "Company record — linked to social accounts and partner for brand notes",
+      "key_fields": ["name", "partner_id", "email", "phone"]
+    },
+    "res.partner": {
+      "description": "Partner/contact — comment field stores brand guidelines in HTML",
+      "key_fields": ["name", "comment", "email", "website"]
+    },
+    "utm.source": {
+      "description": "UTM source for campaign attribution tracking",
+      "key_fields": ["name"]
+    },
+    "ir.attachment": {
+      "description": "File attachment — stores images for social media posts",
+      "key_fields": ["name", "datas", "store_fname", "res_model", "res_id", "mimetype", "type"],
+      "note": "Odoo 19: no datas_fname field. Use store_fname instead."
+    },
+    "ir.config_parameter": {
+      "description": "System configuration parameter",
+      "key_fields": ["key", "value"],
+      "common_keys": ["web.base.url", "ai.google_key"]
+    }
+  },
+  "crons": {
+    "social_publish": {
+      "name": "Social: Publish Scheduled Posts",
+      "interval": "1 hours",
+      "purpose": "Built-in cron that publishes due social.post records. Created automatically with social module."
+    },
+    "ai_daily_pipeline": {
+      "name": "Pattern: AI Social News: Dynamic Post at {time}",
+      "interval": "1 days",
+      "purpose": "Triggers the AI social posting pipeline for all companies with active accounts",
+      "code_pattern": "env['ir.actions.server'].browse(action_id).run()"
+    }
+  },
+  "server_actions": {
+    "main_pipeline": {
+      "name": "Pattern: AI Social News: Dynamic Multi-Company",
+      "model": "social.post",
+      "purpose": "Main pipeline: discover companies with accounts → read partner brand notes → detect industry → search web → create draft post → create review activity → send email notification",
+      "calls": ["ai.agent.browse(X)._tool_web_search()", "social.post.create()", "post.activity_schedule()", "mail.mail.create()"]
+    },
+    "finalize_activity": {
+      "name": "Pattern: Auto Schedule on Activity Done",
+      "model": "mail.activity",
+      "purpose": "Triggered by automation rule when activity is marked Done. Reads activity.res_id (social.post) and schedules it.",
+      "code_pattern": "check activity.state == 'done' and activity.activity_type_id.id == review_type_id → schedule post"
+    },
+    "approve_schedule": {
+      "name": "Pattern: Approve and Schedule",
+      "model": "social.post",
+      "binding": "social.post action menu",
+      "purpose": "Manual action to schedule a draft post: changes state to scheduled with scheduled_date=now+1h"
+    },
+    "rewrite_ai": {
+      "name": "Pattern: Rewrite with AI",
+      "model": "social.post",
+      "binding": "social.post action menu",
+      "purpose": "Regenerates post content via AI web search, updates message, keeps state=draft"
+    }
+  },
+  "activity_types": {
+    "social_post_review": {
+      "name": "Social Post Review",
+      "model": "social.post",
+      "icon": "fa-check-circle",
+      "delay_count": 0,
+      "delay_unit": "days",
+      "decoration_type": "warning"
+    }
+  },
+  "automation_rules": {
+    "schedule_on_review_done": {
+      "name": "Pattern: Social Post: Schedule on Review Done",
+      "model": "mail.activity",
+      "trigger": "on_write",
+      "filter_domain": "[]",
+      "purpose": "When review activity is marked Done → auto-schedule the related social.post",
+      "note": "Cannot filter on activity.state (computed field). Check conditions in server action code."
+    }
+  },
+  "industry_keywords": {
+    "sport": ["sport", "رياضة", "نبض", "كرة", "athlete", "stadium", "esport", "sports"],
+    "tech": ["tech", "تقنية", "software", "digital", "رقمي", "تطبيق", "ai", "intelligence"]
+  },
+  "search_queries": {
+    "sport": "AI in sports technology latest news",
+    "tech": "latest AI technology news breakthroughs business",
+    "default": "latest technology news"
+  },
+  "security_groups": {
+    "social.group_social_user": "Social Marketing User — can create and manage posts",
+    "social.group_social_manager": "Social Marketing Manager — full access to accounts and settings"
+  }
+}

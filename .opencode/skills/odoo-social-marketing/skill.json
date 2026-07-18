@@ -1,0 +1,30 @@
+{
+  "name": "odoo-social-marketing",
+  "display_name": "Odoo Social Marketing Expert",
+  "version": "19.0.1.0.0",
+  "description": "Expert-level knowledge of Odoo Social Marketing including social account management, multi-platform publishing, AI-powered social posting pipeline, and activity review workflow for Odoo 19.",
+  "domain": "Marketing",
+  "subdomain": "Social Marketing",
+  "skill_id": "skill_social_marketing",
+  "knowledge_package": "skills/social_marketing/",
+  "modules": {
+    "required": ["social_marketing", "utm", "ai_app", "mail"],
+    "optional": ["social_facebook", "social_instagram", "social_linkedin", "social_twitter", "social_youtube", "project"]
+  },
+  "dependencies": ["skill_base", "skill_marketing", "skill_mail", "skill_ai"],
+  "capabilities": [
+    "cap_social_accounts",
+    "cap_social_posting",
+    "cap_post_scheduling",
+    "cap_ai_social_posting",
+    "cap_activity_review",
+    "cap_social_security",
+    "cap_social_analytics"
+  ],
+  "patterns": {
+    "pipeline_flow": "Cron → Server Action → discover companies → read brand notes → detect industry → web search → create draft → create activity → email notification → Admin approves → automation triggers → post scheduled → hourly cron publishes",
+    "dedup_method": "Query last 5 posts per company, pass avoided topics as web search context",
+    "industry_detection": "Keyword matching against company name + partner notes (sport / tech / default)",
+    "brand_voice": "Stored in res.partner.comment as HTML — read dynamically by server action"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "cap_social_accounts": {
+    "name": "Social Account Management",
+    "description": "Configure and manage social media accounts (social.account) across Facebook, Instagram, LinkedIn, X/Twitter, and YouTube. Handle OAuth authorization, token refresh, page linking, and account-level permissions.",
+    "models": ["social.account"],
+    "key_fields": ["name", "media_type", "company_id", "active", "facebook_account_id", "linkedin_account_urn", "instagram_account_id", "twitter_user_id"]
+  },
+  "cap_social_posting": {
+    "name": "Multi-Platform Publishing",
+    "description": "Create, schedule, and publish social.post records across one or more platforms. Manage post states (draft, scheduled, posted, failed), per-platform live posts (social.live.post), character limits, and platform-specific formatting.",
+    "models": ["social.post", "social.live.post"],
+    "key_fields": ["message", "account_ids", "state", "scheduled_date", "image_ids", "facebook_image_ids", "linkedin_image_ids"],
+    "state_flow": "draft → scheduled → posting → posted"
+  },
+  "cap_post_scheduling": {
+    "name": "Post Scheduling & Cron",
+    "description": "Schedule posts via scheduled_date field and the social posting cron. Handle timezone-aware publication, failed state fallback, and batch processing of due posts.",
+    "models": ["social.post", "ir.cron"],
+    "crons": [15, 54]
+  },
+  "cap_ai_social_posting": {
+    "name": "AI-Powered Social Posting",
+    "description": "Dynamic multi-company AI social posting pipeline. One unified AI agent reads brand guidelines from partner notes, detects industry, searches web via _tool_web_search(), generates posts, creates review activities, and sends email notifications. Supports dedup via last 5 posts check.",
+    "models": ["ai.agent", "ai.topic", "ai.agent.source", "social.post", "res.company", "res.partner", "utm.source", "ir.actions.server", "ir.cron"],
+    "key_components": {
+      "agent": "Social Media Agent (14) — Gemini 2.5 Flash",
+      "topic": "Social Content Posting (13)",
+      "pipeline_action": "AI Social News: Dynamic Multi-Company (845)",
+      "auto_schedule_action": "Auto Schedule on Activity Done (849)",
+      "cron": "AI Social News: Dynamic Post at 8PM (54)"
+    },
+    "industry_detection": "Scans company name + partner notes for keywords: sport/رياضة/نبض → sport, tech/تقنية/رقمي → tech, default → tech",
+    "dedup": "Checks last 5 posts per company, passes 'AVOID repeating these topics' context to web search"
+  },
+  "cap_activity_review": {
+    "name": "Activity Review Workflow",
+    "description": "Review AI-generated drafts via mail.activity before publishing. Mark activity Done to auto-schedule via base.automation rule. Configurable deadline and email notifications per company email.",
+    "models": ["mail.activity", "mail.activity.type", "base.automation"],
+    "key_components": {
+      "activity_type": "Social Post Review (9)",
+      "automation_rule": "Social Post: Schedule on Review Done (2)",
+      "auto_schedule_action": "Auto Schedule on Activity Done (849)"
+    },
+    "flow": "draft created → activity assigned → admin reviews → mark Done → auto-scheduled → published by cron",
+    "notifications": "Email sent to company.email with post preview and link"
+  },
+  "cap_social_security": {
+    "name": "Social Marketing Security",
+    "description": "Configure social marketing user and manager groups, record rules for multi-company/account isolation, and access control for streams, accounts, and posts.",
+    "models": ["social.account", "social.post", "social.stream"],
+    "groups": ["social.group_social_user", "social.group_social_manager"]
+  },
+  "cap_social_analytics": {
+    "name": "Social Analytics & Reporting",
+    "description": "Read engagement metrics from live posts, build dashboards, and report on social campaign performance by platform, account, and campaign.",
+    "models": ["social.live.post", "social.account"],
+    "metrics": ["audience", "engagement", "audience_trend", "engagement_trend"]
+  }
+}
