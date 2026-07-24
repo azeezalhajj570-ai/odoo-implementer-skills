@@ -1,0 +1,28 @@
+{
+  "name": "odoo-executive-assistant",
+  "display_name": "Odoo Executive Assistant Expert",
+  "version": "19.0.1.0.0",
+  "description": "Expert-level knowledge of creating and configuring Odoo AI Executive Assistant agents for calendar management, email, discuss communication, and activity management in Odoo 19.",
+  "domain": "Productivity",
+  "subdomain": "AI Assistant",
+  "skill_id": "skill_executive_assistant",
+  "knowledge_package": "skills/executive_assistant/",
+  "modules": {
+    "required": ["ai_app", "mail", "calendar"],
+    "optional": ["discuss", "social_marketing"]
+  },
+  "dependencies": ["skill_base", "skill_mail", "skill_ai"],
+  "capabilities": [
+    "cap_ea_agent_setup",
+    "cap_ea_tool_creation",
+    "cap_ea_topic_config",
+    "cap_ea_composer_prompts",
+    "cap_ea_test_data"
+  ],
+  "patterns": {
+    "agent_structure": "Agent (#17) + Topic (#16) + Tools (13 server actions) + Composers (3) + Prompt Buttons (12)",
+    "naming_convention": "AI: <Verb> <Noun> for tools (e.g. AI: Create Event, AI: Read Inbox)",
+    "tool_linking": "Set use_in_ai=True on server actions before they can be linked to topics (domain filter)",
+    "mcp_limitation": "MCP execute_approved_write does not persist many2many commands — use XML-RPC for tool_ids linking"
+  }
+}

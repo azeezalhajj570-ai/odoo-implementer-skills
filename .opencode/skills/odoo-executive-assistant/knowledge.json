@@ -1,0 +1,101 @@
+{
+  "models": {
+    "ai.agent": {
+      "description": "AI agent — LLM-powered assistant with topics, tools, and sources",
+      "key_fields": ["name", "subtitle", "system_prompt", "llm_model", "response_style", "topic_ids", "partner_id", "source_id", "restrict_to_sources", "active"],
+      "models_available": ["openrouter/free", "gemini-2.5-flash", "gemini-2.5-pro", "gpt-4o", "gpt-5"],
+      "response_styles": ["analytical", "balanced", "creative"],
+      "setup_flow": "Create agent → create topic with tools → link tools (set use_in_ai=True first) → create composer → create prompt buttons"
+    },
+    "ai.topic": {
+      "description": "AI topic with instructions and linked server action tools",
+      "key_fields": ["name", "description", "instructions", "tool_ids"],
+      "tool_ids_note": "Domain filter: [['use_in_ai', '=', True]] — tools without use_in_ai=True are silently rejected",
+      "tool_ids_group": "base.group_system — requires admin permissions"
+    },
+    "ai.composer": {
+      "description": "AI composer — links agent to UI surfaces (systray, chatter, email)",
+      "key_fields": ["name", "interface_key", "ai_agent", "default_prompt", "focused_models", "available_prompts"],
+      "interface_keys": {
+        "systray_ai_button": "Ask AI button in top bar — main chat interface",
+        "chatter_ai_button": "AI button on record chatter — context-aware help",
+        "mail_composer": "AI button in email composer — draft/reply assistance",
+        "html_field_record": "Write in an HTML field",
+        "html_field_text_select": "Rewrite selected text",
+        "html_prompt_shortcut": "Convert prompt in email",
+        "html_field_knowledge": "Write knowledge articles",
+        "voice_transcription_component": "Summarize voice transcription"
+      }
+    },
+    "ai.prompt.button": {
+      "description": "Quick-prompt button attached to an ai.composer for one-click actions",
+      "key_fields": ["name", "composer_id", "sequence"],
+      "note": "Ordered by sequence field — lower numbers appear first"
+    },
+    "ir.actions.server": {
+      "description": "Server action — AI tools are server actions with state='code' on ai.agent model",
+      "key_fields": ["name", "model_id", "state", "code", "usage", "binding_type", "use_in_ai", "ai_tool_description"],
+      "ai_tool_requirements": {
+        "model_id": "ai.agent (id 351)",
+        "state": "code",
+        "usage": "ir_actions_server",
+        "binding_type": "action",
+        "use_in_ai": true,
+        "naming": "AI: <Verb> <Noun>"
+      },
+      "context_available": "ai (dict for result), env (Odoo environment), record (the ai.agent record), time, datetime, dateutil, json"
+    },
+    "calendar.event": {
+      "description": "Calendar event/meeting",
+      "key_fields": ["name", "start", "stop", "duration", "description", "location", "user_id", "partner_ids", "allday", "alarm_ids", "categ_ids", "recurrency", "privacy", "show_as"],
+      "mandatory_for_create": ["name", "start", "stop"]
+    },
+    "mail.message": {
+      "description": "Email message / chatter message",
+      "key_fields": ["subject", "body", "author_id", "partner_ids", "message_type", "date", "channel_id", "model", "res_id"],
+      "inbox_domain_field": "partner_ids (NOT message_partner_ids — that field does not exist on mail.message)"
+    },
+    "mail.mail": {
+      "description": "Outgoing email",
+      "key_fields": ["subject", "body_html", "email_to", "partner_ids", "email_from", "auto_delete"]
+    },
+    "mail.template": {
+      "description": "Email template for standardized communication",
+      "key_fields": ["name", "model_id", "subject", "body_html", "email_to", "partner_to"],
+      "usage": "template.sudo().send_mail(res_id, force_send=True)"
+    },
+    "discuss.channel": {
+      "description": "Discuss channel for team communication",
+      "key_fields": ["name", "channel_type", "channel_member_ids"],
+      "channel_types": ["channel", "chat", "livechat"]
+    },
+    "mail.activity": {
+      "description": "Activity/task on a record",
+      "key_fields": ["activity_type_id", "summary", "note", "user_id", "date_deadline", "res_model", "res_id", "state"],
+      "note": "state field is computed (not stored)"
+    }
+  },
+  "error_patterns": {
+    "use_in_ai_false": {
+      "symptom": "Tool write returns True but tool_ids field stays empty on topic",
+      "cause": "tool_ids domain filter: [['use_in_ai', '=', True]] — silently rejects tools with use_in_ai=False",
+      "fix": "Set use_in_ai=True on the server action before linking to topic"
+    },
+    "wrong_field_name": {
+      "symptom": "ValueError: Invalid field mail.message.message_partner_ids",
+      "cause": "Using message_partner_ids instead of partner_ids on mail.message",
+      "fix": "Use ('partner_ids', 'in', partner.ids) in domain"
+    },
+    "mcp_many2many_broken": {
+      "symptom": "validate_write + execute_approved_write returns True but many2many field unchanged",
+      "cause": "MCP write handler doesn't persist many2many relation commands",
+      "fix": "Use direct XML-RPC (xmlrpc.client) for many2many writes"
+    }
+  },
+  "test_data_patterns": {
+    "contacts": "res.partner.create({name, email, phone, company_type})",
+    "calendar_events": "calendar.event.create({name, start, stop, user_id, partner_ids})",
+    "inbox_emails": "mail.message.create({subject, body, author_id, partner_ids, message_type:'email', date})",
+    "discuss_channel": "discuss.channel.create({name, channel_type})"
+  }
+}

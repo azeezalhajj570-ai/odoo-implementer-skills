@@ -1,0 +1,86 @@
+{
+  "cap_ea_agent_setup": {
+    "name": "Executive Assistant Agent Setup",
+    "description": "Create and configure an Odoo AI agent for executive assistance. Set name, subtitle, system prompt, LLM model, response style, and link to topics.",
+    "models": ["ai.agent"],
+    "key_fields": ["name", "subtitle", "system_prompt", "llm_model", "response_style", "topic_ids", "partner_id", "source_id", "restrict_to_sources"],
+    "system_prompt_structure": {
+      "general_rules": "NEVER display errors, ONLY use tools when needed, don't expose internal details",
+      "topics_section": "Describe each linked topic with its tools, triggers, and example queries",
+      "tools_selection": "Guidance on when to use each tool category"
+    },
+    "key_components": {
+      "agent": "Executive Assistant (17) — openrouter/free, balanced"
+    }
+  },
+  "cap_ea_tool_creation": {
+    "name": "Executive Assistant Tool Creation",
+    "description": "Create server actions as AI tools for calendar, email, discuss, and activity operations. Each tool runs Python code on the ai.agent model.",
+    "models": ["ir.actions.server"],
+    "tool_requirements": {
+      "model_id": 351,
+      "state": "code",
+      "usage": "ir_actions_server",
+      "binding_type": "action",
+      "use_in_ai": true
+    },
+    "standard_tools": [
+      {"id": 879, "name": "AI: Create Event", "code_pattern": "env['calendar.event'].sudo().create(vals)"},
+      {"id": 880, "name": "AI: Update Event", "code_pattern": "event.sudo().write(vals)"},
+      {"id": 881, "name": "AI: Cancel Event", "code_pattern": "event.sudo().unlink()"},
+      {"id": 882, "name": "AI: List Events", "code_pattern": "env['calendar.event'].sudo().search(domain, order='start asc')"},
+      {"id": 883, "name": "AI: Find Slots", "code_pattern": "Find gaps between events on a given date"},
+      {"id": 884, "name": "AI: Search Partner", "code_pattern": "env['res.partner'].sudo().search(domain)"},
+      {"id": 885, "name": "AI: Send Email", "code_pattern": "env['mail.mail'].sudo().create(vals).send()"},
+      {"id": 886, "name": "AI: Send Template", "code_pattern": "template.sudo().send_mail(res_id, force_send=True)"},
+      {"id": 887, "name": "AI: List Templates", "code_pattern": "env['mail.template'].sudo().search(domain)"},
+      {"id": 888, "name": "AI: Send Discuss", "code_pattern": "channel.sudo().message_post(body=body)"},
+      {"id": 889, "name": "AI: Create Activity", "code_pattern": "env['mail.activity'].sudo().create(vals)"},
+      {"id": 890, "name": "AI: Complete Activity", "code_pattern": "activity.sudo().action_feedback(feedback=feedback)"},
+      {"id": 892, "name": "AI: Read Inbox", "code_pattern": "env['mail.message'].sudo().search(domain) with partner_ids field"}
+    ],
+    "naming_convention": "AI: <Verb> <Noun> (e.g. AI: Create Event, AI: Read Inbox)"
+  },
+  "cap_ea_topic_config": {
+    "name": "Executive Assistant Topic Configuration",
+    "description": "Create and configure an ai.topic with instructions and linked tools. The topic instructions describe each tool and provide workflow guidance.",
+    "models": ["ai.topic"],
+    "key_fields": ["name", "description", "instructions", "tool_ids"],
+    "tool_linking_steps": [
+      "1. Create server actions on ai.agent model with state='code'",
+      "2. Set use_in_ai=True on each server action (required by tool_ids domain filter)",
+      "3. Create ai.topic with instructions describing each tool",
+      "4. Link tools via tool_ids using XML-RPC (MCP does not persist many2many)"
+    ],
+    "workflow_guidelines": {
+      "meeting_scheduling": "Search Partner → Find Available Slots → Create Calendar Event → Confirm",
+      "email": "Read Inbox (or Search Partner) → Send Email / Send Template → Confirm",
+      "discuss": "Send Discuss Message with channel_name or partner_ids → Confirm",
+      "activities": "Create Activity → user completes → Complete Activity with feedback"
+    },
+    "key_components": {
+      "topic": "Executive Assistant Tools (16) — 13 linked tools"
+    }
+  },
+  "cap_ea_composer_prompts": {
+    "name": "Executive Assistant Composer & Prompt Buttons",
+    "description": "Create ai.composer records to link the agent to UI surfaces (systray, chatter, email) and add prompt buttons for quick actions.",
+    "models": ["ai.composer", "ai.prompt.button"],
+    "composer_setup": [
+      {"interface": "systray_ai_button", "name": "Executive Assistant Chat", "default_prompt": false, "prompts": ["Summarize my inbox", "Schedule a meeting tomorrow at 10 AM", "Check my calendar for today", "Draft an email to the team", "What are my upcoming meetings?", "Find available slots this afternoon"]},
+      {"interface": "chatter_ai_button", "name": "Executive Assistant Help", "default_prompt": "Record context assistant", "prompts": ["Create a follow-up activity", "Send an email about this record", "Schedule a meeting about this"]},
+      {"interface": "mail_composer", "name": "Executive Assistant Email", "default_prompt": "Email drafting assistant", "prompts": ["Make it more professional", "Make it shorter", "Make it friendlier"]}
+    ]
+  },
+  "cap_ea_test_data": {
+    "name": "Executive Assistant Test Data",
+    "description": "Create test contacts, calendar events, inbox emails, and discuss channels to validate the agent's tool functionality.",
+    "models": ["res.partner", "calendar.event", "mail.message", "discuss.channel"],
+    "test_data_flow": [
+      "1. Create sample contacts (Ahmed, Sarah, Omar) with emails",
+      "2. Create calendar events for tomorrow at different times",
+      "3. Create mail.message records from different senders as inbox emails",
+      "4. Create a discuss channel for channel-based tool testing"
+    ]
+  }
+}
